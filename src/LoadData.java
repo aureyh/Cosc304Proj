@@ -27,9 +27,9 @@ public class LoadData
 		}
 		
 		
-		String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_aharris;";
-		String uid = "aharris";
-		String pw = "38879136";
+		String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_sgibson;";
+		String uid = "sgibson";
+		String pw = "26431163";
 		
 		System.out.println("Connecting to database.");
 

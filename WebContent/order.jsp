@@ -15,6 +15,15 @@
 <%@ include file="header.jsp" %>
 
 <%
+/**
+*TODO: adapt so user does not have to put their custId
+*and pass in if they are already logged in.
+*
+*/
+
+
+
+
 // Get customer id
 String custId = request.getParameter("customerId");
 // Get password
@@ -85,7 +94,9 @@ try
    			out.println("<h1>Your Order Summary</h1>");
          	  	out.println("<table><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th><th>Price</th><th>Subtotal</th></tr>");
 
-           	double total =0;
+           	double subtotal =0;
+			double taxes=0;
+			double total=0;
            	Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
            	NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 						
@@ -103,7 +114,7 @@ try
    				out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
                   	out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td></tr>");
                    out.println("</tr>");
-                   total = total +pr*qty;
+                   subtotal = subtotal +pr*qty;
 
    				sql = "INSERT INTO OrderedProduct VALUES(?, ?, ?, ?)";
    				pstmt = con.prepareStatement(sql);
@@ -113,6 +124,12 @@ try
    				pstmt.setString(4, price);
    				pstmt.executeUpdate();				
            	}
+           	
+           	taxes = subtotal*.12;
+           	total = subtotal+taxes;
+          	out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"
+                  	+"<td aling=\"right\">"+currFormat.format(subtotal)+"</td></tr>");
+          	
            	out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"
                           	+"<td aling=\"right\">"+currFormat.format(total)+"</td></tr>");
            	out.println("</table>");

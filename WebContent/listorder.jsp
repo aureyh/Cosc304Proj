@@ -12,16 +12,35 @@
 <h1>Order List</h1>
 
 <%
+//TODO:
+//Test
+//
+//
+
+
+
 String sql = "SELECT O.orderId, O.CustomerId, totalAmount, cname, productId, quantity, price "
 		+ "FROM Orders O, Customer C, OrderedProduct OP "
-		+ "WHERE O.customerId = C.customerId and OP.orderid = O.orderId ";
+		+ "WHERE O.customerId = C.customerId and OP.orderid = O.orderId "
+		+ "AND O.customerId = ? ";
+
+
+//Placeholder value, need to have login information.
+String custId = request.getParameter("customerId");
 
 NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 
+
+//Using a prepared statement, we are able to only show the orders pertaining to
+//a particular customer id.
 try 
 {	
 	getConnection();
-	ResultSet rst = con.createStatement().executeQuery(sql);		
+	PreparedStatement ps = con.prepareStatement(sql);
+	
+	//
+	ps.setString(1,custId);
+	ResultSet rst = ps.executeQuery();
 	out.println("<table class=\"table\" border=\"1\">");
 	out.print("<tr><th>Order Id</th><th>Customer Id</th><th>Customer Name</th>");
 	out.println("<th>Total Amount</th></tr>");

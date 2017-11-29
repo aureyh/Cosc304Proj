@@ -5,12 +5,87 @@
 <%@ page import="java.util.Map" %>
 
 <HTML>
-<HEAD>
-<TITLE>Your Shopping Cart</TITLE>
-</HEAD>
-<BODY>
+<head>
+  <title>INFORMIRACLES</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  .img-fluid {
+  max-width: 25%;
+  height: auto;
+}
+ 
+  body {padding-top: 50px;}
+  
+  .navbar {
+    margin-bottom: 0;
+    background-color: #60606C;
+    z-index: 9999;
+    border: 0;
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+}
 
-<%@ include file="header.jsp" %>
+.navbar li a, .navbar .navbar-brand {
+    color: #fff !important;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+    color: ##CD5F0F !important;
+    background-color: #fff !important;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff !important;
+}
+
+
+  
+ </style> 
+  
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand" href="shop.html">INFOMIRACLES</a>
+    </div>
+<div class ="navbar-header">
+  <form class="form-inline">
+    <div class="input-group">
+      <input type="email" class="form-control" size="50"  required>
+      <div class="input-group-btn">
+        <a href="listprod.jsp" class="btn btn-success" role="button" >SEARCH</a>
+      </div>
+    </div>
+  </form>
+  </div>
+
+	
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="listorder.jsp">SHOW ORDERS</a></li>
+		<li><a href="#about">ABOUT</a></li>
+        <li><a href="#signIn">SIGN IN</a></li>
+        <li><a href="#cart">CART</a></li>
+		
+      </ul>
+    </div>
+  </div>
+</nav>
+
 
 <script>
 function update(newid, newqty)
@@ -21,6 +96,7 @@ function update(newid, newqty)
 <FORM name="form1">
 
 <%
+//<%@ include file="header.jsp"
 // Get the current list of products
 @SuppressWarnings({"unchecked"})
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
