@@ -1,3 +1,9 @@
+<%@ page import="java.sql.*" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
+<%@ include file="jdbc.jsp" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,39 +53,91 @@
 </head>
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span> 
-      </button>
-      <a class="navbar-brand" href="#">INFOMIRACLES</a>
-    </div>
-<div class ="navbar-header">
-  <form class="form-inline">
-    <div class="input-group">
-      <input type="email" class="form-control" size="50"  required>
-      <div class="input-group-btn">
-        <a href="listprod+.jsp" class="btn btn-success" role="button" >SEARCH</a>
-      </div>
-    </div>
-  </form>
-  </div>
+<div class="navbar navbar-fixed-top">
+<div class="collapse navbar-collapse" id="navbarNav">
 
-	
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="listorder.jsp">SHOW ORDERS</a></li>
-		<li><a href="#about">ABOUT</a></li>
-        <li><a href="#signIn">SIGN IN</a></li>
-        <li><a href="#cart">CART</a></li>
-		
-      </ul>
-    </div>
-  </div>
-</nav>
+<a class="navbar-brand">INFORMIRACLES</a>
+
+
+
+<form>
+
+
+<div class="navbar-header">
+<select class="form-control" id="categoryName" name="categoryName">
+<option>All</option>
+
+  
+  
+
+  
+ <%  
+ // Automatically Fill in catagories to the drop down
+  try               
+{
+	getConnection();
+	PreparedStatement ps = con.prepareStatement("SELECT DISTINCT categoryName FROM Product");
+ 	ResultSet rst = ps.executeQuery();
+        while (rst.next()) 
+		out.println(String.format("<option>%s</option>",rst.getString(1)));
+        ps.close();
+}
+catch (SQLException ex)
+{       out.println(ex);
+}
+
+%>
+</select>
+</div>
+
+
+<div class="navbar-header"> 
+ 
+      <input type="text" class="form-control" size="30" name="productName">
+   </div> 
+   <div class="nav-item">
+   
+   <% 
+   //Send whatever is searched to the listprod.jsp
+   
+   String name = request.getParameter("productName");
+   String category = request.getParameter("categoryName");
+   
+   boolean hasNameParam = name != null && !name.equals("");
+   boolean hasCategoryParam = category != null && !category.equals("") && !category.equals("All");
+   
+   if(!hasNameParam)
+	   name="";
+   if(!hasCategoryParam)
+	   category="All";
+   
+        out.print(String.format("<a class=\"btn btn-success\"  type=\"submit\" role=\"button\" href=\"listprod+.jsp?categoryName=%s&productName=%s\" onclick=\"form.submit()\" >SEARCH</a>",category,name));
+        
+        %>  
+        
+       
+        
+        </div>
+
+   
+ 
+
+</form>
+
+
+<ul class="nav navbar-nav navbar-right" id="myNavbar">
+
+ <li><a href="listorder.jsp">ORDERS</a></li>
+		<li class="nav-item"><a href="listprod+.jsp">ABOUT</a></li>
+        <li class="nav-item"><a href="#signIn">SIGN IN</a></li>
+        <li class="nav-item"><a href="#cart">CART</a></li>
+		</div>
+</ul>
+
+
+</div>
+</div>
+
 
 
 <div class="container">

@@ -67,7 +67,7 @@
 <div class="navbar navbar-fixed-top">
 <div class="collapse navbar-collapse" id="navbarNav">
 
-<a class="navbar-brand">INFORMIRACLES</a>
+<a class="navbar-brand" href="shop.jsp">INFORMIRACLES</a>
 
 
 
@@ -76,7 +76,7 @@
 
 <div class="navbar-header">
 <select class="form-control" id="categoryName" name="categoryName">
-<option>category</option>
+<option>All</option>
 
   
   
@@ -120,7 +120,7 @@ catch (SQLException ex)
 
  <li><a href="listOrders">ORDERS</a></li>
 		<li class="nav-item"><a href="#about">ABOUT</a></li>
-        <li class="nav-item"><a href="#signIn">SIGN IN</a></li>
+        <li class="nav-item"><a href="Account.jsp">SIGN IN</a></li>
         <li class="nav-item"><a href="#cart">CART</a></li>
 		</div>
 </ul>
