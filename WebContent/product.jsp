@@ -25,8 +25,8 @@
 
 String id = request.getParameter("id");
 
-String sql = "SELECT * FROM Product WHERE productId = ?";
-String sql2 = "SELECT * FROM Review WHERE productId = ?";
+String sql = "SELECT * FROM Product WHERE pID = ?";
+String sql2 = "SELECT * FROM Review WHERE pID = ?";
 
 getConnection();
 PreparedStatement ps = con.prepareStatement(sql);
