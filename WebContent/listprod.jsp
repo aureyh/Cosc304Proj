@@ -21,19 +21,6 @@
   <option>All</option>
 
 <%
-
-/**
-*This file lists the products in the database, as well as lets us sort
-*products by category.
-*
-*
-*TODO:
-*Add image for the products.
-*Change categories
-*make sure categories are in the new ddl.
-*
-*/
-
 /*
 // Could create category list dynamically - more adaptable, but a little more costly
 try               
@@ -59,7 +46,7 @@ catch (SQLException ex)
   <option>Seafood</option>
    
   </select>
-  <input type="text"  name="productName" size="50">
+  <input type="text" name="productName" size="50">
   <input type="submit" value="Submit"><input type="reset" value="Reset"></p>
 </form>
 
@@ -135,16 +122,15 @@ try
 	out.println("<th>Category</th><th>Price</th></tr>");
 	while (rst.next()) 
 	{
-		out.print("<td class=\"col-md-1\"><a href=\"addcart.jsp?id=" + rst.getInt(1) + "&name=" +rst.getString(2)
-			+ "&price=" + rst.getDouble(3) + "\">Add to Cart</a></td>");
-	
+		out.print("<td class=\"col-md-1\"><a href=\"addcart.jsp?id=" + rst.getInt(1) + "&name=" + rst.getString(2)
+				+ "&price=" + rst.getDouble(3) + "\">Add to Cart</a></td>");
 
 		String itemCategory = rst.getString(4);
 		String color = (String) colors.get(itemCategory);
 		if (color == null)
 			color = "#FFFFFF";
 
-		out.println("<td><font color=\"" + color + "\">" + "<a href=\"product.jsp?id="+rst.getInt(1)+ "\">" +rst.getString(2) + "</a></font></td>"
+		out.println("<td><font color=\"" + color + "\">" + rst.getString(2) + "</font></td>"
 				+ "<td><font color=\"" + color + "\">" + itemCategory + "</font></td>"
 				+ "<td><font color=\"" + color + "\">" + currFormat.format(rst.getDouble(3))
 				+ "</font></td></tr>");
