@@ -44,15 +44,12 @@ create table Product(
 	price decimal,
 	videoLink varchar(50),
 	inventory integer,
-	image image,
+	image varchar(200),
+	tag varchar(20),
 	primary key (pID)
 	);
 	
-create table Tags(
-	tags varchar(20),
-	description varchar(256),
-	primary key (tags)
-	);
+
 	
 create table Orders(
 	oID integer NOT NULL,
@@ -158,37 +155,28 @@ create table ItemInOrder(
 		on delete cascade on update cascade
 	);
 
-create table HasTag(
-	pID integer,
-	tags varchar(20),
-	primary key (pID, tags),
-	foreign key (pID) references Product (pID)
-		on delete cascade on update cascade,
-	foreign key (tags) references Tags (tags)
-		on delete cascade on update cascade
-	);
 
 	
-INSERT Product VALUES (1,'Awesome Auger','Take the hard work out of yard work.',29.01,'https://www.youtube.com/watch?v=Ir9TAYMcFWw',100,'Search');
-INSERT Product VALUES (2,'Cheers to You','A life-affirmirming, motivational CD to eliminate your doom and gloom.',8.99,'https://www.youtube.com/watch?v=o50_ZlMnjqY',66,'Search');
-INSERT Product VALUES (3,'Clapper','Clap on, clap off light switch.',	22.95,'https://www.youtube.com/watch?v=Ny8-G8EoWOw',79,'Search');
-INSERT Product VALUES (4,'Fidget Spinner','The toy that spins, on ball bearings, up to five minutes straight!',3.89,'https://www.youtube.com/watch?v=xCCXCJO4FDE',299,'Search');
-INSERT Product VALUES (5,'Floam','Silly Putty, but foamier.',15.05,'https://www.youtube.com/watch?v=OwiAbiGP0xA',40,'Search');
-INSERT Product VALUES (6,'Happy Hot Dog Man','Make dinner exciting and create your own hot dog man.',5.65,'https://www.youtube.com/watch?v=CUTPCEA-al0',148,'Search');
-INSERT Product VALUES (7,'Hawaii Chair','Electric hula-hooping, swivel chair.',43.99,'https://www.youtube.com/watch?v=E9_amg-Aos4',69,'Search');
-INSERT Product VALUES (8,'Hercules Hook','A hook with the strength of a hero.',11.55,'https://www.youtube.com/watch?v=sF-IWJEQuEQ',29,'Search');
-INSERT Product VALUES (9,'Licki Brush','Lick your cat, like a cat.',23.11,'https://www.youtube.com/watch?v=3hPMc89sKhk',280,'Search');
-INSERT Product VALUES (10,'Life Alert','I have fallen and I cannot get up! The portable alarm button.',19.95,'https://www.youtube.com/watch?v=gh0Sslh9JKA',78,'Search');
-INSERT Product VALUES (11,'Mighty Putty','A powerful bonding epoxy stick that you can mold to any shape and can apply to any surface for an everlasting bond.',19.99,'https://www.youtube.com/watch?v=nkuReA-AGa8',358,'Search');
-INSERT Product VALUES (12,'Magic Air Cushion','Neck pain therapy that allows you to stretch out your neck and let your muscles relax.',25.76,'https://www.youtube.com/watch?v=zzd73Ubx8KY',105,'Search');
-INSERT Product VALUES (13,'OxiClean','Verstile laundry stain remover, to remove your toughest stains.',10.98,'https://www.youtube.com/watch?v=2PU8ZxQj7eE',99,'Search');
-INSERT Product VALUES (14,'Pet Rock','Complete with breathable carrier box, this pet is a strong companion for life.',4.21,'https://www.youtube.com/watch?v=7tR2dz4_o4E',420,'Search');
-INSERT Product VALUES (15,'Schticky','A three-piece, washable, reusable lint roller.',15.99,'https://www.youtube.com/watch?v=VAQjF5RPgbg',5,'Search');
-INSERT Product VALUES (16,'Shake Weight','A modified dumbbell that oscillates, increasing the effects of exercise.',18.99,'https://www.youtube.com/watch?v=rwIJlEsIVZQ',73,'Search');
-INSERT Product VALUES (17,'ShamWow','Made of super-absorbent cloth that will not scratch surfaces and lasts for years, unlike paper towels and other cleaning cloths.',19.95,'https://www.youtube.com/watch?v=23zGquwJfbw',96,'Search');
-INSERT Product VALUES (18,'Slap Chop','You are gonna be slapping your troubles away with the slap chop, a manual chopping machine.',19.99,'https://www.youtube.com/watch?v=pPKtBM99kAc',55,'Search');
-INSERT Product VALUES (19,'Snuggy','A body-length blanket with sleeves usually made of fleece or nylon material.',25.39,'https://www.youtube.com/watch?v=2xZp-GLMMJ0',30,'Search');
-INSERT Product VALUES (20,'Tiddy Bear','Comfort strap, making seatbelt waering more comfortable.',5.99,'https://www.youtube.com/watch?v=gw1g2yKxb0I',21,'Search');
+INSERT Product VALUES (1,'Awesome Auger','Take the hard work out of yard work.',29.01,'https://www.youtube.com/watch?v=Ir9TAYMcFWw',100,'Search','Yard');
+INSERT Product VALUES (2,'Cheers to You','A life-affirmirming, motivational CD to eliminate your doom and gloom.',8.99,'https://www.youtube.com/watch?v=o50_ZlMnjqY',66,'Search','Home');
+INSERT Product VALUES (3,'Clapper','Clap on, clap off light switch.',	22.95,'https://www.youtube.com/watch?v=Ny8-G8EoWOw',79,'Search','Home');
+INSERT Product VALUES (4,'Fidget Spinner','The toy that spins, on ball bearings, up to five minutes straight!',3.89,'https://www.youtube.com/watch?v=xCCXCJO4FDE',299,'Search','Msc');
+INSERT Product VALUES (5,'Floam','Silly Putty, but foamier.',15.05,'https://www.youtube.com/watch?v=OwiAbiGP0xA',40,'Search','Msc');
+INSERT Product VALUES (6,'Happy Hot Dog Man','Make dinner exciting and create your own hot dog man.',5.65,'https://www.youtube.com/watch?v=CUTPCEA-al0',148,'Search','Kitchen');
+INSERT Product VALUES (7,'Hawaii Chair','Electric hula-hooping, swivel chair.',43.99,'https://www.youtube.com/watch?v=E9_amg-Aos4',69,'Search','Office');
+INSERT Product VALUES (8,'Hercules Hook','A hook with the strength of a hero.',11.55,'https://www.youtube.com/watch?v=sF-IWJEQuEQ',29,'Search','Home');
+INSERT Product VALUES (9,'Licki Brush','Lick your cat, like a cat.',23.11,'https://www.youtube.com/watch?v=3hPMc89sKhk',280,'Search','Home');
+INSERT Product VALUES (10,'Life Alert','I have fallen and I cannot get up! The portable alarm button.',19.95,'https://www.youtube.com/watch?v=gh0Sslh9JKA',78,'Search','Home');
+INSERT Product VALUES (11,'Mighty Putty','A powerful bonding epoxy stick that you can mold to any shape and can apply to any surface for an everlasting bond.',19.99,'https://www.youtube.com/watch?v=nkuReA-AGa8',358,'Search','Yard');
+INSERT Product VALUES (12,'Magic Air Cushion','Neck pain therapy that allows you to stretch out your neck and let your muscles relax.',25.76,'https://www.youtube.com/watch?v=zzd73Ubx8KY',105,'Search','Home');
+INSERT Product VALUES (13,'OxiClean','Verstile laundry stain remover, to remove your toughest stains.',10.98,'https://www.youtube.com/watch?v=2PU8ZxQj7eE',99,'Search','Home');
+INSERT Product VALUES (14,'Pet Rock','Complete with breathable carrier box, this pet is a strong companion for life.',4.21,'https://www.youtube.com/watch?v=7tR2dz4_o4E',420,'Search','Home');
+INSERT Product VALUES (15,'Schticky','A three-piece, washable, reusable lint roller.',15.99,'https://www.youtube.com/watch?v=VAQjF5RPgbg',5,'Search','Home');
+INSERT Product VALUES (16,'Shake Weight','A modified dumbbell that oscillates, increasing the effects of exercise.',18.99,'https://www.youtube.com/watch?v=rwIJlEsIVZQ',73,'Search','Home');
+INSERT Product VALUES (17,'ShamWow','Made of super-absorbent cloth that will not scratch surfaces and lasts for years, unlike paper towels and other cleaning cloths.',19.95,'https://www.youtube.com/watch?v=23zGquwJfbw',96,'Search','Kitchen');
+INSERT Product VALUES (18,'Slap Chop','You are gonna be slapping your troubles away with the slap chop, a manual chopping machine.',19.99,'https://www.youtube.com/watch?v=pPKtBM99kAc',55,'https://my-live-02.slatic.net/p/3/slap-chop-food-chopper-1483504147-8023261-af95347d634fb187464f7d52323d3085.jpg','Kitchen');
+INSERT Product VALUES (19,'Snuggy','A body-length blanket with sleeves usually made of fleece or nylon material.',25.39,'https://www.youtube.com/watch?v=2xZp-GLMMJ0',30,'Search','Kitchen');
+INSERT Product VALUES (20,'Tiddy Bear','Comfort strap, making seatbelt waering more comfortable.',5.99,'https://www.youtube.com/watch?v=gw1g2yKxb0I',21,'Search','Car');
 
 
 INSERT Customer VALUES (1, 'Archie', 'Andrews', '1991-01-01','111-222-3333','aandrews@amail.com','pass1','a1a1',null);

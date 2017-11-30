@@ -76,7 +76,7 @@
   try               
 {
 	getConnection();
-	PreparedStatement ps = con.prepareStatement("SELECT DISTINCT categoryName FROM Product");
+	PreparedStatement ps = con.prepareStatement("SELECT DISTINCT tag FROM Product");
  	ResultSet rst = ps.executeQuery();
         while (rst.next()) 
 		out.println(String.format("<option>%s</option>",rst.getString(1)));
@@ -111,7 +111,7 @@ catch (SQLException ex)
    if(!hasCategoryParam)
 	   category="All";
    
-        out.print(String.format("<a class=\"btn btn-success\"  type=\"submit\" role=\"button\" href=\"listprod+.jsp?categoryName=%s&productName=%s\" onclick=\"form.submit()\" >SEARCH</a>",category,name));
+        out.print(String.format("<a class=\"btn btn-success\"  type=\"submit\" role=\"button\" href=\"listprod+.jsp?tag=%s&name=%s\" onclick=\"form.submit()\" >SEARCH</a>",category,name));
         
         %>  
         

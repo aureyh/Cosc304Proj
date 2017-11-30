@@ -26,7 +26,7 @@
 try               
 {
 	getConnection();
-	PreparedStatement ps = con.prepareStatement("SELECT DISTINCT categoryName FROM Product");
+	PreparedStatement ps = con.prepareStatement("SELECT tags from Tags");
  	ResultSet rst = ps.executeQuery();
         while (rst.next()) 
 		out.println("<option>"+rst.getString(1)+"</option>");

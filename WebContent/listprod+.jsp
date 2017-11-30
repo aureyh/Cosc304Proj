@@ -75,7 +75,7 @@
 
 
 <div class="navbar-header">
-<select class="form-control" id="categoryName" name="categoryName">
+<select class="form-control" id="tag" name="tag">
 <option>All</option>
 
   
@@ -87,7 +87,7 @@
   try               
 {
 	getConnection();
-	PreparedStatement ps = con.prepareStatement("SELECT DISTINCT categoryName FROM Product");
+	PreparedStatement ps = con.prepareStatement("SELECT DISTINCT tag FROM Product");
  	ResultSet rst = ps.executeQuery();
         while (rst.next()) 
 		out.println(String.format("<option>%s</option>",rst.getString(1)));
@@ -104,7 +104,7 @@ catch (SQLException ex)
 
 <div class="navbar-header"> 
  
-      <input type="text" class="form-control" size="30" name="productName">
+      <input type="text" class="form-control" size="30" name="name">
    </div> 
    <div class="nav-item">
         <button class="btn btn-success" role="button" type="submit" >SEARCH</button>
@@ -135,43 +135,41 @@ catch (SQLException ex)
   <br>
   
   
-  <%
-  
-  
-  %>
   
   
   
   <%
 	// Get product name to search for
-String name = request.getParameter("productName");
-String category = request.getParameter("categoryName");
+String name = request.getParameter("name");
+String tag = request.getParameter("tag");
 
 boolean hasNameParam = name != null && !name.equals("");
-boolean hasCategoryParam = category != null && !category.equals("") && !category.equals("All");
+boolean hasTagParam = tag != null && !tag.equals("") && !tag.equals("All");
 String filter = "", sql = "";
 
-if (hasNameParam && hasCategoryParam)
+
+
+if (hasNameParam && hasTagParam)
 {
-	filter = "<h3>Products containing '"+name+"' in category: '"+category+"'</h3>";
+	filter = "<h3>Products containing '"+name+"' in category: '"+tag+"'</h3>";
 	name = '%'+name+'%';
-	sql = "SELECT productId, productName, price, categoryName FROM Product WHERE productName LIKE ? AND categoryName = ?";
+	sql = "SELECT pID, name, price,image, tag FROM Product WHERE name LIKE ? AND tag = ?";
 }
 else if (hasNameParam)
 {
 	filter = "<h3>Products containing '"+name+"'</h3>";
 	name = '%'+name+'%';
-	sql = "SELECT productId, productName, price, categoryName FROM Product WHERE productName LIKE ?";
+	sql = "SELECT pID, name, price,image, tag FROM Product WHERE name LIKE ?";
 }
-else if (hasCategoryParam)
+else if (hasTagParam)
 {
-	filter = "<h3>Products in category: '"+category+"'</h3>";
-	sql = "SELECT productId, productName, price, categoryName FROM Product WHERE categoryName = ?";
+	filter = "<h3>Products in category: '"+tag+"'</h3>";
+	sql = "SELECT pID, name, price,image, tag FROM Product WHERE tag = ?";
 }
 else
 {
 	filter = "<h3>All Products</h3>";
-	sql = "SELECT productId, productName, price, categoryName FROM Product";
+	sql = "SELECT pID,name, price,image, tag FROM Product";
 }
 
 out.println(filter);
@@ -185,14 +183,14 @@ try
 	if (hasNameParam)
 	{
 		pstmt.setString(1, name);	
-		if (hasCategoryParam)
+		if (hasTagParam)
 		{
-			pstmt.setString(2, category);
+			pstmt.setString(2, tag);
 		}
 	}
-	else if (hasCategoryParam)
+	else if (hasTagParam)
 	{
-		pstmt.setString(1, category);
+		pstmt.setString(1, tag);
 	}
 	
 	ResultSet rst = pstmt.executeQuery();
@@ -203,16 +201,30 @@ try
 	{
 		
 		//Print image
+		
+		
+		
 		String imgURL = "https://paramountseeds.com/wp-content/uploads/2014/07/long-cucumber.jpg";
+		String realImg = rst.getString("image");
+		
+		if(!realImg.equals("Search"))
+			imgURL=realImg;
+		
+		
 		String imgPrint = String.format("<div class=\"row\"> <div class=\"col-sm-4\"><img src=\"%s\" class=\"img-fluid\" alt=\"Responsive image\"></div>",imgURL);
-		out.print(imgPrint);		
+		
+		
+		
+		
+		out.print(imgPrint);
+	
 		
 		
 		out.print("<div class=\"col-sm-4\"><table align=\"Left\">");
 		//add to cart
 		out.print(String.format("<tr><td><a href=\"addcart.jsp?id=%d&name=%s&price=%f\">Add to Cart</a></td></tr>",rst.getInt(1),rst.getString(2),rst.getDouble(3)));
 		
-		String itemCategory = rst.getString(4);
+		String itemCategory = rst.getString("tag");
 	
 		//fill item info
 		out.print(String.format("<tr><td>%s</td></tr> <tr><td>%s</td></tr> <tr><td>%s</td></tr>",rst.getString(2),itemCategory,"$"+rst.getDouble(3)));
