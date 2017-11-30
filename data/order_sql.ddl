@@ -199,4 +199,7 @@ INSERT CustAddress VALUES ('3 Cathedral', 'CA', 'United States', 'C3C3C3',3,3);
 INSERT CustAddress VALUES ('4 Drive', 'SD', 'United States', 'D4D4D4',4,2);
 INSERT CustAddress VALUES ('5 Elsewhere', 'ON', 'Canada', 'E5E5E5',5,1);
 
+INSERT Orders VALUES (1,'2017-01-03',30.99,'2017-01-08',2);
+INSERT Orders VALUES (2,'2017-04-06',15.99,'2017-01-08',2);
+INSERT Orders VALUES (3,'2017-01-09',20.99,'2017-01-10',3);
 

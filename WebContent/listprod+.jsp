@@ -120,7 +120,7 @@ catch (SQLException ex)
 
  <li><a href="listOrders">ORDERS</a></li>
 		<li class="nav-item"><a href="#about">ABOUT</a></li>
-        <li class="nav-item"><a href="Account.jsp">SIGN IN</a></li>
+        <li class="nav-item"><a href="Admin.jsp">SIGN IN</a></li>
         <li class="nav-item"><a href="#cart">CART</a></li>
 		</div>
 </ul>

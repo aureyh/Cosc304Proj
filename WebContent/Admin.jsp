@@ -122,10 +122,13 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Address</th>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Birth Date</th>
         <th>Email</th>
+        <th>Email ID</th>
+        <th>Account Type</th>
       </tr>
     </thead>
     <tbody>
@@ -147,7 +150,7 @@
     	
     	  
     	  while(rs.next()){
-    		  out.print(String.format("<tr><td>%s</td><td>%s</td><td>%s %s %s</td><td>%s</td></tr>",rs.getString("cname"),"Last Name",rs.getString("street"),rs.getString("city"),rs.getString("state"),rs.getString("email")));
+    		  out.print(String.format("<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>",rs.getInt("cID"),rs.getString("firstname"),rs.getString("lastname"),""+rs.getDate("birthdate"),rs.getString("useremail"),rs.getString("Uuid"),rs.getString("accType")));
     	  }
     	  
     	  
@@ -189,6 +192,8 @@
         <th>Order Id</th>
         <th>Customer Id</th>
         <th>Total</th>
+        <th>Order Date</th>
+        <th>Shipping Date</th>
         </tr>
     </thead>
     <tbody>
@@ -210,7 +215,7 @@
     	
     	  
     	  while(rs.next()){
-    		  out.print(String.format("<tr><td>%d</td><td>%d</td><td>%s</td></tr>",rs.getInt("orderId"),rs.getInt("customerId"),"$"+rs.getBigDecimal("totalAmount")));
+    		  out.print(String.format("<tr><td>%d</td><td>%d</td><td>%s</td><td>%s</td><td>%s</td></tr>",rs.getInt("oID"),rs.getInt("cID"),"$"+rs.getBigDecimal("totalPrice"),rs.getDate("orderDate"),rs.getDate("shipDate")));
     	  }
     	  
     	  
