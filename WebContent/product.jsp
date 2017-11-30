@@ -42,21 +42,30 @@ ResultSet rst2 = ps2.executeQuery();
 while(rst.next()){
 	
 	out.print("<a href=\"addcart.jsp?id=" + rst.getInt(1) + "&name=" +rst.getString(2)
-	+ "&price=" + rst.getDouble(5) + "\">Add to Cart</a></td>");
+	+ "&price=" + rst.getDouble(4) + "\">Add to Cart</a></td>");
 	
 	out.print("<table><tr><th>Product Id</th><th>Product Name</th><th>Price</th></tr>");
 	
-	out.print("<tr><td>"+ rst.getInt(1)+"</td><td>"+rst.getString(2)+"</td><td>"+rst.getDouble(5)+"</td></tr>");	
+	out.print("<tr><td>"+ rst.getInt(1)+"</td><td>"+rst.getString(2)+"</td><td>"+rst.getDouble(4)+"</td></tr>");	
 	
-	//out.println("Descriptiom: "+ rst.getString(3));
-	//out.println("Video Link: "+ rst.getString(5));
-	//out.println(rst.getImage(7));
+	out.println("Descriptiom: "+ rst.getString(3));
+	out.println("Video Link: "+ rst.getString(5));
+	out.println(rst.getString(7));
 }
+
+
+if(rst2.next() == false)
+	out.print("No reviews yet! Leave one!");
+else
+	out.print("<table><tr><td>Stars: </td><td>Comments: </td></tr>");
 
 while(rst2.next()){
-	
+	%>
+	Heres what People are saying about this product<br/>
+	<%
+	out.println("<tr><td>" + rst2.getString(2) + "</td><td>" + rst2.getString(3) + "</td></tr>");
 }
-
+out.print("</table>");
 
 
 con.close();
@@ -76,6 +85,5 @@ con.close();
 </table>
 </form>
 
-<h3>Reviews: **Add list of reviews here** </h3>
 </body>
 </html>
