@@ -1,7 +1,3 @@
-DROP TABLE OrderedProduct;
-DROP TABLE Orders;
-DROP TABLE Product;
-DROP TABLE Customer;
 
 
 DROP TABLE HasTag;
@@ -48,7 +44,7 @@ create table Product(
 	price decimal,
 	videoLink varchar(50),
 	inventory integer,
-	image MEDIUMBLOB,
+	image image,
 	primary key (pID)
 	);
 	
@@ -65,7 +61,7 @@ create table Orders(
 	shipDate date,
 	cID integer,
 	primary key (oID),
-	CONSTRAINT_FK_Orders_Customer foreign key (cID) references Customer (cID)
+	foreign key (cID) references Customer (cID)
 		on delete set null on update cascade
 	);
 	
@@ -74,7 +70,7 @@ create table Shipment(
 	estimateCost decimal(9,2),
 	suID integer,
 	primary key (sID),
-	CONSTRAINT_FK_Shipment_Supplier foreign key (suID) references Supplier (suID)
+	foreign key (suID) references Supplier (suID)
 		on delete set null on update cascade
 	);
 
@@ -87,9 +83,9 @@ create table CustAddress(
 	cID integer,
 	suID integer,
 	primary key (address, cID, suID),
-	CONSTRAINT_FK_CustAddress_Customer foreign key (cID) references Customer (cID)
+	foreign key (cID) references Customer (cID)
 		On delete cascade on update cascade,
-	CONSTRAINT_FK_CustAddress_Supplier foreign key (suID) references Supplier (suID)
+	foreign key (suID) references Supplier (suID)
 		On delete cascade on update cascade
 	);
 
@@ -98,11 +94,10 @@ create table PaymentInfo(
 	cardNum varchar(16),
 	cardType varchar(10),
 	cID integer,
-	address varchar(20) unique,
+	suID integer,
+	address varchar(30) unique,
 	primary key (cardID),
-	CONSTRAINT_FK_PaymentInfo_Customer foreign key (cID) references Customer (cID)
-		on delete set null on update cascade,
-	CONSTRAINT_FK_PaymentInfo_Customer foreign key (address) references CustAddress (address)
+	foreign key (address,cID,suID) references CustAddress (address,cID,suID)
 		On delete set null on update cascade
 	);
 	
@@ -111,9 +106,9 @@ create table ShippedProduct(
 	sID integer,
 	quantity integer,
 	primary key (pID, sID),
-	CONSTRAINT_FK_ShippedProduct_Product foreign key (pID) references Product (pID)
+	foreign key (pID) references Product (pID)
 		on delete cascade on update cascade,
-	CONSTRAINT_FK_ShippedProduct_Shipment foreign key (sID) references Shipment (sID)
+	foreign key (sID) references Shipment (sID)
 		on delete cascade on update cascade
 	);
 
@@ -125,9 +120,9 @@ create table Review(
 	pID integer,
 	datePosted date,
 	primary key (revID),
-	CONSTRAINT_FK_Review_Customer foreign key (cID) references Customer (cID)
+	foreign key (cID) references Customer (cID)
 		on delete set null on update cascade,
-	CONSTRAINT_FK_Review_Product foreign key (pID) references Product (pID)
+	foreign key (pID) references Product (pID)
 		on delete set null on update cascade
 	);
 
@@ -137,9 +132,9 @@ create table Suggestion(
 	pID integer,
 	cID integer,
 	primary key (tagID),
-	CONSTRAINT_FK_Suggestion_Product foreign key (pID) references Product (pID)
+	foreign key (pID) references Product (pID)
 		on delete set null on update cascade,
-	CONSTRAINT_FK_Suggestion_Customer foreign key (cID) references Customer (cID)
+	foreign key (cID) references Customer (cID)
 		on delete set null on update cascade
 	);
 
@@ -147,9 +142,9 @@ create table ItemInCart(
 	cID integer,
 	pID integer,
 	primary key (cID, pID),
-	CONSTRAINT_FK_ItemInCart_Customer foreign key (cID) references Customer (cID)
+	foreign key (cID) references Customer (cID)
 		on delete cascade on update cascade,
-	CONSTRAINT_FK_ItemInCart_Product foreign key (pID) references Product (pID)
+	foreign key (pID) references Product (pID)
 		on delete cascade on update cascade
 	);
 
@@ -157,9 +152,9 @@ create table ItemInOrder(
 	pID integer,
 	oID integer,
 	primary key (pID, oID),
-	CONSTRAINT_FK_ItemInOrder_Product foreign key (pID) references Product (pID)
+	foreign key (pID) references Product (pID)
 		on delete cascade on update cascade,
-	CONSTRAINT_FK_ItemInOrder_Order foreign key (oID) references Order (oID)
+	foreign key (oID) references Orders (oID)
 		on delete cascade on update cascade
 	);
 
@@ -167,9 +162,9 @@ create table HasTag(
 	pID integer,
 	tags varchar(20),
 	primary key (pID, tags),
-	CONSTRAINT_FK_HasTag_Product foreign key (pID) references Product (pID)
+	foreign key (pID) references Product (pID)
 		on delete cascade on update cascade,
-	CONSTRAINT_FK_HasTag_Tags foreign key (tags) references Tags (tags)
+	foreign key (tags) references Tags (tags)
 		on delete cascade on update cascade
 	);
 
@@ -183,24 +178,24 @@ INSERT Product VALUES (6,'Happy Hot Dog Man','Make dinner exciting and create yo
 INSERT Product VALUES (7,'Hawaii Chair','Electric hula-hooping, swivel chair.',43.99,'https://www.youtube.com/watch?v=E9_amg-Aos4',69,'Search');
 INSERT Product VALUES (8,'Hercules Hook','A hook with the strength of a hero.',11.55,'https://www.youtube.com/watch?v=sF-IWJEQuEQ',29,'Search');
 INSERT Product VALUES (9,'Licki Brush','Lick your cat, like a cat.',23.11,'https://www.youtube.com/watch?v=3hPMc89sKhk',280,'Search');
-INSERT Product VALUES (10,'Life Alert','I'"'ve fallen and I can'"'t get up! The portable alarm button.',19.95,'https://www.youtube.com/watch?v=gh0Sslh9JKA',78,'Search');
+INSERT Product VALUES (10,'Life Alert','I have fallen and I cannot get up! The portable alarm button.',19.95,'https://www.youtube.com/watch?v=gh0Sslh9JKA',78,'Search');
 INSERT Product VALUES (11,'Mighty Putty','A powerful bonding epoxy stick that you can mold to any shape and can apply to any surface for an everlasting bond.',19.99,'https://www.youtube.com/watch?v=nkuReA-AGa8',358,'Search');
 INSERT Product VALUES (12,'Magic Air Cushion','Neck pain therapy that allows you to stretch out your neck and let your muscles relax.',25.76,'https://www.youtube.com/watch?v=zzd73Ubx8KY',105,'Search');
 INSERT Product VALUES (13,'OxiClean','Verstile laundry stain remover, to remove your toughest stains.',10.98,'https://www.youtube.com/watch?v=2PU8ZxQj7eE',99,'Search');
 INSERT Product VALUES (14,'Pet Rock','Complete with breathable carrier box, this pet is a strong companion for life.',4.21,'https://www.youtube.com/watch?v=7tR2dz4_o4E',420,'Search');
 INSERT Product VALUES (15,'Schticky','A three-piece, washable, reusable lint roller.',15.99,'https://www.youtube.com/watch?v=VAQjF5RPgbg',5,'Search');
 INSERT Product VALUES (16,'Shake Weight','A modified dumbbell that oscillates, increasing the effects of exercise.',18.99,'https://www.youtube.com/watch?v=rwIJlEsIVZQ',73,'Search');
-INSERT Product VALUES (17,'ShamWow','Made of super-absorbent cloth that won'"'t scratch surfaces and lasts for years, unlike paper towels and other cleaning cloths.',19.95,'https://www.youtube.com/watch?v=23zGquwJfbw',96,'Search');
+INSERT Product VALUES (17,'ShamWow','Made of super-absorbent cloth that will not scratch surfaces and lasts for years, unlike paper towels and other cleaning cloths.',19.95,'https://www.youtube.com/watch?v=23zGquwJfbw',96,'Search');
 INSERT Product VALUES (18,'Slap Chop','You are gonna be slapping your troubles away with the slap chop, a manual chopping machine.',19.99,'https://www.youtube.com/watch?v=pPKtBM99kAc',55,'Search');
 INSERT Product VALUES (19,'Snuggy','A body-length blanket with sleeves usually made of fleece or nylon material.',25.39,'https://www.youtube.com/watch?v=2xZp-GLMMJ0',30,'Search');
 INSERT Product VALUES (20,'Tiddy Bear','Comfort strap, making seatbelt waering more comfortable.',5.99,'https://www.youtube.com/watch?v=gw1g2yKxb0I',21,'Search');
 
 
-INSERT Customer VALUES (1,FALSE, 'Archie', 'Andrews', '1991-01-01','111-222-3333','aandrews@amail.com','pass1','a1a1');
-INSERT Customer VALUES (2,FALSE, 'Betty', 'Boop', '1992-02-02','222-333-4444','bboop@bmail.com','pass2','b2b2');
-INSERT Customer VALUES (3,FALSE, 'Charlie', 'Chaplin', '1991-03-03','333-444-5555','cchaplin@cmail.com','pass3','c3c3');
-INSERT Customer VALUES (4,TRUE, 'Debbie', 'Downer', '1991-04-04','444-555-6666','ddowner@dmail.com','pass4','d4d4');
-INSERT Customer VALUES (5,FALSE, 'Ed', 'Eddie', '1991-05-05','555-666-7777','eeddie@email.com','pass5','e5e5');
+INSERT Customer VALUES (1, 'Archie', 'Andrews', '1991-01-01','111-222-3333','aandrews@amail.com','pass1','a1a1',null);
+INSERT Customer VALUES (2, 'Betty', 'Boop', '1992-02-02','222-333-4444','bboop@bmail.com','pass2','b2b2',null);
+INSERT Customer VALUES (3, 'Charlie', 'Chaplin', '1991-03-03','333-444-5555','cchaplin@cmail.com','pass3','c3c3',null);
+INSERT Customer VALUES (4, 'Debbie', 'Downer', '1991-04-04','444-555-6666','ddowner@dmail.com','pass4','d4d4',null);
+INSERT Customer VALUES (5, 'Ed', 'Eddie', '1991-05-05','555-666-7777','eeddie@email.com','pass5','e5e5',null);
 
 
 INSERT Supplier VALUES (1, 'Adam', '111-111-1111',null);
