@@ -36,7 +36,7 @@ PreparedStatement ps2 = con.prepareStatement(sql2);
 ps.setString(1,id);
 ps2.setString(1,id);
 ResultSet rst = ps.executeQuery();
-
+ResultSet rst2 = ps2.executeQuery();
 
 
 while(rst.next()){
@@ -51,6 +51,10 @@ while(rst.next()){
 	//out.println("Descriptiom: "+ rst.getString(3));
 	//out.println("Video Link: "+ rst.getString(5));
 	//out.println(rst.getImage(7));
+}
+
+while(rst2.next()){
+	
 }
 
 

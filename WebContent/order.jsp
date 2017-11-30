@@ -16,8 +16,7 @@
 
 <%
 /**
-*TODO: adapt so user does not have to put their custId
-*and pass in if they are already logged in.
+*TODO:ALTER FOR NEW DDL
 *
 */
 
@@ -54,10 +53,16 @@ try
         
 		// Get database connection
         getConnection();
+		//adding auto increment
+		String autoInc = "ALTER TABLE [yourTable] DROP COLUMN ID"
+				 		+ "ALTER TABLE [yourTable] ADD ID INT IDENTITY(1,1)";
+		
 	                		
-        String sql = "SELECT customerId, cname, password FROM Customer WHERE customerId = ?";	
+        String sql = "SELECT cID, firstName, lastName, password FROM Customer WHERE cID = ?";	
 				      
    		con = DriverManager.getConnection(url, uid, pw);
+		Statement stmt = con.createStatement();
+		stmt.executeUpdate(autoInc);
    		PreparedStatement pstmt = con.prepareStatement(sql);
    		pstmt.setInt(1, num);
    		ResultSet rst = pstmt.executeQuery();
@@ -81,7 +86,7 @@ try
 			}
 		
    			// Enter order information into database
-   			sql = "INSERT INTO Orders (customerId, totalAmount) VALUES(?, 0);";
+   			sql = "INSERT INTO Orders (cID, totalPriced) VALUES(?, 0);";
 
    			// Retrieve auto-generated key for orderId
    			pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
