@@ -351,10 +351,10 @@ body {
 					<ul class="nav nav-pills">
 						<li class="active"><a data-toggle="pill" href="#prod1">Add
 								Product</a></li>
-								<li><a data-toggle="pill" href="#prod6">Delete Product</a></li>
+								
 						<li><a data-toggle="pill" href="#prod2">Update Product</a></li>
 						<li><a data-toggle="pill" href="#prod3">Add Warehouse</a></li>
-						<li><a data-toggle="pill" href="#prod5">Delete Warehouse</a></li>
+						
 						<li><a data-toggle="pill" href="#prod4">Update Warehouse</a></li>
 					</ul>
 
@@ -443,30 +443,7 @@ body {
 
 						</div>
 
-						<!-- DELETE PRODUCT TAB -->
 						
-							<div id="prod6" class="tab-pane fade in active">
-								<h3>Delete Product</h3>
-
-								<!-- DELETE PRODUCT FORM -->
-								<form class="form-horizontal">
-									<div class="well">
-										<div class="form-group">
-											<label class="control-label col-sm-2" for="pID">Product
-												Id</label>
-											<div class="col-sm-10">
-												<input type="text" class="form-control" id="pID" name="pID">
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="col-sm-offset-2 col-sm-10">
-												<button type="submit" class="btn btn-success">Delete
-													Product</button>
-											</div>
-										</div>
-									</div>
-								</form>
-							</div>
 
 						
 
@@ -737,32 +714,7 @@ body {
 
 						</div>
 
-						<!-- DELETE WAREHOUSE TAB -->
-						
-							<div id="prod6" class="tab-pane fade in active">
-								<h3>Delete Warehouse</h3>
-
-								<!-- DELETE WAREHOUSE FORM -->
-								<form class="form-horizontal">
-									<div class="well">
-										<div class="form-group">
-											<label class="control-label col-sm-2" for="pID">Supplier
-												Id</label>
-											<div class="col-sm-10">
-												<input type="text" class="form-control" id="pID" name="pID">
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="col-sm-offset-2 col-sm-10">
-												<button type="submit" class="btn btn-success">Delete
-													Product</button>
-											</div>
-										</div>
-									</div>
-								</form>
-							</div>
-
-						
+					
 
 
 						<!-- UPDATE warehouse TAB -->
@@ -789,7 +741,7 @@ body {
 								</div>
 							</form>
 
-							<%
+							<%/*
 								//get values for the given pID
 								String supID = request.getParameter("suID");
 								String supName = "";
@@ -827,7 +779,7 @@ body {
 								} catch (SQLException ex) {
 									out.print(ex);
 								}
-							%>
+							*/%>
 
 
 							<form class="form-horizontal" action="addWarehouse.jsp"

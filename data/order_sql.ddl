@@ -146,6 +146,8 @@ create table ItemInCart(
 create table ItemInOrder(
 	pID integer,
 	oID integer,
+	quanty integer,
+	price DECIMAL(9,2),
 	primary key (pID, oID),
 	foreign key (pID) references Product (pID)
 		on delete cascade on update cascade,
