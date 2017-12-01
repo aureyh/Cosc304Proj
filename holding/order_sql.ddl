@@ -1,3 +1,5 @@
+
+
 DROP TABLE HasTag;
 DROP TABLE ItemInOrder;
 DROP TABLE ItemInCart;
@@ -155,26 +157,26 @@ create table ItemInOrder(
 
 
 	
-INSERT Product VALUES (1,'Awesome Auger','Take the hard work out of yard work.',29.01,'https://www.youtube.com/watch?v=Ir9TAYMcFWw',100,'https://i.imgur.com/PJGgyvV.png','Yard');
-INSERT Product VALUES (2,'Cheers to You','A life-affirmirming, motivational CD to eliminate your doom and gloom.',8.99,'https://www.youtube.com/watch?v=o50_ZlMnjqY',66,'https://i.pinimg.com/736x/8a/5b/07/8a5b07c76161a0cfcbd7fd44c1556365--cheer-a-well.jpg','Home');
-INSERT Product VALUES (3,'Clapper','Clap on, clap off light switch.',	22.95,'https://www.youtube.com/watch?v=Ny8-G8EoWOw',79,'https://images-na.ssl-images-amazon.com/images/I/71No5UQaX1L._SX342_.jpg','Home');
-INSERT Product VALUES (4,'Fidget Spinner','The toy that spins, on ball bearings, up to five minutes straight!',3.89,'https://www.youtube.com/watch?v=xCCXCJO4FDE',299,'https://m.media-amazon.com/images/S/aplus-seller-content-images-us-east-1/ATVPDKIKX0DER/ANGIJ9SDJJSQC/B072J7MV6V/3XjD1SWwT66G._UX300_TTW__.png','Msc');
-INSERT Product VALUES (5,'Floam','Silly Putty, but foamier.',15.05,'https://www.youtube.com/watch?v=OwiAbiGP0xA',40,'https://soft.cutesquishy.com/images/product_images/large_img/teal-microbead-slime-with-case-kawaii-floam-mud-clay-jelly-DIY--214273-1.jpg','Msc');
-INSERT Product VALUES (6,'Happy Hot Dog Man','Make dinner exciting and create your own hot dog man.',5.65,'https://www.youtube.com/watch?v=CUTPCEA-al0',148,'https://images-na.ssl-images-amazon.com/images/I/31fgZsq9mPL._SX300_.jpg','Kitchen');
-INSERT Product VALUES (7,'Hawaii Chair','Electric hula-hooping, swivel chair.',43.99,'https://www.youtube.com/watch?v=E9_amg-Aos4',69,'http://img.allw.mn/content/zb/ks/ho56z3055595aa2fe3d72289117760.jpg','Office');
-INSERT Product VALUES (8,'Hercules Hook','A hook with the strength of a hero.',11.55,'https://www.youtube.com/watch?v=sF-IWJEQuEQ',29,'http://www.drywallinfo.com/drywall-news/wp-content/uploads/2009/04/hercules-hooks.jpg','Home');
-INSERT Product VALUES (9,'Licki Brush','Lick your cat, like a cat.',23.11,'https://www.youtube.com/watch?v=3hPMc89sKhk',280,'https://images-na.ssl-images-amazon.com/images/I/61rhwdvDXIL._SY400_.jpg','Home');
-INSERT Product VALUES (10,'Life Alert','I have fallen and I cannot get up! The portable alarm button.',19.95,'https://www.youtube.com/watch?v=gh0Sslh9JKA',78,'http://www.lifealert.com/mobile/img/our-equipment.png','Home');
-INSERT Product VALUES (11,'Mighty Putty','A powerful bonding epoxy stick that you can mold to any shape and can apply to any surface for an everlasting bond.',19.99,'https://www.youtube.com/watch?v=nkuReA-AGa8',358,'https://hips.hearstapps.com/pop.h-cdn.co/assets/cm/15/05/54ca7f92a3d53_-_mighty-putty-500x375-0209-lg.jpg','Yard');
-INSERT Product VALUES (12,'Magic Air Cushion','Neck pain therapy that allows you to stretch out your neck and let your muscles relax.',25.76,'https://www.youtube.com/watch?v=zzd73Ubx8KY',105,'https://www.ltdcommodities.com/images/product/3395_mn1.jpg','Home');
-INSERT Product VALUES (13,'OxiClean','Verstile laundry stain remover, to remove your toughest stains.',10.98,'https://www.youtube.com/watch?v=2PU8ZxQj7eE',99,'https://images-na.ssl-images-amazon.com/images/I/61xMPiowKhL._SY450_.jpg','Home');
-INSERT Product VALUES (14,'Pet Rock','Complete with breathable carrier box, this pet is a strong companion for life.',4.21,'https://www.youtube.com/watch?v=7tR2dz4_o4E',420,'http://www.brisbanekids.com.au/wp-content/uploads/2012/02/pet-rock.jpg','Home');
-INSERT Product VALUES (15,'Schticky','A three-piece, washable, reusable lint roller.',15.99,'https://www.youtube.com/watch?v=VAQjF5RPgbg',5,'https://s.productreview.com.au/products/images/b6_50ed04295fe81.jpg','Home');
-INSERT Product VALUES (16,'Shake Weight','A modified dumbbell that oscillates, increasing the effects of exercise.',18.99,'https://www.youtube.com/watch?v=rwIJlEsIVZQ',73,'https://images-na.ssl-images-amazon.com/images/I/31yJZRTzyKL.jpg','Home');
-INSERT Product VALUES (17,'ShamWow','Made of super-absorbent cloth that will not scratch surfaces and lasts for years, unlike paper towels and other cleaning cloths.',19.95,'https://www.youtube.com/watch?v=23zGquwJfbw',96,'https://images-na.ssl-images-amazon.com/images/I/312ukwUx27L.jpg','Kitchen');
+INSERT Product VALUES (1,'Awesome Auger','Take the hard work out of yard work.',29.01,'https://www.youtube.com/watch?v=Ir9TAYMcFWw',100,'Search','Yard');
+INSERT Product VALUES (2,'Cheers to You','A life-affirmirming, motivational CD to eliminate your doom and gloom.',8.99,'https://www.youtube.com/watch?v=o50_ZlMnjqY',66,'Search','Home');
+INSERT Product VALUES (3,'Clapper','Clap on, clap off light switch.',	22.95,'https://www.youtube.com/watch?v=Ny8-G8EoWOw',79,'Search','Home');
+INSERT Product VALUES (4,'Fidget Spinner','The toy that spins, on ball bearings, up to five minutes straight!',3.89,'https://www.youtube.com/watch?v=xCCXCJO4FDE',299,'Search','Msc');
+INSERT Product VALUES (5,'Floam','Silly Putty, but foamier.',15.05,'https://www.youtube.com/watch?v=OwiAbiGP0xA',40,'Search','Msc');
+INSERT Product VALUES (6,'Happy Hot Dog Man','Make dinner exciting and create your own hot dog man.',5.65,'https://www.youtube.com/watch?v=CUTPCEA-al0',148,'Search','Kitchen');
+INSERT Product VALUES (7,'Hawaii Chair','Electric hula-hooping, swivel chair.',43.99,'https://www.youtube.com/watch?v=E9_amg-Aos4',69,'Search','Office');
+INSERT Product VALUES (8,'Hercules Hook','A hook with the strength of a hero.',11.55,'https://www.youtube.com/watch?v=sF-IWJEQuEQ',29,'Search','Home');
+INSERT Product VALUES (9,'Licki Brush','Lick your cat, like a cat.',23.11,'https://www.youtube.com/watch?v=3hPMc89sKhk',280,'Search','Home');
+INSERT Product VALUES (10,'Life Alert','I have fallen and I cannot get up! The portable alarm button.',19.95,'https://www.youtube.com/watch?v=gh0Sslh9JKA',78,'Search','Home');
+INSERT Product VALUES (11,'Mighty Putty','A powerful bonding epoxy stick that you can mold to any shape and can apply to any surface for an everlasting bond.',19.99,'https://www.youtube.com/watch?v=nkuReA-AGa8',358,'Search','Yard');
+INSERT Product VALUES (12,'Magic Air Cushion','Neck pain therapy that allows you to stretch out your neck and let your muscles relax.',25.76,'https://www.youtube.com/watch?v=zzd73Ubx8KY',105,'Search','Home');
+INSERT Product VALUES (13,'OxiClean','Verstile laundry stain remover, to remove your toughest stains.',10.98,'https://www.youtube.com/watch?v=2PU8ZxQj7eE',99,'Search','Home');
+INSERT Product VALUES (14,'Pet Rock','Complete with breathable carrier box, this pet is a strong companion for life.',4.21,'https://www.youtube.com/watch?v=7tR2dz4_o4E',420,'Search','Home');
+INSERT Product VALUES (15,'Schticky','A three-piece, washable, reusable lint roller.',15.99,'https://www.youtube.com/watch?v=VAQjF5RPgbg',5,'Search','Home');
+INSERT Product VALUES (16,'Shake Weight','A modified dumbbell that oscillates, increasing the effects of exercise.',18.99,'https://www.youtube.com/watch?v=rwIJlEsIVZQ',73,'Search','Home');
+INSERT Product VALUES (17,'ShamWow','Made of super-absorbent cloth that will not scratch surfaces and lasts for years, unlike paper towels and other cleaning cloths.',19.95,'https://www.youtube.com/watch?v=23zGquwJfbw',96,'Search','Kitchen');
 INSERT Product VALUES (18,'Slap Chop','You are gonna be slapping your troubles away with the slap chop, a manual chopping machine.',19.99,'https://www.youtube.com/watch?v=pPKtBM99kAc',55,'https://my-live-02.slatic.net/p/3/slap-chop-food-chopper-1483504147-8023261-af95347d634fb187464f7d52323d3085.jpg','Kitchen');
-INSERT Product VALUES (19,'Snuggy','A body-length blanket with sleeves usually made of fleece or nylon material.',25.39,'https://www.youtube.com/watch?v=2xZp-GLMMJ0',30,'http://cdn.sparkfun.com/newsimages/TEDx/Snuggy.jpg','Kitchen');
-INSERT Product VALUES (20,'Tiddy Bear','Comfort strap, making seatbelt waering more comfortable.',5.99,'https://www.youtube.com/watch?v=gw1g2yKxb0I',21,'https://i.imgur.com/Q5RsET7.png','Car');
+INSERT Product VALUES (19,'Snuggy','A body-length blanket with sleeves usually made of fleece or nylon material.',25.39,'https://www.youtube.com/watch?v=2xZp-GLMMJ0',30,'Search','Kitchen');
+INSERT Product VALUES (20,'Tiddy Bear','Comfort strap, making seatbelt waering more comfortable.',5.99,'https://www.youtube.com/watch?v=gw1g2yKxb0I',21,'Search','Car');
 
 
 INSERT Customer VALUES (1, 'Archie', 'Andrews', '1991-01-01','111-222-3333','aandrews@amail.com','pass1','a1a1',null);
@@ -191,6 +193,7 @@ INSERT Supplier VALUES (4, 'Dave', '444-444-4444',null);
 INSERT Supplier VALUES (5, 'Ethan', '555-555-5555',null);
 INSERT Supplier VALUES (-1,'DefaultCust',null,null);
 
+
 INSERT CustAddress VALUES ('1 Avenue', 'AL', 'United States', 'A1A1A1',1,5);
 INSERT CustAddress VALUES ('2 Boulevard', 'BC', 'Canada', 'B2B2B2',2,4);
 INSERT CustAddress VALUES ('3 Cathedral', 'CA', 'United States', 'C3C3C3',3,3);
@@ -200,3 +203,4 @@ INSERT CustAddress VALUES ('5 Elsewhere', 'ON', 'Canada', 'E5E5E5',5,1);
 INSERT Orders VALUES (1,'2017-01-03',30.99,'2017-01-08',2);
 INSERT Orders VALUES (2,'2017-04-06',15.99,'2017-01-08',2);
 INSERT Orders VALUES (3,'2017-01-09',20.99,'2017-01-10',3);
+

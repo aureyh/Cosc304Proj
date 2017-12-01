@@ -227,7 +227,7 @@ try
 		String itemCategory = rst.getString("tag");
 	
 		//fill item info
-		out.print(String.format("<tr><td>%s</td></tr> <tr><td>%s</td></tr> <tr><td>%s</td></tr>",rst.getString(2),itemCategory,"$"+rst.getDouble(3)));
+		out.print(String.format("<tr><h3>%s</h3></tr> <tr><td>%s</td></tr> <tr><td>%s</td></tr>",rst.getString(2),itemCategory,"$"+rst.getDouble(3)));
 		
 		//close off the row and stars which will be done later
 		out.print(" </table>");
