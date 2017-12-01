@@ -119,8 +119,16 @@ catch (SQLException ex)
 <ul class="nav navbar-nav navbar-right" id="myNavbar">
 
  <li><a href="listorder.jsp">ORDERS</a></li>
-		<li class="nav-item"><a href="#about">ABOUT</a></li>
-        <li class="nav-item"><a href="Admin.jsp">SIGN IN</a></li>
+		<li class="nav-item"><a href="Admin.jsp">ABOUT</a></li>
+		
+		<%
+		
+		
+		%>
+		
+        <li class="nav-item"><a href="loginSuccess.jsp">SIGN IN</a></li>
+        
+        
         <li class="nav-item"><a href="#cart">CART</a></li>
 		</div>
 </ul>
