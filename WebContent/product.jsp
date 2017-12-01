@@ -21,9 +21,9 @@
 *Add images for the product
 *add video link and reviews
 */
+String id = request.getParameter("pID");
+		
 
-
-String id = request.getParameter("id");
 
 String sql = "SELECT * FROM Product WHERE pID = ?";
 String sql2 = "SELECT * FROM Review WHERE pID = ?";
@@ -33,8 +33,11 @@ PreparedStatement ps = con.prepareStatement(sql);
 PreparedStatement ps2 = con.prepareStatement(sql2);
 
 
+if(id != null){
 ps.setString(1,id);
 ps2.setString(1,id);
+}
+
 ResultSet rst = ps.executeQuery();
 ResultSet rst2 = ps2.executeQuery();
 
@@ -42,20 +45,20 @@ ResultSet rst2 = ps2.executeQuery();
 while(rst.next()){
 	
 	out.print("<a href=\"addcart.jsp?id=" + rst.getInt(1) + "&name=" +rst.getString(2)
-	+ "&price=" + rst.getDouble(4) + "\">Add to Cart</a></td>");
+	+ "&price=" + rst.getBigDecimal(4) + "\">Add to Cart</a></td>");
 	
 	out.print("<table><tr><th>Product Id</th><th>Product Name</th><th>Price</th></tr>");
 	
-	out.print("<tr><td>"+ rst.getInt(1)+"</td><td>"+rst.getString(2)+"</td><td>"+rst.getDouble(4)+"</td></tr>");	
+	out.print("<tr><td>"+ rst.getInt(1)+"</td><td>"+rst.getString(2)+"</td><td>"+rst.getBigDecimal(4)+"</td></tr>");	
 	
-	out.println("Descriptiom: "+ rst.getString(3));
-	out.println("Video Link: "+ rst.getString(5));
-	out.println(rst.getString(7));
+	out.print("\n" + "Description: "+ rst.getString(3));
+	out.print("\n"+"Video Link: "+ rst.getString(5));
+	out.print( "\n" + rst.getString(7));
 }
 
 
 if(rst2.next() == false)
-	out.print("No reviews yet! Leave one!");
+	out.print("/n" + "No reviews yet! Leave one!");
 else
 	out.print("<table><tr><td>Stars: </td><td>Comments: </td></tr>");
 
@@ -66,12 +69,20 @@ while(rst2.next()){
 	out.println("<tr><td>" + rst2.getString(2) + "</td><td>" + rst2.getString(3) + "</td></tr>");
 }
 out.print("</table>");
+out.print(id);
+
+
+
+
+
 
 
 con.close();
 %>
+<%
+out.print("<form method=\"get\" action=\"review.jsp?id="+id+"\">");
+%>
 
-<form method="get" action="review.jsp">
 <table>
 <tr><td>Rank This Product</td><td><select name="stars">
   <option value=1>1</option>

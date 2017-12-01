@@ -9,39 +9,37 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+
 <%
 
-
-
-String desc = request.getParameter("rev");
-String stars = request.getParameter("stars");
-
-String sqlupdate = "ALTER TABLE Review DROP COLUMN revId ALTER TABLE Review ADD revID INT IDENTITY(1,1) ";
-String sql = " INSERT INTO Review VALUES (?,?)";
 
 getConnection();
+String desc = request.getParameter("rev");
+String stars = request.getParameter("stars");
+int revID = 1;
+String pID = request.getParameter("id");
+
+String sql = "SELECT MAX(revID) FROM Review";
 Statement stmt = con.createStatement();
-PreparedStatement ps = con.prepareStatement(sql);
-ps.setString(1,stars);
-ps.setString(2,desc);
-stmt.executeUpdate(sqlupdate);
-		
+ResultSet rst = stmt.executeQuery(sql);
 
-session = request.getSession(false);
-if (session == null || session.getAttribute("userEmail") == null) {
-
-%>You are not logged in <br/>
-<a href="createAccount.jsp">Please log in to leave a review</a>
-<%
-} else {
-	 ps.executeUpdate();
+while(rst.next()){
+	revID = rst.getInt(1);
 }
 
+String sql2 = "INSERT INTO Review VALUES (?,?,?,?,?,?)";
+PreparedStatement ps2 = con.prepareStatement(sql2);
+ps2.setInt(1,revID);
+ps2.setString(2,stars);
+ps2.setString(3,desc);
+ps2.setString(4,"1");
+ps2.setString(5,pID);
+ps2.setString(6,"1111-11-11");
 
-		
-		
+out.println("<a href=\"product.jsp?="+pID+"\">" + "Back to product</a>");	
 
-
+con.close();
 
 
 %>

@@ -53,18 +53,12 @@ try
         
 		// Get database connection
         getConnection();
-		//adding auto increment
-		String autoInc = "ALTER TABLE [yourTable] DROP COLUMN ID"
-				 		+ "ALTER TABLE [yourTable] ADD ID INT IDENTITY(1,1)";
 		
-	                		
         String sql = "SELECT cID, firstName, lastName, password FROM Customer WHERE cID = ?";	
 				      
    		con = DriverManager.getConnection(url, uid, pw);
-		Statement stmt = con.createStatement();
-		stmt.executeUpdate(autoInc);
    		PreparedStatement pstmt = con.prepareStatement(sql);
-   		pstmt.setInt(1, num);
+   		pstmt.setString(1, custId);
    		ResultSet rst = pstmt.executeQuery();
    		int orderId=0;
    		String custName = "";
@@ -76,7 +70,7 @@ try
    		else
    		{	
    			custName = rst.getString(2);
-			String dbpassword = rst.getString(3);
+			String dbpassword = rst.getString(4);
 				    		
 			// make sure the password on the database is the same as the one the user entered
 			if (!dbpassword.equals(password)) 
@@ -85,16 +79,26 @@ try
 				return;
 			}
 		
+			//getting the current orderId number
+			int maxOrderID = 1;
+			Statement stmt = con.createStatement();
+			ResultSet rst0 = stmt.executeQuery("SELECT MAX(oID) FROM Orders");
+			while(rst0.next()){
+				maxOrderID = rst0.getInt(1);
+			}
+		
+			orderId = maxOrderID + 1;
    			// Enter order information into database
-   			sql = "INSERT INTO Orders (cID, totalPriced) VALUES(?, 0);";
+   			sql = "INSERT INTO Orders (oID, totalPrice, cID) VALUES (?, 0, ?);";
 
    			// Retrieve auto-generated key for orderId
    			pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-   			pstmt.setInt(1, num);
+   			pstmt.setInt(1, orderId);
+   			pstmt.setString(2,custId);
    			pstmt.executeUpdate();
-   			ResultSet keys = pstmt.getGeneratedKeys();
-   			keys.next();
-   			orderId = keys.getInt(1);
+   			//ResultSet keys = pstmt.getGeneratedKeys();
+   			//keys.next();
+   			//orderId = keys.getInt(1);
 
    			out.println("<h1>Your Order Summary</h1>");
          	  	out.println("<table><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th><th>Price</th><th>Subtotal</th></tr>");
@@ -121,18 +125,18 @@ try
                    out.println("</tr>");
                    subtotal = subtotal +pr*qty;
 
-   				sql = "INSERT INTO OrderedProduct VALUES(?, ?, ?, ?)";
+   				sql = "INSERT INTO ItemInOrder VALUES(?, ?)";
    				pstmt = con.prepareStatement(sql);
-   				pstmt.setInt(1, orderId);
-   				pstmt.setInt(2, Integer.parseInt(productId));
-   				pstmt.setInt(3, qty);
-   				pstmt.setString(4, price);
+   				pstmt.setInt(1, Integer.parseInt(productId));
+   				pstmt.setInt(2, orderId);
+   				//pstmt.setInt(3,qty);
+   				//pstmt.setDouble(4,pr);
    				pstmt.executeUpdate();				
            	}
            	
            	taxes = subtotal*.12;
            	total = subtotal+taxes;
-          	out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"
+          	out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Subtotal</b></td>"
                   	+"<td aling=\"right\">"+currFormat.format(subtotal)+"</td></tr>");
           	
            	out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"
@@ -140,7 +144,7 @@ try
            	out.println("</table>");
 
    			// Update order total
-   			sql = "UPDATE Orders SET totalAmount=? WHERE orderId=?";
+   			sql = "UPDATE Orders SET totalPrice=? WHERE oID=?";
    			pstmt = con.prepareStatement(sql);
    			pstmt.setDouble(1, total);
    			pstmt.setInt(2, orderId);			
