@@ -14,7 +14,7 @@ CREATE TABLE Product (
 
 
 CREATE TABLE Customer (
-   customerId 	int NOT NULL PRIMARY KEY,
+   customerId 	int NOT NULL auto_increment PRIMARY KEY,
    password	VARCHAR(20) NOT NULL,
    cname 	VARCHAR(50) NOT NULL,
    street 	VARCHAR(50),

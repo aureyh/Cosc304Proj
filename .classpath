@@ -10,5 +10,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/CAMPBELL/java libraries/jaf-1.0.2/activation.jar"/>
+	<classpathentry kind="lib" path="C:/Users/CAMPBELL/java libraries/javamail-1.4.5/mail.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
