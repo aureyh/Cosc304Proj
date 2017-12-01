@@ -19,7 +19,7 @@
   height: auto;
 }
  
- body { padding-top: 50px; }
+ body { padding-top: 100px; }
   
   .navbar {
     margin-bottom: 0;

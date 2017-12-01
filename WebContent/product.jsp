@@ -149,7 +149,7 @@ while(rst.next()){
 	
 	
 	
-	out.print(String.format("<tr><td>%d</td></tr><tr><td>%s</td></tr><tr><td>%s</td></tr><tr><td>%s</td></tr><tr><td>%s</td></tr>",rst.getInt(1),rst.getString(2),""+rst.getBigDecimal(4),rst.getString(3),rst.getString(5),rst.getString(7)));
+	out.print(String.format("<tr><td>%d</td></tr><tr><td>%s</td></tr><tr><td>Price : $%s.99</td></tr><tr><td>%s</td></tr><tr><td><a href=%s class=\"btn btn-link\">Video</a></td></tr>",rst.getInt(1),rst.getString(2),""+rst.getBigDecimal(4),rst.getString(3),rst.getString(5),rst.getString(7)));
 	
 	out.print("</table>");
 	out.print("</div>");
