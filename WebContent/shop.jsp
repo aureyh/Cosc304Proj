@@ -161,15 +161,15 @@ catch (SQLException ex)
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
       <div class="item active">
-        <img src="https://i.pinimg.com/736x/3c/7a/fc/3c7afc1b68c0f8cc367dd9d0f1f383de--anime-mermaid-anime-scenery.jpg" alt="Los Angeles" style="width:100%;">
+        <img src="http://i.vimeocdn.com/video/36483269_1280x720.jpg" alt="Los Angeles" style="width:100%;">
       </div>
 
       <div class="item">
-        <img src="http://magazine.viterbi.usc.edu/wp-content/uploads/BSP_054.jpg" alt="Chicago" style="width:100%;">
+        <img src="https://i.ytimg.com/vi/oZI8dhRaNus/maxresdefault.jpg" alt="Chicago" style="width:100%;">
       </div>
     
       <div class="item">
-        <img src="https://i.ytimg.com/vi/EXT6h3MDDKU/maxresdefault.jpg" alt="New york" style="width:100%;">
+        <img src="https://i.ytimg.com/vi/T1Pf-FjIdbo/maxresdefault.jpg" alt="New york" style="width:100%;">
       </div>
     </div>
 
