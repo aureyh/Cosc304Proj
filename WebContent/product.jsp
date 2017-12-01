@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="jdbc.jsp" %>
 <%@ page import ="java.sql.*" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,14 +15,10 @@
 /**
 *This file lists the information about a product
 *when the hyperlink is clicked from the listprod page.
-*
-*
-*TODO:
-*Adapt out.println for new sql tables/data, as this is currently using lab 7 data.
-*Add images for the product
-*add video link and reviews
 */
+
 String id = request.getParameter("pID");
+
 		
 
 
@@ -33,6 +30,7 @@ PreparedStatement ps = con.prepareStatement(sql);
 PreparedStatement ps2 = con.prepareStatement(sql2);
 
 
+//checks if the id we got from listprod is null
 if(id != null){
 ps.setString(1,id);
 ps2.setString(1,id);
@@ -42,6 +40,7 @@ ResultSet rst = ps.executeQuery();
 ResultSet rst2 = ps2.executeQuery();
 
 
+//This prints the add cart, as well as the product information
 while(rst.next()){
 	
 	out.print("<a href=\"addcart.jsp?id=" + rst.getInt(1) + "&name=" +rst.getString(2)
@@ -57,30 +56,22 @@ while(rst.next()){
 }
 
 
-if(rst2.next() == false)
-	out.print("/n" + "No reviews yet! Leave one!");
-else
-	out.print("<table><tr><td>Stars: </td><td>Comments: </td></tr>");
 
-while(rst2.next()){
-	%>
-	Heres what People are saying about this product<br/>
-	<%
-	out.println("<tr><td>" + rst2.getString(2) + "</td><td>" + rst2.getString(3) + "</td></tr>");
-}
-out.print("</table>");
-out.print(id);
-
-
-
-
-
-
-
-con.close();
+//This is where the reviews are printed
 %>
+Heres what People are saying about this product<br/>
 <%
-out.print("<form method=\"get\" action=\"review.jsp?id="+id+"\">");
+while(rst2.next()){
+	out.print("<table><tr><td>Stars: </td><td>Comments: </td></tr>");
+	out.println("<tr><td>" + rst2.getString(2) + "</td><td>" + rst2.getString(3) + "</td></tr>");
+	}
+
+out.print("</table></table>");
+
+//everything here is used for writing the review and sending it.
+out.print("<form method=\"post\" action=\"review.jsp\">");
+
+session.setAttribute("prodID",id);
 %>
 
 <table>
@@ -96,5 +87,6 @@ out.print("<form method=\"get\" action=\"review.jsp?id="+id+"\">");
 </table>
 </form>
 
+<%con.close(); %>
 </body>
 </html>
