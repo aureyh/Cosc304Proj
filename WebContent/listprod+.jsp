@@ -27,7 +27,7 @@
   
   .navbar {
     margin-bottom: 0;
-    background-color: #60606C;
+    background-color: #000000;
     z-index: 9999;
     border: 0;
     font-size: 12px !important;
@@ -51,7 +51,7 @@
 }
 
 .navbar-default .navbar-nav .open .dropdown-menu>li>a, .navbar-default .navbar-nav .open .dropdown-menu {
-    background-color: #60606F;
+    background-color: #000000;
     color:#ffffff;
   }
  
@@ -67,7 +67,7 @@
 <div class="navbar navbar-fixed-top">
 <div class="collapse navbar-collapse" id="navbarNav">
 
-<a class="navbar-brand" href="shop.jsp">INFORMIRACLES</a>
+<a class="navbar-brand" href="shop.jsp"><img src="https://i.imgur.com/sKH1glA.png"></a>
 
 
 

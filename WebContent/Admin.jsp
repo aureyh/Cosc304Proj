@@ -67,6 +67,8 @@ body {
 
 
 
+
+
 	<div class="navbar navbar-fixed-top">
 		<div class="collapse navbar-collapse" id="navbarNav">
 
@@ -100,12 +102,15 @@ body {
 	<div class="container">
 		<ul class="nav nav-pills" id="myTab">
 			<li class="active"><a data-toggle="pill" href="#home">Statistics</a></li>
+			<li><a data-toggle="pill" href="#menu11">Products</a></li>
 			<li><a data-toggle="pill" href="#menu1">Customers</a></li>
 			<li><a data-toggle="pill" href="#menu2">Orders</a></li>
 			<li><a data-toggle="pill" href="#menu22">Suppliers</a></li>
 			<li><a data-toggle="pill" href="#menu3">Add/Update/Remove</a></li>
 		</ul>
 
+
+		<!-- Statistic Page -->
 		<div class="tab-content">
 			<div id="home" class="tab-pane fade in active">
 				<h3>Statistics</h3>
@@ -118,6 +123,63 @@ body {
 			</div>
 
 
+			<!-- Products view page -->
+			<div id="menu11" class="tab-pane fade">
+				<h3>Customers</h3>
+
+				<div class="container">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Price</th>
+								<th>Video source</th>
+								<th>Inventory</th>
+								<th>Image source</th>
+								<th>Tag</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<%
+								//Reads Customer information from database
+
+								try {
+									getConnection();
+									String sql = "Select * from Product";
+									PreparedStatement ps = con.prepareStatement(sql);
+									ResultSet rs = ps.executeQuery();
+
+									while (rs.next()) {
+										out.print(String.format(
+												"<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>",
+												rs.getInt("pID"), rs.getString("name"), rs.getString("description"),
+												"" + rs.getBigDecimal("price"), rs.getString("videoLink"), "" + rs.getInt("inventory"),
+												rs.getString("image"), rs.getString("tag")));
+									}
+
+									ps.close();
+
+								} catch (SQLException ex) {
+									out.println(ex);
+								}
+							%>
+
+
+
+
+
+						</tbody>
+					</table>
+				</div>
+
+
+
+
+
+			</div>
 
 			<!-- Customer information sub page -->
 			<div id="menu1" class="tab-pane fade">
@@ -176,8 +238,8 @@ body {
 
 			</div>
 
-			
-			
+
+
 			<!-- Orders sub page -->
 			<div id="menu2" class="tab-pane fade">
 
@@ -239,7 +301,7 @@ body {
 								<th>Province/State</th>
 								<th>Country</th>
 								<th>Postal Code</th>
-								
+
 							</tr>
 						</thead>
 						<tbody>
@@ -252,13 +314,13 @@ body {
 									String sql = "Select * from Supplier, CustAddress where Supplier.suID=CustAddress.suID";
 									PreparedStatement ps = con.prepareStatement(sql);
 									ResultSet rs = ps.executeQuery();
-									
-									
 
 									while (rs.next()) {
-										out.print(String.format("<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>",
-												rs.getInt("suID"), rs.getString("name"),rs.getString("phoneNum"),
-												rs.getString("descr"), rs.getString("address"), rs.getString("provinceOrState"), rs.getString("country"), rs.getString("postalCode")));
+										out.print(String.format(
+												"<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>",
+												rs.getInt("suID"), rs.getString("name"), rs.getString("phoneNum"), rs.getString("descr"),
+												rs.getString("address"), rs.getString("provinceOrState"), rs.getString("country"),
+												rs.getString("postalCode")));
 									}
 
 									ps.close();
@@ -289,8 +351,10 @@ body {
 					<ul class="nav nav-pills">
 						<li class="active"><a data-toggle="pill" href="#prod1">Add
 								Product</a></li>
+								<li><a data-toggle="pill" href="#prod6">Delete Product</a></li>
 						<li><a data-toggle="pill" href="#prod2">Update Product</a></li>
 						<li><a data-toggle="pill" href="#prod3">Add Warehouse</a></li>
+						<li><a data-toggle="pill" href="#prod5">Delete Warehouse</a></li>
 						<li><a data-toggle="pill" href="#prod4">Update Warehouse</a></li>
 					</ul>
 
@@ -301,27 +365,38 @@ body {
 							<h3>Add Product</h3>
 
 							<!-- ADD PRODUCT FORM -->
-							<form class="form-horizontal" action="AddItem.jsp">
+							<form class="form-horizontal" action="AddItem.jsp"
+								onsubmit="setTimeout(function () { window.location.reload(); }, 10)">
 								<div class="well">
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="pname">Product
+										<label class="control-label col-sm-2" for="name">Product
 											Name</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="pname"
-												name="pname">
+											<input type="text" class="form-control" id="name" name="name">
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="tag">Tag</label>
+										<label class="control-label col-sm-2" for="description">Product
+											Description</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="tag" name="tag">
+											<textarea class="form-control" rows="3" id="description"
+												name="description"></textarea>
 										</div>
 									</div>
+
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="price">Price</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="price"
 												name="price">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="videoLink">Video
+											Link</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="videoLink"
+												name="videoLink">
 										</div>
 									</div>
 									<div class="form-group">
@@ -332,27 +407,20 @@ body {
 												name="inventory">
 										</div>
 									</div>
+
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="pLink">Image
+										<label class="control-label col-sm-2" for="image">Image
 											Link</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="pLink"
-												name="pLink">
+											<input type="text" class="form-control" id="image"
+												name="image">
 										</div>
 									</div>
+
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="vLink">Video
-											Link</label>
+										<label class="control-label col-sm-2" for="tag">Tag</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="vLink"
-												name="vLink">
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="control-label col-sm-2" for="desc">Product
-											Description</label>
-										<div class="col-sm-10">
-											<textarea class="form-control" rows="3" id="desc" name="desc"></textarea>
+											<input type="text" class="form-control" id="tag" name="tag">
 										</div>
 									</div>
 								</div>
@@ -367,13 +435,40 @@ body {
 
 							</form>
 
-							
+
 
 
 
 
 
 						</div>
+
+						<!-- DELETE PRODUCT TAB -->
+						
+							<div id="prod6" class="tab-pane fade in active">
+								<h3>Delete Product</h3>
+
+								<!-- DELETE PRODUCT FORM -->
+								<form class="form-horizontal">
+									<div class="well">
+										<div class="form-group">
+											<label class="control-label col-sm-2" for="pID">Product
+												Id</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="pID" name="pID">
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-sm-offset-2 col-sm-10">
+												<button type="submit" class="btn btn-success">Delete
+													Product</button>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+
+						
 
 						<!-- UPDATE Product TAB -->
 						<div id="prod2" class="tab-pane fade">
@@ -383,10 +478,10 @@ body {
 							<form class="form-horizontal">
 								<div class="well">
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="pid">Product
+										<label class="control-label col-sm-2" for="pID">Product
 											Id</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="pid">
+											<input type="text" class="form-control" id="pID" name="pID">
 										</div>
 									</div>
 									<div class="form-group">
@@ -398,44 +493,165 @@ body {
 								</div>
 							</form>
 
-							<!-- UPDATE Product FORM -->
-							<form class="form-horizontal">
+							<%
+								//get values for the given pID
+								String prodID = request.getParameter("pID");
+								String prodName = "";
+								String prodTag = "";
+								String prodPrice = "";
+								String stock = "";
+								String picLink = "";
+								String vidLink = "";
+								String descrip = "";
+
+								String sqlProdInfo = "select * from Product where pID='" + prodID + "'";
+								try {
+									getConnection();
+									PreparedStatement ps = con.prepareStatement(sqlProdInfo);
+									ResultSet rs = ps.executeQuery();
+									rs.next();
+
+									prodName = rs.getString("name");
+									prodTag = rs.getString("tag");
+									prodPrice = "" + rs.getBigDecimal("price");
+									stock = "" + rs.getInt("inventory");
+									picLink = rs.getString("image");
+									vidLink = rs.getString("videoLink");
+									descrip = rs.getString("description");
+									//Test see if all values are not null
+									//	out.print(String.format("%s %s %s %s %s %s %s",prodName,prodTag,prodPrice,stock,picLink,vidLink,descrip));
+
+								} catch (SQLException ex) {
+									out.print(ex);
+								}
+							%>
+
+
+							<!-- UPDATE Product FORM NOT WORKING-->
+							<form class="form-horizontal" method="GET">
 								<div class="well">
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="pname">Product
+										<label class="control-label col-sm-2" for="name">Product
 											Name</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="pname">
+											<input type="text" class="form-control" id="name" name="name"
+												value="<%out.print(prodName);%>">
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="cat">Category</label>
+										<label class="control-label col-sm-2" for="description">Product
+											Description</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="cat">
+											<textarea class="form-control" rows="3" id="description"
+												name="description">
+												<%
+													out.print(descrip);
+												%>
+											</textarea>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="price">Price</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="price">
+											<input type="text" class="form-control" id="price"
+												name="price" value="<%out.print(prodPrice);%>">
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="desc">Package
-											Desc</label>
+										<label class="control-label col-sm-2" for="videoLink">Video
+											Link</label>
 										<div class="col-sm-10">
-											<textarea class="form-control" rows="3" id="desc"></textarea>
+											<input type="text" class="form-control" id="videoLink"
+												name="videoLink" value="<%out.print(vidLink);%>">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="inventory">Amount
+											in Stock</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="inventory"
+												name="inventory" value="<%out.print(stock);%>">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="image">Image
+											Link</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="image"
+												name="image" value="<%out.print(picLink);%>">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="tag">Tag</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="tag" name="tag"
+												value="<%out.print(prodTag);%>">
 										</div>
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">
-										<button type="submit" class="btn btn-success">Save
+										<button type="submit" class="btn btn-success" value="send">Save
 											Product</button>
 									</div>
 								</div>
 
+
+
 							</form>
+
+							<%
+								String name = request.getParameter("name");
+								String description = request.getParameter("description");
+								String price = request.getParameter("price");
+								String videoLink = request.getParameter("videoLink");
+								String inventory = request.getParameter("inventory");
+								String image = request.getParameter("image");
+								String tag = request.getParameter("tag");
+
+								if (name == null)
+									name = "nothing";
+								if (tag == null)
+									tag = "nothing";
+								if (price == null)
+									price = "99.99";
+								if (inventory == null)
+									inventory = "99";
+								if (image == null)
+									image = "no pic link";
+								if (videoLink == null)
+									videoLink = "no vid link";
+								if (description == null)
+									description = "no description";
+
+								/* //making sure everything we got it all from the form
+								out.println(String.format("<p> %s is in  </p>", tag));
+								out.println(String.format("<p> %s is in  </p>", price));
+								out.println(String.format("<p> %s is in  </p>", inventory));
+								out.println(String.format("<p> %s is in  </p>", pLink));
+								out.println(String.format("<p> %s is in  </p>", vLink));
+								out.println(String.format("<p> %s is in  </p>", desc));
+								*/
+								try {
+									getConnection();
+
+									String sqlUpdate = String.format(
+											"update Product set name='%s',description='%s',price=%s,videoLink='%s',inventory=%s,image='%s',tag='%s' where pID=%s ",
+											name, description, price, videoLink, inventory, image, tag, prodID);
+									PreparedStatement ps = con.prepareStatement(sqlUpdate);
+									ps.executeUpdate();
+									ps.close();
+								} catch (SQLException ex) {
+									out.println(ex);
+								}
+							%>
+
+
+
+
+
+
+
 
 						</div>
 
@@ -444,7 +660,8 @@ body {
 							<h3>Add Warehouse</h3>
 
 							<!-- ADD warehouse FORM -->
-							<form class="form-horizontal" action="addWarehouse.jsp" >
+							<form class="form-horizontal" action="addWarehouse.jsp"
+								onsubmit="setTimeout(function () { window.location.reload(); }, 10)">
 
 								<h4>General Information</h4>
 								<div class="well">
@@ -459,14 +676,16 @@ body {
 										<label class="control-label col-sm-2" for="phoneNum">Supplier
 											Phone Number</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="phoneNum" name="phoneNum">
+											<input type="text" class="form-control" id="phoneNum"
+												name="phoneNum">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="descr">Supplier
 											Description</label>
 										<div class="col-sm-10">
-											<textarea class="form-control" rows="3" id="descr" name="descr"></textarea>
+											<textarea class="form-control" rows="3" id="descr"
+												name="descr"></textarea>
 										</div>
 									</div>
 								</div>
@@ -476,26 +695,30 @@ body {
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="address">Address</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="address" name="address">
+											<input type="text" class="form-control" id="address"
+												name="address">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="provinceOrState">Province/State</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="provinceOrState" name="provinceOrState">
+											<input type="text" class="form-control" id="provinceOrState"
+												name="provinceOrState">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="country">Country</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="country" name="country">
+											<input type="text" class="form-control" id="country"
+												name="country">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="postalCode">Postal
 											Code</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="postalCode" name="postalCode">
+											<input type="text" class="form-control" id="postalCode"
+												name="postalCode">
 										</div>
 									</div>
 								</div>
@@ -514,6 +737,34 @@ body {
 
 						</div>
 
+						<!-- DELETE WAREHOUSE TAB -->
+						
+							<div id="prod6" class="tab-pane fade in active">
+								<h3>Delete Warehouse</h3>
+
+								<!-- DELETE WAREHOUSE FORM -->
+								<form class="form-horizontal">
+									<div class="well">
+										<div class="form-group">
+											<label class="control-label col-sm-2" for="pID">Supplier
+												Id</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="pID" name="pID">
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-sm-offset-2 col-sm-10">
+												<button type="submit" class="btn btn-success">Delete
+													Product</button>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+
+						
+
+
 						<!-- UPDATE warehouse TAB -->
 						<div id="prod4" class="tab-pane fade">
 							<h3>Update Warehouse</h3>
@@ -523,10 +774,10 @@ body {
 							<form class="form-horizontal">
 								<div class="well">
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="sid">Supplier
+										<label class="control-label col-sm-2" for="suID">Supplier
 											Id</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="sid">
+											<input type="text" class="form-control" id="suID" name="suID">
 										</div>
 									</div>
 									<div class="form-group">
@@ -538,8 +789,49 @@ body {
 								</div>
 							</form>
 
-							<!-- UPDATE Warehouse FORM -->
-							<form class="form-horizontal">
+							<%
+								//get values for the given pID
+								String supID = request.getParameter("suID");
+								String supName = "";
+								String supPhoneNum = "";
+								String supDescr = "";
+								String supAddr = "";
+								String supProv = "";
+								String supCountry = "";
+								String supPostalCode = "";
+								String custID = "";
+
+								if (supID.equals("") || supID == null)
+									out.print("sup ID is broken");
+
+								String sqlSupInfo = "select * from Supplier,CustAddress where Supplier.suID=CustAddress.suID AND pID='"
+										+ supID + "'";
+								try {
+									getConnection();
+									PreparedStatement ps = con.prepareStatement(sqlProdInfo);
+									ResultSet rs = ps.executeQuery();
+									rs.next();
+
+									supName = rs.getString("name");
+									supPhoneNum = rs.getString("phoneNum");
+									supDescr = rs.getString("descr");
+									supAddr = rs.getString("address");
+									supProv = rs.getString("provinceOrState");
+									supCountry = rs.getString("country");
+									supPostalCode = rs.getString("postalCode");
+									custID = "" + -1;
+									//Test see if all values are not null
+									out.print(String.format("%s %s %s %s %s %s %s %s", supName, supPhoneNum, supDescr, supAddr, supProv,
+											supCountry, supPostalCode, custID));
+
+								} catch (SQLException ex) {
+									out.print(ex);
+								}
+							%>
+
+
+							<form class="form-horizontal" action="addWarehouse.jsp"
+								onsubmit="setTimeout(function () { window.location.reload(); }, 10)">
 
 								<h4>General Information</h4>
 								<div class="well">
@@ -547,21 +839,23 @@ body {
 										<label class="control-label col-sm-2" for="name">Supplier
 											Name</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="name">
+											<input type="text" class="form-control" id="name" name="name">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="phoneNum">Supplier
 											Phone Number</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="phoneNum">
+											<input type="text" class="form-control" id="phoneNum"
+												name="phoneNum">
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="desc">Supplier
+										<label class="control-label col-sm-2" for="descr">Supplier
 											Description</label>
 										<div class="col-sm-10">
-											<textarea class="form-control" rows="3" id="desc"></textarea>
+											<textarea class="form-control" rows="3" id="descr"
+												name="descr"></textarea>
 										</div>
 									</div>
 								</div>
@@ -571,26 +865,30 @@ body {
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="address">Address</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="address" name="address">
+											<input type="text" class="form-control" id="address"
+												name="address">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="provinceOrState">Province/State</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="provinceOrState">
+											<input type="text" class="form-control" id="provinceOrState"
+												name="provinceOrState">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="country">Country</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="country">
+											<input type="text" class="form-control" id="country"
+												name="country">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="postalCode">Postal
 											Code</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="postalCode">
+											<input type="text" class="form-control" id="postalCode"
+												name="postalCode">
 										</div>
 									</div>
 								</div>
@@ -602,6 +900,7 @@ body {
 									</div>
 								</div>
 							</form>
+
 						</div>
 
 						<!-- close menu tabs -->
