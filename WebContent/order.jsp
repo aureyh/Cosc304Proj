@@ -125,12 +125,12 @@ try
                    out.println("</tr>");
                    subtotal = subtotal +pr*qty;
 
-   				sql = "INSERT INTO ItemInOrder VALUES(?, ?)";
+   				sql = "INSERT INTO ItemInOrder VALUES(?,?,?,?)";
    				pstmt = con.prepareStatement(sql);
    				pstmt.setInt(1, Integer.parseInt(productId));
    				pstmt.setInt(2, orderId);
-   				//pstmt.setInt(3,qty);
-   				//pstmt.setDouble(4,pr);
+   				pstmt.setInt(3,qty);
+   				pstmt.setDouble(4,pr);
    				pstmt.executeUpdate();				
            	}
            	

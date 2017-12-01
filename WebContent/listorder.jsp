@@ -19,10 +19,10 @@
 
 
 
-String sql = "SELECT O.orderId, O.CustomerId, totalAmount, cname, productId, quantity, price "
-		+ "FROM Orders O, Customer C, OrderedProduct OP "
-		+ "WHERE O.customerId = C.customerId and OP.orderid = O.orderId "
-		+ "AND O.customerId = ? ";
+String sql = "SELECT O.oID, O.cID, totalPrice, firstName, lastName, pID, quantity, price "
+		+ "FROM Orders O, Customer C, ItemInOrder OP "
+		+ "WHERE O.cID = C.cID and OP.oID = O.oID "
+		+ "AND O.cID = ? ";
 
 
 //Placeholder value, need to have login information.
