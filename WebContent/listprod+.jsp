@@ -211,7 +211,7 @@ try
 			imgURL=realImg;
 		
 		
-		String imgPrint = String.format("<div class=\"row\"> <div class=\"col-sm-4\"><img src=\"%s\" class=\"img-fluid\" alt=\"Responsive image\"></div>",imgURL);
+		String imgPrint = String.format("<div class=\"row\"> <div class=\"col-sm-4\"><a href=\"product.jsp?pID=%d\"><img src=\"%s\" class=\"img-fluid\" alt=\"Responsive image\"></a></div>",rst.getInt(1),imgURL);
 		
 		
 		
