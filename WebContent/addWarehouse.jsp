@@ -13,7 +13,7 @@
 								String provinceOrState = request.getParameter("provinceOrState");
 								String country = request.getParameter("country");
 								String postalCode = request.getParameter("postalCode");
-								String cID = request.getParameter("cID");
+								String cID = null;
 								//Then suID again for the address
 
 
@@ -30,9 +30,9 @@
 								if (country == null)
 									country = "no country";
 								if (postalCode == null)
-									postalCode = "no zip";
+									postalCode = "no postalCode";
 								if (cID == null)
-									cID = "999";
+									cID = "-1";//Special cID for admins
 
 								
 								/* //making sure everything we got it all from the form
@@ -56,7 +56,7 @@
 										suID = "" + 99;
 									autokey.close();
 
-									String sqlSup = String.format("insert into Product values(%s,'%s','%s', '%s');",suID,name,phoneNum,descr);
+									String sqlSup = String.format("insert into Supplier values(%s,'%s','%s', '%s');",suID,name,phoneNum,descr);
 
 									String sqlAddr = String.format("insert into CustAddress values('%s','%s','%s','%s',%s,%s);",address,provinceOrState,country,postalCode,cID,suID);
 									
@@ -70,5 +70,4 @@
 								
 								
 							%>
-							
 							<jsp:forward page="Admin.jsp" />

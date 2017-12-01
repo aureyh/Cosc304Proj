@@ -184,13 +184,14 @@ INSERT Customer VALUES (2, 'Betty', 'Boop', '1992-02-02','222-333-4444','bboop@b
 INSERT Customer VALUES (3, 'Charlie', 'Chaplin', '1991-03-03','333-444-5555','cchaplin@cmail.com','pass3','c3c3',null);
 INSERT Customer VALUES (4, 'Debbie', 'Downer', '1991-04-04','444-555-6666','ddowner@dmail.com','pass4','d4d4',null);
 INSERT Customer VALUES (5, 'Ed', 'Eddie', '1991-05-05','555-666-7777','eeddie@email.com','pass5','e5e5',null);
-
+INSERT Customer VALUES (-1, 'DefaultSUP',null,null,null,null,null,null,null);
 
 INSERT Supplier VALUES (1, 'Adam', '111-111-1111',null);
 INSERT Supplier VALUES (2, 'Ben', '222-222-2222',null);
 INSERT Supplier VALUES (3, 'Carl', '333-333-3333',null);
 INSERT Supplier VALUES (4, 'Dave', '444-444-4444',null);
 INSERT Supplier VALUES (5, 'Ethan', '555-555-5555',null);
+INSERT Supplier VALUES (-1,'DefaultCust',null,null);
 
 
 INSERT CustAddress VALUES ('1 Avenue', 'AL', 'United States', 'A1A1A1',1,5);

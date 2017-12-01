@@ -444,29 +444,29 @@ body {
 							<h3>Add Warehouse</h3>
 
 							<!-- ADD warehouse FORM -->
-							<form class="form-horizontal" >
+							<form class="form-horizontal" action="addWarehouse.jsp" >
 
 								<h4>General Information</h4>
 								<div class="well">
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="sname">Supplier
+										<label class="control-label col-sm-2" for="name">Supplier
 											Name</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="sname" name="sname">
+											<input type="text" class="form-control" id="name" name="name">
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="sphone">Supplier
+										<label class="control-label col-sm-2" for="phoneNum">Supplier
 											Phone Number</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="sphone" name="sphone">
+											<input type="text" class="form-control" id="phoneNum" name="phoneNum">
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="desc">Supplier
+										<label class="control-label col-sm-2" for="descr">Supplier
 											Description</label>
 										<div class="col-sm-10">
-											<textarea class="form-control" rows="3" id="desc" name="desc"></textarea>
+											<textarea class="form-control" rows="3" id="descr" name="descr"></textarea>
 										</div>
 									</div>
 								</div>
@@ -474,15 +474,15 @@ body {
 								<h4>Location information</h4>
 								<div class="well">
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="adress">Address</label>
+										<label class="control-label col-sm-2" for="address">Address</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="address" name="address">
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="provstate">Province/State</label>
+										<label class="control-label col-sm-2" for="provinceOrState">Province/State</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="provstate" name="provstate">
+											<input type="text" class="form-control" id="provinceOrState" name="provinceOrState">
 										</div>
 									</div>
 									<div class="form-group">
@@ -492,10 +492,10 @@ body {
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="zip">Postal
+										<label class="control-label col-sm-2" for="postalCode">Postal
 											Code</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="zip" name="zip">
+											<input type="text" class="form-control" id="postalCode" name="postalCode">
 										</div>
 									</div>
 								</div>
@@ -508,72 +508,7 @@ body {
 								</div>
 							</form>
 
-<%
-								
-								String name = request.getParameter("name");
-								String phoneNum = request.getParameter("phoneNum");
-								String descr = request.getParameter("descr");
-								String address = request.getParameter("address");
-								String provinceOrState = request.getParameter("provinceOrState");
-								String country = request.getParameter("country");
-								String postalCode = request.getParameter("postalCode");
-								String cID = null;
-								//Then suID again for the address
 
-
-								if (name == null)
-									name = "no name";
-								if (phoneNum == null)
-									phoneNum = "555-555-555";
-								if (descr == null)
-									descr = "no description";
-								if (address == null)
-									address = "no address";
-								if (provinceOrState == null)
-									provinceOrState = "no prov or state";
-								if (country == null)
-									country = "no country";
-								if (postalCode == null)
-									postalCode = "no zip";
-								if (cID == null)
-									cID = "999";//Special cID for admins
-
-								
-								/* //making sure everything we got it all from the form
-								out.println(String.format("<p> %s is in  </p>", tag));
-								out.println(String.format("<p> %s is in  </p>", price));
-								out.println(String.format("<p> %s is in  </p>", inventory));
-								out.println(String.format("<p> %s is in  </p>", pLink));
-								out.println(String.format("<p> %s is in  </p>", vLink));
-								out.println(String.format("<p> %s is in  </p>", desc));
-								*/
-								try {
-									getConnection();
-									Statement ps = con.createStatement();
-									
-									PreparedStatement autokey = con.prepareStatement("select Max(suID) from Supplier");
-									ResultSet rs = autokey.executeQuery(); //fake auto key but works the same
-									rs.next();
-
-									String suID = "" + (rs.getInt(1)+1);
-									if (suID.equals(""))
-										suID = "" + 99;
-									autokey.close();
-
-									String sqlSup = String.format("insert into Supplier values(%s,'%s','%s', '%s');",suID,name,phoneNum,descr);
-
-									String sqlAddr = String.format("insert into CustAddress values('%s','%s','%s','%s',%s,%s);",address,provinceOrState,country,postalCode,cID,suID);
-									
-									ps.executeUpdate(sqlSup);
-									ps.executeUpdate(sqlAddr);
-									
-									ps.close();
-								} catch (SQLException ex) {
-									out.println(ex);
-								}
-								
-								
-							%>
 
 
 
@@ -609,17 +544,17 @@ body {
 								<h4>General Information</h4>
 								<div class="well">
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="sname">Supplier
+										<label class="control-label col-sm-2" for="name">Supplier
 											Name</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="sname">
+											<input type="text" class="form-control" id="name">
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="sphone">Supplier
+										<label class="control-label col-sm-2" for="phoneNum">Supplier
 											Phone Number</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="sphone">
+											<input type="text" class="form-control" id="phoneNum">
 										</div>
 									</div>
 									<div class="form-group">
@@ -634,15 +569,15 @@ body {
 								<h4>Location information</h4>
 								<div class="well">
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="adress">Address</label>
+										<label class="control-label col-sm-2" for="address">Address</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="address">
+											<input type="text" class="form-control" id="address" name="address">
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="provstate">Province/State</label>
+										<label class="control-label col-sm-2" for="provinceOrState">Province/State</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="provstate">
+											<input type="text" class="form-control" id="provinceOrState">
 										</div>
 									</div>
 									<div class="form-group">
@@ -652,10 +587,10 @@ body {
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="zip">Postal
+										<label class="control-label col-sm-2" for="postalCode">Postal
 											Code</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="zip">
+											<input type="text" class="form-control" id="postalCode">
 										</div>
 									</div>
 								</div>
