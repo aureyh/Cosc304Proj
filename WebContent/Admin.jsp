@@ -1,90 +1,91 @@
-<%@ page import="java.sql.*" %>
-<%@ page import="java.util.HashMap" %>
-<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.sql.*"%>
+<%@ page import="java.util.HashMap"%>
+<%@ page import="java.text.NumberFormat"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
-<%@ include file="jdbc.jsp" %>
+<%@ include file="jdbc.jsp"%>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title >INFORMIRACLES</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  
+<title>INFORMIRACLES</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-  
-  
-  <style>
-  .img-fluid {
-  max-width: 50%;
-  height: auto;
-  
+
+
+
+<style>
+.img-fluid {
+	max-width: 50%;
+	height: auto;
 }
- body { padding-top: 50px; }
-  
-  .navbar {
-    margin-bottom: 0;
-    background-color: #60606C;
-    z-index: 9999;
-    border: 0;
-    font-size: 12px !important;
-    line-height: 1.42857143 !important;
-    letter-spacing: 4px;
-    border-radius: 0;
+
+body {
+	padding-top: 50px;
+}
+
+.navbar {
+	margin-bottom: 0;
+	background-color: #60606C;
+	z-index: 9999;
+	border: 0;
+	font-size: 12px !important;
+	line-height: 1.42857143 !important;
+	letter-spacing: 4px;
+	border-radius: 0;
 }
 
 .navbar li a, .navbar .navbar-brand {
-    color: #fff !important;
+	color: #fff !important;
 }
 
 .navbar-nav li a:hover, .navbar-nav li.active a {
-    color: ##CD5F0F !important;
-    background-color: #5D6D7E !important;
+	color: ##CD5F0F !important;
+	background-color: #5D6D7E !important;
 }
 
 .navbar-default .navbar-toggle {
-    border-color: transparent;
-    color: #fff !important;
+	border-color: transparent;
+	color: #fff !important;
 }
 
-.navbar-default .navbar-nav .open .dropdown-menu>li>a, .navbar-default .navbar-nav .open .dropdown-menu {
-    background-color: #60606F;
-    color:#ffffff;
-  }
- 
+.navbar-default .navbar-nav .open .dropdown-menu>li>a, .navbar-default .navbar-nav .open .dropdown-menu
+	{
+	background-color: #60606F;
+	color: #ffffff;
+}
+</style>
 
-  
- </style> 
-  
 </head>
 <body>
 
 
 
-<div class="navbar navbar-fixed-top">
-<div class="collapse navbar-collapse" id="navbarNav">
+	<div class="navbar navbar-fixed-top">
+		<div class="collapse navbar-collapse" id="navbarNav">
 
-<a class="navbar-brand" href="shop.jsp">INFORMIRACLES  Admin Account</a>
-
-
-
-<ul class="nav navbar-nav navbar-right" id="myNavbar">
-
- <li><a href="listOrders">ORDERS</a></li>
-		<li class="nav-item"><a href="#about">ABOUT</a></li>
-        <li class="nav-item"><a href="#signIn">SIGN IN</a></li>
-        <li class="nav-item"><a href="#cart">CART</a></li>
-		
-</ul>
-
-</div>
-</div>
+			<a class="navbar-brand" href="shop.jsp">INFORMIRACLES Admin
+				Account</a>
 
 
 
+			<ul class="nav navbar-nav navbar-right" id="myNavbar">
+
+				<li><a href="listOrders">ORDERS</a></li>
+				<li class="nav-item"><a href="#about">ABOUT</a></li>
+				<li class="nav-item"><a href="#signIn">SIGN IN</a></li>
+				<li class="nav-item"><a href="#cart">CART</a></li>
+
+			</ul>
+
+		</div>
+	</div>
 
 
 
@@ -92,429 +93,593 @@
 
 
 
- <!-- Creates the TABS -->
-<div class="container">
-  <ul class="nav nav-pills" id="myTab">
-    <li class="active"><a data-toggle="pill" href="#home">Statistics</a></li>
-    <li><a data-toggle="pill" href="#menu1">Customers</a></li>
-    <li><a data-toggle="pill" href="#menu2">Orders</a></li>
-    <li><a data-toggle="pill" href="#menu3">Products</a></li>
-  </ul>
-  
-  <div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
-      <h3>Statistics</h3>
-      
-      <p>Graph goes here</p>
-      
-      <img src="https://i.imgflip.com/uf259.png">
-      
-      
-    </div>
-    
-    
-    
-    <!-- Customer information sub page -->
-    <div id="menu1" class="tab-pane fade">
-      <h3>Customers</h3>
-      
-      <div class="container">          
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Birth Date</th>
-        <th>Email</th>
-        <th>Email ID</th>
-        <th>Account Type</th>
-      </tr>
-    </thead>
-    <tbody>
-      
-      <%
-      //Reads Customer information from database
-      
-      
-      
-      
-      try{
-    	  getConnection();
-    	  String sql = "Select * from Customer";
-    	  PreparedStatement ps = con.prepareStatement(sql);
-    	  ResultSet rs = ps.executeQuery();
-    	  
-    	  
-    	 
-    	
-    	  
-    	  while(rs.next()){
-    		  out.print(String.format("<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>",rs.getInt("cID"),rs.getString("firstname"),rs.getString("lastname"),""+rs.getDate("birthdate"),rs.getString("useremail"),rs.getString("Uuid"),rs.getString("accType")));
-    	  }
-    	  
-    	  
-    	ps.close();
-    	  
-      }catch (SQLException ex)
-      {       out.println(ex);
-      }
-      
-      
-       
-      
-     
-
-     %>
-      
-      
-      
-      
-            
-    </tbody>
-  </table>
-</div>
-      
-      
-      
-      
-      
-    </div>
-    
-    
-    <!-- Orders sub page -->
-    <div id="menu2" class="tab-pane fade">
-      
-        <div class="container">          
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Order Id</th>
-        <th>Customer Id</th>
-        <th>Total</th>
-        <th>Order Date</th>
-        <th>Shipping Date</th>
-        </tr>
-    </thead>
-    <tbody>
-      
-       <%
-      //Reads Customer information from database
-      
-      
-      
-      
-      try{
-    	  getConnection();
-    	  String sql = "Select * from Orders";
-    	  PreparedStatement ps = con.prepareStatement(sql);
-    	  ResultSet rs = ps.executeQuery();
-    	  
-    	  
-    	 
-    	
-    	  
-    	  while(rs.next()){
-    		  out.print(String.format("<tr><td>%d</td><td>%d</td><td>%s</td><td>%s</td><td>%s</td></tr>",rs.getInt("oID"),rs.getInt("cID"),"$"+rs.getBigDecimal("totalPrice"),rs.getDate("orderDate"),rs.getDate("shipDate")));
-    	  }
-    	  
-    	  
-    	ps.close();
-    	  
-      }catch (SQLException ex)
-      {       out.println(ex);
-      }
-      
-      
-       
-      
-     
-
-     %>
-      
-      </tbody>
-  </table>
-</div>
-      
-      
-    </div>
-    
-    
-    <!-- Products sub page -->
-    <div id="menu3" class="tab-pane fade">
-      <h3>Products</h3>
-      
-      
-      <!-- Tabs for Add prod, Add warehouse, update prod -->
-      <div class="container">
-  
-  <ul class="nav nav-pills">
-    <li class="active"><a data-toggle="pill" href="#prod1">Add Product</a></li>
-    <li><a data-toggle="pill" href="#prod2">Update Product</a></li>
-    <li><a data-toggle="pill" href="#prod3">Add Warehouse</a></li>
-    <li><a data-toggle="pill" href="#prod4">Update Warehouse</a></li>
-  </ul>
-  
-  
-<!-- ADD PRODUCT TAB -->
-  <div class="tab-content">
-    <div id="prod1" class="tab-pane fade in active">
-      <h3>Add Product</h3>
-      
-        <!-- ADD PRODUCT FORM -->
- 	<form class="form-horizontal">
- 	<div class="well">
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="pname">Product Name</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="pname">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="cat">Category</label>
-    <div class="col-sm-10"> 
-      <input type="text" class="form-control" id="cat">
-    </div>
-  </div>
-  <div class="form-group">     
-    <label class="control-label col-sm-2" for="price">Price</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="price">      
-    </div>
-  </div>
-  <div class="form-group">     
-    <label class="control-label col-sm-2" for="desc">Package Desc</label>
-      <div class="col-sm-10">
-        <textarea class="form-control" rows="3" id="desc"></textarea>      
-    </div>
-  </div>
-  </div>
-  <div class="form-group"> 
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-success">Save Product</button>
-    </div>
-  </div>
-  
-</form>
- 	
- 	
- 	
-    </div>
-    
-    <!-- UPDATE Product TAB -->
-    <div id="prod2" class="tab-pane fade">
-      <h3>Update Product</h3>
-      
-      <!-- Pre Form to Fill in old information -->
-<form class="form-horizontal">
-<div class="well">
-<div class="form-group">
-    <label class="control-label col-sm-2" for="pid">Product Id</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="pid">
-    </div>
-  </div>
-  <div class="form-group"> 
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-success">Retrieve Product info</button>
-    </div>
-  </div>
-  </div>
-  </form>
-      
-      <!-- UPDATE Product FORM -->
-	<form class="form-horizontal">
- 	<div class="well">
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="pname">Product Name</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="pname">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="cat">Category</label>
-    <div class="col-sm-10"> 
-      <input type="text" class="form-control" id="cat">
-    </div>
-  </div>
-  <div class="form-group">     
-    <label class="control-label col-sm-2" for="price">Price</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="price">      
-    </div>
-  </div>
-  <div class="form-group">     
-    <label class="control-label col-sm-2" for="desc">Package Desc</label>
-      <div class="col-sm-10">
-        <textarea class="form-control" rows="3" id="desc"></textarea>      
-    </div>
-  </div>
-  </div>
-  <div class="form-group"> 
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-success">Save Product</button>
-    </div>
-  </div>
-  
-  </form>
- 
-    </div>
-    
-    <!-- ADD warehouse TAB -->
-    <div id="prod3" class="tab-pane fade">
-      <h3>Add Warehouse</h3>
- 
- <!-- ADD warehouse FORM -->
-<form class="form-horizontal">
-
-<h4>General Information</h4>
-<div class="well">
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="sname">Supplier Name</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="sname">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="sphone">Supplier Phone Number</label>
-    <div class="col-sm-10"> 
-      <input type="text" class="form-control" id="sphone">
-    </div>
-  </div>
-  <div class="form-group">     
-    <label class="control-label col-sm-2" for="desc">Supplier Description</label>
-      <div class="col-sm-10">
-        <textarea class="form-control" rows="3" id="desc"></textarea>      
-    </div>
-  </div>
-  </div>
-  
-  <h4>Location information</h4>
-<div class="well">
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="adress">Address</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="address">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="provstate">Province/State</label>
-    <div class="col-sm-10"> 
-      <input type="text" class="form-control" id="provstate">
-    </div>
-  </div>
-  <div class="form-group">     
-    <label class="control-label col-sm-2" for="country">Country</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="country">      
-    </div>
-  </div> 
-   <div class="form-group">     
-    <label class="control-label col-sm-2" for="zip">Postal Code</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="zip">      
-    </div>
-  </div>
-  </div>
-     
-  <div class="form-group"> 
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-success">Save Warehouse</button>
-    </div>
-  </div>
-</form>
-
-    </div>
-    
-    <!-- UPDATE warehouse TAB -->
-    <div id="prod4" class="tab-pane fade">
-      <h3>Update Warehouse</h3>
-      
-     
-<!-- Pre Form to Fill in old information -->
-<form class="form-horizontal">
-<div class="well">
-<div class="form-group">
-    <label class="control-label col-sm-2" for="sid">Supplier Id</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="sid">
-    </div>
-  </div>
-  <div class="form-group"> 
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-success">Retrieve Warehouse info</button>
-    </div>
-  </div>
-  </div>
-  </form>
-
- <!-- UPDATE Warehouse FORM -->
-<form class="form-horizontal">
-
-<h4>General Information</h4>
-<div class="well">
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="sname">Supplier Name</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="sname">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="sphone">Supplier Phone Number</label>
-    <div class="col-sm-10"> 
-      <input type="text" class="form-control" id="sphone">
-    </div>
-  </div>
-  <div class="form-group">     
-    <label class="control-label col-sm-2" for="desc">Supplier Description</label>
-      <div class="col-sm-10">
-        <textarea class="form-control" rows="3" id="desc"></textarea>      
-    </div>
-  </div>
-  </div>
-  
-  <h4>Location information</h4>
-<div class="well">
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="adress">Address</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="address">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="provstate">Province/State</label>
-    <div class="col-sm-10"> 
-      <input type="text" class="form-control" id="provstate">
-    </div>
-  </div>
-  <div class="form-group">     
-    <label class="control-label col-sm-2" for="country">Country</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="country">      
-    </div>
-  </div> 
-   <div class="form-group">     
-    <label class="control-label col-sm-2" for="zip">Postal Code</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="zip">      
-    </div>
-  </div>
-  </div>
-     
-  <div class="form-group"> 
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-success">Save Warehouse</button>
-    </div>
-  </div>
-</form>
-</div>
-    
-      <!-- close menu tabs -->
-  </div>
-</div>
-  
 
 
+
+	<!-- Creates the TABS -->
+	<div class="container">
+		<ul class="nav nav-pills" id="myTab">
+			<li class="active"><a data-toggle="pill" href="#home">Statistics</a></li>
+			<li><a data-toggle="pill" href="#menu1">Customers</a></li>
+			<li><a data-toggle="pill" href="#menu2">Orders</a></li>
+			<li><a data-toggle="pill" href="#menu22">Suppliers</a></li>
+			<li><a data-toggle="pill" href="#menu3">Add/Update/Remove</a></li>
+		</ul>
+
+		<div class="tab-content">
+			<div id="home" class="tab-pane fade in active">
+				<h3>Statistics</h3>
+
+				<p>Graph goes here</p>
+
+				<img src="https://i.imgflip.com/uf259.png">
+
+
+			</div>
+
+
+
+			<!-- Customer information sub page -->
+			<div id="menu1" class="tab-pane fade">
+				<h3>Customers</h3>
+
+				<div class="container">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Birth Date</th>
+								<th>Email</th>
+								<th>Email ID</th>
+								<th>Account Type</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<%
+								//Reads Customer information from database
+
+								try {
+									getConnection();
+									String sql = "Select * from Customer";
+									PreparedStatement ps = con.prepareStatement(sql);
+									ResultSet rs = ps.executeQuery();
+
+									while (rs.next()) {
+										out.print(String.format(
+												"<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>",
+												rs.getInt("cID"), rs.getString("firstname"), rs.getString("lastname"),
+												"" + rs.getDate("birthdate"), rs.getString("useremail"), rs.getString("Uuid"),
+												rs.getString("accType")));
+									}
+
+									ps.close();
+
+								} catch (SQLException ex) {
+									out.println(ex);
+								}
+							%>
+
+
+
+
+
+						</tbody>
+					</table>
+				</div>
+
+
+
+
+
+			</div>
+
+			
+			
+			<!-- Orders sub page -->
+			<div id="menu2" class="tab-pane fade">
+
+				<div class="container">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Order Id</th>
+								<th>Customer Id</th>
+								<th>Total</th>
+								<th>Order Date</th>
+								<th>Shipping Date</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<%
+								//Reads Customer information from database
+
+								try {
+									getConnection();
+									String sql = "Select * from Orders";
+									PreparedStatement ps = con.prepareStatement(sql);
+									ResultSet rs = ps.executeQuery();
+
+									while (rs.next()) {
+										out.print(String.format("<tr><td>%d</td><td>%d</td><td>%s</td><td>%s</td><td>%s</td></tr>",
+												rs.getInt("oID"), rs.getInt("cID"), "$" + rs.getBigDecimal("totalPrice"),
+												rs.getDate("orderDate"), rs.getDate("shipDate")));
+									}
+
+									ps.close();
+
+								} catch (SQLException ex) {
+									out.println(ex);
+								}
+							%>
+
+						</tbody>
+					</table>
+				</div>
+
+
+			</div>
+
+
+			<!-- Suppliers sub page -->
+			<div id="menu22" class="tab-pane fade">
+
+				<div class="container">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Supplier Id</th>
+								<th>Name</th>
+								<th>Phone Number</th>
+								<th>Description</th>
+								<th>Address</th>
+								<th>Province/State</th>
+								<th>Country</th>
+								<th>Postal Code</th>
+								
+							</tr>
+						</thead>
+						<tbody>
+
+							<%
+								//Reads Supplier information from database
+
+								try {
+									getConnection();
+									String sql = "Select * from Supplier, CustAddress where Supplier.suID=CustAddress.suID";
+									PreparedStatement ps = con.prepareStatement(sql);
+									ResultSet rs = ps.executeQuery();
+									
+									
+
+									while (rs.next()) {
+										out.print(String.format("<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>",
+												rs.getInt("suID"), rs.getString("name"),rs.getString("phoneNum"),
+												rs.getString("descr"), rs.getString("address"), rs.getString("provinceOrState"), rs.getString("country"), rs.getString("postalCode")));
+									}
+
+									ps.close();
+
+								} catch (SQLException ex) {
+									out.println(ex);
+								}
+							%>
+
+						</tbody>
+					</table>
+				</div>
+
+
+			</div>
+
+
+
+
+			<!-- ADD/UPDATE/REMOVE sub page -->
+			<div id="menu3" class="tab-pane fade">
+				<h3>Add/Update/Remove</h3>
+
+
+				<!-- Tabs for Add prod, Add warehouse, update prod -->
+				<div class="container">
+
+					<ul class="nav nav-pills">
+						<li class="active"><a data-toggle="pill" href="#prod1">Add
+								Product</a></li>
+						<li><a data-toggle="pill" href="#prod2">Update Product</a></li>
+						<li><a data-toggle="pill" href="#prod3">Add Warehouse</a></li>
+						<li><a data-toggle="pill" href="#prod4">Update Warehouse</a></li>
+					</ul>
+
+
+					<!-- ADD PRODUCT TAB -->
+					<div class="tab-content">
+						<div id="prod1" class="tab-pane fade in active">
+							<h3>Add Product</h3>
+
+							<!-- ADD PRODUCT FORM -->
+							<form class="form-horizontal" action="AddItem.jsp">
+								<div class="well">
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="pname">Product
+											Name</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="pname"
+												name="pname">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="tag">Tag</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="tag" name="tag">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="price">Price</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="price"
+												name="price">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="inventory">Amount
+											in Stock</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="inventory"
+												name="inventory">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="pLink">Image
+											Link</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="pLink"
+												name="pLink">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="vLink">Video
+											Link</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="vLink"
+												name="vLink">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="desc">Product
+											Description</label>
+										<div class="col-sm-10">
+											<textarea class="form-control" rows="3" id="desc" name="desc"></textarea>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<button type="submit" class="btn btn-success" value="send">Save
+											Product</button>
+									</div>
+								</div>
+
+
+
+							</form>
+
+							
+
+
+
+
+
+						</div>
+
+						<!-- UPDATE Product TAB -->
+						<div id="prod2" class="tab-pane fade">
+							<h3>Update Product</h3>
+
+							<!-- Pre Form to Fill in old information -->
+							<form class="form-horizontal">
+								<div class="well">
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="pid">Product
+											Id</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="pid">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-offset-2 col-sm-10">
+											<button type="submit" class="btn btn-success">Retrieve
+												Product info</button>
+										</div>
+									</div>
+								</div>
+							</form>
+
+							<!-- UPDATE Product FORM -->
+							<form class="form-horizontal">
+								<div class="well">
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="pname">Product
+											Name</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="pname">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="cat">Category</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="cat">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="price">Price</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="price">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="desc">Package
+											Desc</label>
+										<div class="col-sm-10">
+											<textarea class="form-control" rows="3" id="desc"></textarea>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<button type="submit" class="btn btn-success">Save
+											Product</button>
+									</div>
+								</div>
+
+							</form>
+
+						</div>
+
+						<!-- ADD warehouse TAB -->
+						<div id="prod3" class="tab-pane fade">
+							<h3>Add Warehouse</h3>
+
+							<!-- ADD warehouse FORM -->
+							<form class="form-horizontal" >
+
+								<h4>General Information</h4>
+								<div class="well">
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="sname">Supplier
+											Name</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="sname" name="sname">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="sphone">Supplier
+											Phone Number</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="sphone" name="sphone">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="desc">Supplier
+											Description</label>
+										<div class="col-sm-10">
+											<textarea class="form-control" rows="3" id="desc" name="desc"></textarea>
+										</div>
+									</div>
+								</div>
+
+								<h4>Location information</h4>
+								<div class="well">
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="adress">Address</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="address" name="address">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="provstate">Province/State</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="provstate" name="provstate">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="country">Country</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="country" name="country">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="zip">Postal
+											Code</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="zip" name="zip">
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<button type="submit" class="btn btn-success">Save
+											Warehouse</button>
+									</div>
+								</div>
+							</form>
+
+<%
+								
+								String name = request.getParameter("name");
+								String phoneNum = request.getParameter("phoneNum");
+								String descr = request.getParameter("descr");
+								String address = request.getParameter("address");
+								String provinceOrState = request.getParameter("provinceOrState");
+								String country = request.getParameter("country");
+								String postalCode = request.getParameter("postalCode");
+								String cID = null;
+								//Then suID again for the address
+
+
+								if (name == null)
+									name = "no name";
+								if (phoneNum == null)
+									phoneNum = "555-555-555";
+								if (descr == null)
+									descr = "no description";
+								if (address == null)
+									address = "no address";
+								if (provinceOrState == null)
+									provinceOrState = "no prov or state";
+								if (country == null)
+									country = "no country";
+								if (postalCode == null)
+									postalCode = "no zip";
+								if (cID == null)
+									cID = "999";//Special cID for admins
+
+								
+								/* //making sure everything we got it all from the form
+								out.println(String.format("<p> %s is in  </p>", tag));
+								out.println(String.format("<p> %s is in  </p>", price));
+								out.println(String.format("<p> %s is in  </p>", inventory));
+								out.println(String.format("<p> %s is in  </p>", pLink));
+								out.println(String.format("<p> %s is in  </p>", vLink));
+								out.println(String.format("<p> %s is in  </p>", desc));
+								*/
+								try {
+									getConnection();
+									Statement ps = con.createStatement();
+									
+									PreparedStatement autokey = con.prepareStatement("select Max(suID) from Supplier");
+									ResultSet rs = autokey.executeQuery(); //fake auto key but works the same
+									rs.next();
+
+									String suID = "" + (rs.getInt(1)+1);
+									if (suID.equals(""))
+										suID = "" + 99;
+									autokey.close();
+
+									String sqlSup = String.format("insert into Supplier values(%s,'%s','%s', '%s');",suID,name,phoneNum,descr);
+
+									String sqlAddr = String.format("insert into CustAddress values('%s','%s','%s','%s',%s,%s);",address,provinceOrState,country,postalCode,cID,suID);
+									
+									ps.executeUpdate(sqlSup);
+									ps.executeUpdate(sqlAddr);
+									
+									ps.close();
+								} catch (SQLException ex) {
+									out.println(ex);
+								}
+								
+								
+							%>
+
+
+
+						</div>
+
+						<!-- UPDATE warehouse TAB -->
+						<div id="prod4" class="tab-pane fade">
+							<h3>Update Warehouse</h3>
+
+
+							<!-- Pre Form to Fill in old information -->
+							<form class="form-horizontal">
+								<div class="well">
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="sid">Supplier
+											Id</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="sid">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-offset-2 col-sm-10">
+											<button type="submit" class="btn btn-success">Retrieve
+												Warehouse info</button>
+										</div>
+									</div>
+								</div>
+							</form>
+
+							<!-- UPDATE Warehouse FORM -->
+							<form class="form-horizontal">
+
+								<h4>General Information</h4>
+								<div class="well">
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="sname">Supplier
+											Name</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="sname">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="sphone">Supplier
+											Phone Number</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="sphone">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="desc">Supplier
+											Description</label>
+										<div class="col-sm-10">
+											<textarea class="form-control" rows="3" id="desc"></textarea>
+										</div>
+									</div>
+								</div>
+
+								<h4>Location information</h4>
+								<div class="well">
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="adress">Address</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="address">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="provstate">Province/State</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="provstate">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="country">Country</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="country">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="zip">Postal
+											Code</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="zip">
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<button type="submit" class="btn btn-success">Save
+											Warehouse</button>
+									</div>
+								</div>
+							</form>
+						</div>
+
+						<!-- close menu tabs -->
+					</div>
+				</div>
+
+
+
+
+
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>

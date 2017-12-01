@@ -207,7 +207,7 @@ try
 		String imgURL = "https://paramountseeds.com/wp-content/uploads/2014/07/long-cucumber.jpg";
 		String realImg = rst.getString("image");
 		
-		if(!realImg.equals("Search"))
+		if(!realImg.equals("Search")&&(realImg.contains(":")))
 			imgURL=realImg;
 		
 		
