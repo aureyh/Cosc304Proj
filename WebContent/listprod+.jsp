@@ -222,7 +222,7 @@ try
 		
 		out.print("<div class=\"col-sm-4\"><table align=\"Left\">");
 		//add to cart
-		out.print(String.format("<tr><td><a class=\"btn btn-success\"href=\"addcart.jsp?id=%d&name=%s&price=%f\">Add to Cart</a></td></tr>",rst.getInt(1),rst.getString(2),rst.getDouble(3)));
+		out.print(String.format("<tr><td><a class=\"btn btn-success\"href=\"addcart.jsp?id=%d&name=%s&price=%s\">Add to Cart</a></td></tr>",rst.getInt(1),rst.getString(2),""+rst.getBigDecimal(3)));
 		
 		String itemCategory = rst.getString("tag");
 	
