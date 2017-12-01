@@ -19,11 +19,11 @@
   height: auto;
 }
  
-  body {padding-top: 50px;}
+ body { padding-top: 50px; }
   
   .navbar {
     margin-bottom: 0;
-    background-color: #60606C;
+    background-color: #000000;
     z-index: 9999;
     border: 0;
     font-size: 12px !important;
@@ -38,7 +38,7 @@
 
 .navbar-nav li a:hover, .navbar-nav li.active a {
     color: ##CD5F0F !important;
-    background-color: #fff !important;
+    background-color: #5D6D7E !important;
 }
 
 .navbar-default .navbar-toggle {
@@ -46,6 +46,11 @@
     color: #fff !important;
 }
 
+.navbar-default .navbar-nav .open .dropdown-menu>li>a, .navbar-default .navbar-nav .open .dropdown-menu {
+    background-color: #000000;
+    color:#ffffff;
+  }
+ 
 
   
  </style> 
@@ -53,11 +58,12 @@
 </head>
 <body>
 
+
+
 <div class="navbar navbar-fixed-top">
 <div class="collapse navbar-collapse" id="navbarNav">
 
-<a class="navbar-brand">INFORMIRACLES</a>
-
+<a class="navbar-brand" href="shop.jsp"><img src="https://i.imgur.com/sKH1glA.png"></a>
 
 
 <form>

@@ -1,15 +1,109 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <%@ include file="jdbc.jsp" %>
-<%@ page import ="java.sql.*" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.util.Map" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Product Info</title>
+  <title >INFORMIRACLES</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  
+  
+  
+  <style>
+  .navbar-brand,
+.navbar-nav li a {
+    line-height: 100px;
+    height: 100px;
+    padding-top: 0;
+}
+  
+  .img-fluid {
+  max-width: 300%;
+  height: auto;
+  
+}
+ body { padding-top: 120px; }
+  
+  .navbar {
+    margin-bottom: 0;
+    background-color: #000000;
+    z-index: 9999;
+    border: 0;
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+}
+
+.navbar li a, .navbar .navbar-brand {
+    color: #fff !important;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+    color: ##CD5F0F !important;
+    background-color: #5D6D7E !important;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff !important;
+}
+
+.navbar-default .navbar-nav .open .dropdown-menu>li>a, .navbar-default .navbar-nav .open .dropdown-menu {
+    background-color: #000000;
+    color:#ffffff;
+  }
+ 
+
+  
+ </style> 
+  
 </head>
 <body>
+
+
+
+<div class="navbar navbar-fixed-top">
+<div class="collapse navbar-collapse" id="navbarNav">
+
+<a class="navbar-brand" href="shop.jsp"><img src="https://i.imgur.com/sKH1glA.png"></a>
+
+
+
+
+
+
+<ul class="nav navbar-nav navbar-right" id="myNavbar">
+
+ <li><a href="listOrders">ORDERS</a></li>
+		<li class="nav-item"><a href="#about">ABOUT</a></li>
+        <li class="nav-item"><a href="Admin.jsp">SIGN IN</a></li>
+        <li class="nav-item"><a href="#cart">CART</a></li>
+		</div>
+</ul>
+
+
+</div>
+</div>
+
+
+<div class="row">
+				
+
+
 <%
 
 /**
@@ -42,39 +136,41 @@ ResultSet rst2 = ps2.executeQuery();
 
 //This prints the add cart, as well as the product information
 while(rst.next()){
+	String imgsrc=rst.getString("image");
+	out.print("<div class=\"col col-sm-4\" ALIGN=CENTER>");
 	
-	out.print("<a href=\"addcart.jsp?id=" + rst.getInt(1) + "&name=" +rst.getString(2)
-	+ "&price=" + rst.getBigDecimal(4) + "\">Add to Cart</a></td>");
+	out.print(String.format("<td><td><img src=\"%s\" class=\"img-fluid\" alt=\"Responsive image\"></td>",imgsrc));
 	
-	out.print("<table><tr><th>Product Id</th><th>Product Name</th><th>Price</th></tr>");
+	out.print("</div>");
+	out.print("<div class=\"col col-sm-4\">");
 	
-	out.print("<tr><td>"+ rst.getInt(1)+"</td><td>"+rst.getString(2)+"</td><td>"+rst.getBigDecimal(4)+"</td></tr>");	
+	out.print("<table>");
+	out.print(String.format("<tr><td><a class=\"btn btn-success\" href=\"addcart.jsp?id=%d\"&name=%s&price=%s\">Add to Cart</a></td></tr>",rst.getInt(1),rst.getString(2),""+rst.getBigDecimal(4)));
 	
-	out.print("\n" + "Description: "+ rst.getString(3));
-	out.print("\n"+"Video Link: "+ rst.getString(5));
-	out.print( "\n" + rst.getString(7));
+	
+	
+	out.print(String.format("<tr><td>%d</td></tr><tr><td>%s</td></tr><tr><td>%s</td></tr><tr><td>%s</td></tr><tr><td>%s</td></tr>",rst.getInt(1),rst.getString(2),""+rst.getBigDecimal(4),rst.getString(3),rst.getString(5),rst.getString(7)));
+	
+	out.print("</table>");
+	out.print("</div>");
+	out.print("</div>");
 }
 
-
+session.setAttribute("prodID",id);
 
 //This is where the reviews are printed
 %>
-Heres what People are saying about this product<br/>
-<%
-while(rst2.next()){
-	out.print("<table><tr><td>Stars: </td><td>Comments: </td></tr>");
-	out.println("<tr><td>" + rst2.getString(2) + "</td><td>" + rst2.getString(3) + "</td></tr>");
-	}
 
-out.print("</table></table>");
+</div>
 
-//everything here is used for writing the review and sending it.
-out.print("<form method=\"post\" action=\"review.jsp\">");
+<form action=review.jsp>
+<div class="container">
+					<table class="table table-striped">
+						
+						<tbody>
 
-session.setAttribute("prodID",id);
-%>
 
-<table>
+
 <tr><td>Rank This Product</td><td><select name="stars">
   <option value=1>1</option>
   <option value=2>2</option>
@@ -84,9 +180,33 @@ session.setAttribute("prodID",id);
 </select>
 <tr><td>Leave a Review</td><td><textarea name="rev" rows="10" cols="50"></textarea></td></tr>
 <tr><td><input type="submit" value="Submit"></td><td><input type="reset" value="Reset"></td></tr>
-</table>
+</tbody></table></div>
 </form>
 
-<%con.close(); %>
-</body>
-</html>
+<h2>Reviews</h2>
+
+<div class="container">
+<table class="table table-striped">
+<tbody>
+<%
+while(rst2.next()){
+	out.print("<tr><td>Stars: </td><td>Comments: </td></tr>");
+	out.println("<tr><td>" + rst2.getString(2) + "</td><td>" + rst2.getString(3) + "</td></tr>");
+	}
+
+out.print("</table>");
+
+
+
+
+con.close();
+%>
+
+</tbody></table></div>
+
+</BODY>
+</HTML> 
+
+
+
+

@@ -1,19 +1,120 @@
 <%@ page import="java.sql.*" %>
+<%@ page import="java.util.HashMap" %>
 <%@ page import="java.text.NumberFormat" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
+<%@ include file="jdbc.jsp" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.util.Map" %>
-<%@ include file="jdbc.jsp" %>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Ray's Grocery Order Processing</title>
+  <title >INFORMIRACLES</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  
+  
+  
+  <style>
+  .navbar-brand,
+.navbar-nav li a {
+    line-height: 100px;
+    height: 100px;
+    padding-top: 0;
+}
+  
+  .img-fluid {
+  max-width: 50%;
+  height: auto;
+  
+}
+ body { padding-top: 80px; }
+  
+  .navbar {
+    margin-bottom: 0;
+    background-color: #000000;
+    z-index: 9999;
+    border: 0;
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+}
+
+.navbar li a, .navbar .navbar-brand {
+    color: #fff !important;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+    color: ##CD5F0F !important;
+    background-color: #5D6D7E !important;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff !important;
+}
+
+.navbar-default .navbar-nav .open .dropdown-menu>li>a, .navbar-default .navbar-nav .open .dropdown-menu {
+    background-color: #000000;
+    color:#ffffff;
+  }
+ 
+
+  
+ </style> 
+  
 </head>
 <body>
-        
-<%@ include file="header.jsp" %>
 
+
+
+<div class="navbar navbar-fixed-top">
+<div class="collapse navbar-collapse" id="navbarNav">
+
+<a class="navbar-brand" href="shop.jsp"><img src="https://i.imgur.com/sKH1glA.png"></a>
+
+
+
+
+
+
+<ul class="nav navbar-nav navbar-right" id="myNavbar">
+
+ <li><a href="listOrders">ORDERS</a></li>
+		<li class="nav-item"><a href="#about">ABOUT</a></li>
+        <li class="nav-item"><a href="Admin.jsp">SIGN IN</a></li>
+        <li class="nav-item"><a href="#cart">CART</a></li>
+		</div>
+</ul>
+
+
+</div>
+</div>
+
+<div class="well">
+
+
+<div class="container">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Product Id</th>
+								<th>Product Name</th>
+								<th>Quantity</th>
+								<th>Price</th>
+								<th>SupTotal</th>
+
+							</tr>
+						</thead>
+						<tbody>
 <%
 /**
 *TODO:ALTER FOR NEW DDL
@@ -75,7 +176,7 @@ try
 			// make sure the password on the database is the same as the one the user entered
 			if (!dbpassword.equals(password)) 
 			{
-				out.println("The password you entered was not correct.  Please go back and try again.<br>"); 
+				out.println("<h2>The password you entered was not correct.  Please go back and try again.<h2>"); 
 				return;
 			}
 		
@@ -100,8 +201,8 @@ try
    			//keys.next();
    			//orderId = keys.getInt(1);
 
-   			out.println("<h1>Your Order Summary</h1>");
-         	  	out.println("<table><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th><th>Price</th><th>Subtotal</th></tr>");
+   			out.println("<h1><strong>Your Order Summary</strong></h1>");
+         	 
 
            	double subtotal =0;
 			double taxes=0;
@@ -116,12 +217,12 @@ try
    				String productId = (String) product.get(0);
                    out.print("<tr><td>"+productId+"</td>");
                    out.print("<td>"+product.get(1)+"</td>");
-   				out.print("<td align=\"center\">"+product.get(3)+"</td>");
+   				out.print("<td>"+product.get(3)+"</td>");
                    String price = (String) product.get(2);
                    double pr = Double.parseDouble(price);
                    int qty = ( (Integer)product.get(3)).intValue();
-   				out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
-                  	out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td></tr>");
+   				out.print("<td>"+currFormat.format(pr)+"</td>");
+                  	out.print("<td >"+currFormat.format(pr*qty)+"</td></tr>");
                    out.println("</tr>");
                    subtotal = subtotal +pr*qty;
 
@@ -141,7 +242,7 @@ try
           	
            	out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"
                           	+"<td aling=\"right\">"+currFormat.format(total)+"</td></tr>");
-           	out.println("</table>");
+           	
 
    			// Update order total
    			sql = "UPDATE Orders SET totalPrice=? WHERE oID=?";
@@ -150,9 +251,12 @@ try
    			pstmt.setInt(2, orderId);			
    			pstmt.executeUpdate();						
 
-   			out.println("<h1>Order completed.  Will be shipped soon...</h1>");
-   			out.println("<h1>Your order reference number is: "+orderId+"</h1>");
-   			out.println("<h1>Shipping to customer: "+custId+" Name: "+custName+"</h1>");
+   			
+   			out.println("</tbody></table></div>");
+   			
+   			
+   			out.println("</div><div class=\"well\"><h1>Thank you for your purchace "+custName+"!</h1><h1> Your order is on it's way.</h1>");
+   			out.println("<h2>Order reference number is: "+orderId+"</h2>");
 
    			// Clear session variables (cart)
    			session.setAttribute("productList", null);    
@@ -175,7 +279,11 @@ finally
 }  
 %>                       				
 
-<h2><a href="shop.html">Back to Main Page</a></h2>
+<h2><a href="shop.jsp" class="btn btn-success">Back to Main Page</a></h2>
 
-</body>
-</html>
+
+
+</BODY>
+</HTML> 
+
+
