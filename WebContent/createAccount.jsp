@@ -81,13 +81,13 @@
   </div>
 </nav>
 		
-	<form method="post" action="login.jsp">
+	<form method="post" action="login.jsp" id=loginForm>
 		<div class="loginContainer">
 			<h3>Sign in to your account</h3>
 			 <label><b>Email</b></label>
- 	 	     <input type="text" placeholder="Enter Email" name="email" required>	
+ 	 	     <input type="text" placeholder="Enter Email" name="email" id="loginemail" required>	
  		     <label><b>Password</b></label>
- 		     <input type="password" placeholder="Enter Password" name="psw" required>    
+ 		     <input type="password" placeholder="Enter Password" name="pass" id="loginpass" required>    
  		     <button id="loginButton">Sign In</button>
 		</div>
 	</form>
@@ -156,18 +156,21 @@
 <script type="text/javascript">
 
 let form = document.getElementById('signupForm');
+let form2 = document.getElementById('loginForm');
+
 form.addEventListener('submit', function(e) {
 	  e.preventDefault()
+	  form2.submit();
 	  if(isValid())
 		  form.submit();
 })
 
 function isValid(){
-	let email = document.getElementById("email");
-	let confirmEmail = document.getElementById("confirmEmail");
-	let pass = document.getElementById("pass");
-	let confirmPass = document.getElementById("confirmPass");
-	let errorBox =  document.getElementById("errorBox");
+	var email = document.getElementById("email");
+	var confirmEmail = document.getElementById("confirmEmail");
+	var pass = document.getElementById("pass");
+	var confirmPass = document.getElementById("confirmPass");
+	var errorBox =  document.getElementById("errorBox");
 	var noErrors = true;
 	
 	console.log(email.value);

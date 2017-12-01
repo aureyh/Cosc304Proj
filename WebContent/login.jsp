@@ -5,14 +5,21 @@
 <%@ page import = "java.sql.*"%>
 
 <%
-    String email = request.getParameter("email");    
-    String pass = request.getParameter("pass");
+    String email = request.getParameter("loginemail");    
+    String pass = request.getParameter("loginpass");
+    out.println(email);
+    out.println(pass);
+    //String email = "aandrews@amail.com";
+    //String pass = "pass1";
     
     //connect to db
     con = DriverManager.getConnection(url, uid, pw);
-    Statement st = con.createStatement();
-    ResultSet rst;
-    rst = st.executeQuery("select * from customers where userEmail=email and pass=password");
+    String sql = "select * from customer where userEmail=? and password=?";
+    PreparedStatement pstmt = con.prepareStatement(sql);
+    pstmt.setString(1, email);
+    pstmt.setString(2, pass);
+    ResultSet rst = pstmt.executeQuery();
+    
     if (rst.next()) {
         session.setAttribute("email", email);
         //out.println("welcome " + userid);

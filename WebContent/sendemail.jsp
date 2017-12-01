@@ -1,7 +1,7 @@
 <%@ page import = "java.io.*,java.util.*,javax.mail.*"%>
 <%@ page import = "javax.mail.internet.*,javax.activation.*"%>
 <%@ page import = "javax.servlet.http.*,javax.servlet.*" %>
-<%@ include file="jdbc.jsp" %>
+<%@ include file="jdbc.jsp"%>
 <%@ page import = "java.sql.*"%>
 
 <%
@@ -9,16 +9,38 @@
 final String uuid = UUID.randomUUID().toString().replace("-", "");
 
 //get user email from account creation
-String sentTo;
+String sentTo = request.getParameter("resetemail");
+
+//Get database connection
+getConnection();
+con = DriverManager.getConnection(url, uid, pw);
+
+//get customer row by email
+String sql = "Select * from Customer where userEmail =?";
+PreparedStatement pstmt = con.prepareStatement(sql);
+pstmt.setString(1, sentTo);	
+ResultSet rst = pstmt.executeQuery();
+
+//set uuid in db
+String sql2 = "UPDATE Customer SET Uuid =? WHERE userEmail =?";
+PreparedStatement pstmt2 = con.prepareStatement(sql2);
+pstmt2.setString(1, uuid);
+pstmt2.setString(2, sentTo);
+pstmt2.executeUpdate();
+
+
 
 //sender emaail
 final String sentFrom = "infomiracleshelp@gmail.com";
 final String sentPw = "infomiracles";
 String d_port = "465";
 //email subject
-String sub = "Email Verification for Infomiracles";
+String sub = "Password Reset Request for infomiracles";
 //email contents
-String msg = "email message";
+String msg = "http://localhost:8080/304_lab7_bonus/resetPassword.jsp?";
+msg += uuid;
+msg += "\n";
+msg += "Please click the link above to reset your password.";
 		
 String host = "localhost";
 

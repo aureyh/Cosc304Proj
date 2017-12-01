@@ -1,173 +1,202 @@
-DROP TABLE OrderedProduct;
+DROP TABLE HasTag;
+DROP TABLE ItemInOrder;
+DROP TABLE ItemInCart;
+DROP TABLE Suggestion;
+DROP TABLE Review;
+DROP TABLE ShippedProduct;
+DROP TABLE PaymentInfo;
+DROP TABLE CustAddress;
+DROP TABLE Shipment;
 DROP TABLE Orders;
+DROP TABLE Tags;
 DROP TABLE Product;
+DROP TABLE Supplier;
 DROP TABLE Customer;
 
-CREATE TABLE Product (
-   productId	int NOT NULL,
-   productName	varchar(50),
-   categoryName	varchar(50),
-   packageDesc	varchar(50),
-   price	decimal(9,2),
-   PRIMARY KEY (ProductId)
-);
+
+create table Customer(
+	cID integer NOT NULL,
+	firstName varchar(20),
+	lastName varchar(20),
+	birthdate date,
+	phoneNum varchar(12),
+	userEmail varchar(30) unique,
+	password varchar(30),
+	Uuid varchar(36),
+	accType varchar(15),
+	primary key (cID)
+	);
+	
+create table Supplier(
+	suID integer NOT NULL,
+	name varchar(20),
+	phoneNum varchar(12),
+	descr varchar(256),
+	primary key (suID)
+	)
+	
+create table Product(
+	pID integer,
+	name varchar(20),
+	description varchar(500),
+	price decimal,
+	videoLink varchar(50),
+	inventory integer,
+	image varchar(200),
+	tag varchar(20),
+	primary key (pID)
+	);
+	
+
+	
+create table Orders(
+	oID integer NOT NULL,
+	orderDate date,
+	totalPrice decimal(9,2),
+	shipDate date,
+	cID integer,
+	primary key (oID),
+	foreign key (cID) references Customer (cID)
+		on delete set null on update cascade
+	);
+	
+create table Shipment(
+	sID integer,
+	estimateCost decimal(9,2),
+	suID integer,
+	primary key (sID),
+	foreign key (suID) references Supplier (suID)
+		on delete set null on update cascade
+	);
 
 
-CREATE TABLE Customer (
-   customerId 	int NOT NULL auto_increment PRIMARY KEY,
-   password	VARCHAR(20) NOT NULL,
-   cname 	VARCHAR(50) NOT NULL,
-   street 	VARCHAR(50),
-   city 	VARCHAR(20),
-   state 	VARCHAR(2),
-   zipcode 	VARCHAR(10),
-   phone 	VARCHAR(10),
-   email 	VARCHAR(30) NOT NULL
-);
+create table CustAddress(
+	address varchar(30),
+	provinceOrState varchar(20),
+	country varchar(20),
+	postalCode varchar(6),
+	cID integer,
+	suID integer,
+	primary key (address, cID, suID),
+	foreign key (cID) references Customer (cID)
+		On delete cascade on update cascade,
+	foreign key (suID) references Supplier (suID)
+		On delete cascade on update cascade
+	);
+
+create table PaymentInfo(
+	cardID integer,
+	cardNum varchar(16),
+	cardType varchar(10),
+	cID integer,
+	suID integer,
+	address varchar(30) unique,
+	primary key (cardID),
+	foreign key (address,cID,suID) references CustAddress (address,cID,suID)
+		On delete set null on update cascade
+	);
+	
+create table ShippedProduct(
+	pID integer,
+	sID integer,
+	quantity integer,
+	primary key (pID, sID),
+	foreign key (pID) references Product (pID)
+		on delete cascade on update cascade,
+	foreign key (sID) references Shipment (sID)
+		on delete cascade on update cascade
+	);
+
+create table Review(
+	revID integer,
+	stars char(1),
+	comments varchar(256), 
+	cID integer,
+	pID integer,
+	datePosted date,
+	primary key (revID),
+	foreign key (cID) references Customer (cID)
+		on delete set null on update cascade,
+	foreign key (pID) references Product (pID)
+		on delete set null on update cascade
+	);
+
+create table Suggestion(
+	tagID integer,
+	tagTally integer,
+	pID integer,
+	cID integer,
+	primary key (tagID),
+	foreign key (pID) references Product (pID)
+		on delete set null on update cascade,
+	foreign key (cID) references Customer (cID)
+		on delete set null on update cascade
+	);
+
+create table ItemInCart(
+	cID integer,
+	pID integer,
+	primary key (cID, pID),
+	foreign key (cID) references Customer (cID)
+		on delete cascade on update cascade,
+	foreign key (pID) references Product (pID)
+		on delete cascade on update cascade
+	);
+
+create table ItemInOrder(
+	pID integer,
+	oID integer,
+	primary key (pID, oID),
+	foreign key (pID) references Product (pID)
+		on delete cascade on update cascade,
+	foreign key (oID) references Orders (oID)
+		on delete cascade on update cascade
+	);
 
 
-CREATE TABLE Orders (
-   orderId 	int 	NOT NULL IDENTITY PRIMARY KEY,
-   customerId 	int,
-   totalAmount 	decimal(9,2)
-   CONSTRAINT FK_Orders_Customer FOREIGN KEY (customerId) REFERENCES customer(customerId)
-);
+	
+INSERT Product VALUES (1,'Awesome Auger','Take the hard work out of yard work.',29.01,'https://www.youtube.com/watch?v=Ir9TAYMcFWw',100,'https://i.imgur.com/PJGgyvV.png','Yard');
+INSERT Product VALUES (2,'Cheers to You','A life-affirmirming, motivational CD to eliminate your doom and gloom.',8.99,'https://www.youtube.com/watch?v=o50_ZlMnjqY',66,'https://i.pinimg.com/736x/8a/5b/07/8a5b07c76161a0cfcbd7fd44c1556365--cheer-a-well.jpg','Home');
+INSERT Product VALUES (3,'Clapper','Clap on, clap off light switch.',	22.95,'https://www.youtube.com/watch?v=Ny8-G8EoWOw',79,'https://images-na.ssl-images-amazon.com/images/I/71No5UQaX1L._SX342_.jpg','Home');
+INSERT Product VALUES (4,'Fidget Spinner','The toy that spins, on ball bearings, up to five minutes straight!',3.89,'https://www.youtube.com/watch?v=xCCXCJO4FDE',299,'https://m.media-amazon.com/images/S/aplus-seller-content-images-us-east-1/ATVPDKIKX0DER/ANGIJ9SDJJSQC/B072J7MV6V/3XjD1SWwT66G._UX300_TTW__.png','Msc');
+INSERT Product VALUES (5,'Floam','Silly Putty, but foamier.',15.05,'https://www.youtube.com/watch?v=OwiAbiGP0xA',40,'https://soft.cutesquishy.com/images/product_images/large_img/teal-microbead-slime-with-case-kawaii-floam-mud-clay-jelly-DIY--214273-1.jpg','Msc');
+INSERT Product VALUES (6,'Happy Hot Dog Man','Make dinner exciting and create your own hot dog man.',5.65,'https://www.youtube.com/watch?v=CUTPCEA-al0',148,'https://images-na.ssl-images-amazon.com/images/I/31fgZsq9mPL._SX300_.jpg','Kitchen');
+INSERT Product VALUES (7,'Hawaii Chair','Electric hula-hooping, swivel chair.',43.99,'https://www.youtube.com/watch?v=E9_amg-Aos4',69,'http://img.allw.mn/content/zb/ks/ho56z3055595aa2fe3d72289117760.jpg','Office');
+INSERT Product VALUES (8,'Hercules Hook','A hook with the strength of a hero.',11.55,'https://www.youtube.com/watch?v=sF-IWJEQuEQ',29,'http://www.drywallinfo.com/drywall-news/wp-content/uploads/2009/04/hercules-hooks.jpg','Home');
+INSERT Product VALUES (9,'Licki Brush','Lick your cat, like a cat.',23.11,'https://www.youtube.com/watch?v=3hPMc89sKhk',280,'https://images-na.ssl-images-amazon.com/images/I/61rhwdvDXIL._SY400_.jpg','Home');
+INSERT Product VALUES (10,'Life Alert','I have fallen and I cannot get up! The portable alarm button.',19.95,'https://www.youtube.com/watch?v=gh0Sslh9JKA',78,'http://www.lifealert.com/mobile/img/our-equipment.png','Home');
+INSERT Product VALUES (11,'Mighty Putty','A powerful bonding epoxy stick that you can mold to any shape and can apply to any surface for an everlasting bond.',19.99,'https://www.youtube.com/watch?v=nkuReA-AGa8',358,'https://hips.hearstapps.com/pop.h-cdn.co/assets/cm/15/05/54ca7f92a3d53_-_mighty-putty-500x375-0209-lg.jpg','Yard');
+INSERT Product VALUES (12,'Magic Air Cushion','Neck pain therapy that allows you to stretch out your neck and let your muscles relax.',25.76,'https://www.youtube.com/watch?v=zzd73Ubx8KY',105,'https://www.ltdcommodities.com/images/product/3395_mn1.jpg','Home');
+INSERT Product VALUES (13,'OxiClean','Verstile laundry stain remover, to remove your toughest stains.',10.98,'https://www.youtube.com/watch?v=2PU8ZxQj7eE',99,'https://images-na.ssl-images-amazon.com/images/I/61xMPiowKhL._SY450_.jpg','Home');
+INSERT Product VALUES (14,'Pet Rock','Complete with breathable carrier box, this pet is a strong companion for life.',4.21,'https://www.youtube.com/watch?v=7tR2dz4_o4E',420,'http://www.brisbanekids.com.au/wp-content/uploads/2012/02/pet-rock.jpg','Home');
+INSERT Product VALUES (15,'Schticky','A three-piece, washable, reusable lint roller.',15.99,'https://www.youtube.com/watch?v=VAQjF5RPgbg',5,'https://s.productreview.com.au/products/images/b6_50ed04295fe81.jpg','Home');
+INSERT Product VALUES (16,'Shake Weight','A modified dumbbell that oscillates, increasing the effects of exercise.',18.99,'https://www.youtube.com/watch?v=rwIJlEsIVZQ',73,'https://images-na.ssl-images-amazon.com/images/I/31yJZRTzyKL.jpg','Home');
+INSERT Product VALUES (17,'ShamWow','Made of super-absorbent cloth that will not scratch surfaces and lasts for years, unlike paper towels and other cleaning cloths.',19.95,'https://www.youtube.com/watch?v=23zGquwJfbw',96,'https://images-na.ssl-images-amazon.com/images/I/312ukwUx27L.jpg','Kitchen');
+INSERT Product VALUES (18,'Slap Chop','You are gonna be slapping your troubles away with the slap chop, a manual chopping machine.',19.99,'https://www.youtube.com/watch?v=pPKtBM99kAc',55,'https://my-live-02.slatic.net/p/3/slap-chop-food-chopper-1483504147-8023261-af95347d634fb187464f7d52323d3085.jpg','Kitchen');
+INSERT Product VALUES (19,'Snuggy','A body-length blanket with sleeves usually made of fleece or nylon material.',25.39,'https://www.youtube.com/watch?v=2xZp-GLMMJ0',30,'http://cdn.sparkfun.com/newsimages/TEDx/Snuggy.jpg','Kitchen');
+INSERT Product VALUES (20,'Tiddy Bear','Comfort strap, making seatbelt waering more comfortable.',5.99,'https://www.youtube.com/watch?v=gw1g2yKxb0I',21,'https://i.imgur.com/Q5RsET7.png','Car');
 
 
-CREATE TABLE OrderedProduct (
-   orderId       int	NOT NULL,
-   productId     int	NOT NULL,
-   quantity      int,
-   price         decimal(9,2),
-   PRIMARY KEY (OrderId, ProductId),
-   CONSTRAINT FK_OrderedProduct_Order FOREIGN KEY (OrderId) REFERENCES Orders (OrderId),
-   CONSTRAINT FK_OrderedProduct_Product FOREIGN KEY (ProductId) REFERENCES Product (ProductId)
-);
+INSERT Customer VALUES (1, 'Archie', 'Andrews', '1991-01-01','111-222-3333','aandrews@amail.com','pass1','a1a1',null);
+INSERT Customer VALUES (2, 'Betty', 'Boop', '1992-02-02','222-333-4444','bboop@bmail.com','pass2','b2b2',null);
+INSERT Customer VALUES (3, 'Charlie', 'Chaplin', '1991-03-03','333-444-5555','cchaplin@cmail.com','pass3','c3c3',null);
+INSERT Customer VALUES (4, 'Debbie', 'Downer', '1991-04-04','444-555-6666','ddowner@dmail.com','pass4','d4d4',null);
+INSERT Customer VALUES (5, 'Ed', 'Eddie', '1991-05-05','555-666-7777','eeddie@email.com','pass5','e5e5',null);
+INSERT Customer VALUES (-1, 'DefaultSUP',null,null,null,null,null,null,null);
 
-INSERT Product VALUES(1,'Chai','Beverages','10 boxes x 20 bags',18.00);
-INSERT Product VALUES(2,'Chang','Beverages','24 - 12 oz bottles',19.00);
-INSERT Product VALUES(3,'Aniseed Syrup','Condiments','12 - 550 ml bottles',10.00);
-INSERT Product VALUES(4,'Chef Anton''s Cajun Seasoning','Condiments','48 - 6 oz jars',22.00);
-INSERT Product VALUES(5,'Chef Anton''s Gumbo Mix','Condiments','36 boxes',21.35);
-INSERT Product VALUES(6,'Grandma''s Boysenberry Spread','Condiments','12 - 8 oz jars',25.00);
-INSERT Product VALUES(7,'Uncle Bob''s Organic Dried Pears','Produce','12 - 1 lb pkgs.',30.00);
-INSERT Product VALUES(8,'Northwoods Cranberry Sauce','Condiments','12 - 12 oz jars',40.00);
-INSERT Product VALUES(9,'Mishi Kobe Niku','Meat/Poultry','18 - 500 g pkgs.',97.00);
-INSERT Product VALUES(10,'Ikura','Seafood','12 - 200 ml jars',31.00);
-INSERT Product VALUES(11,'Queso Cabrales','Dairy Products','1 kg pkg.',21.00);
-INSERT Product VALUES(12,'Queso Manchego La Pastora','Dairy Products','10 - 500 g pkgs.',38.00);
-INSERT Product VALUES(13,'Konbu','Seafood','2 kg box',6.00);
-INSERT Product VALUES(14,'Tofu','Produce','40 - 100 g pkgs.',23.25);
-INSERT Product VALUES(15,'Genen Shouyu','Condiments','24 - 250 ml bottles',15.50);
-INSERT Product VALUES(16,'Pavlova','Confections','32 - 500 g boxes',17.45);
-INSERT Product VALUES(17,'Alice Mutton','Meat/Poultry','20 - 1 kg tins',39.00);
-INSERT Product VALUES(18,'Carnarvon Tigers','Seafood','16 kg pkg.',62.50);
-INSERT Product VALUES(19,'Teatime Chocolate Biscuits','Confections','10 boxes x 12 pieces',9.20);
-INSERT Product VALUES(20,'Sir Rodney''s Marmalade','Confections','30 gift boxes',81.00);
-INSERT Product VALUES(21,'Sir Rodney''s Scones','Confections','24 pkgs. x 4 pieces',10.00);
-INSERT Product VALUES(22,'Gustaf''s Knäckebröd','Grains/Cereals','24 - 500 g pkgs.',21.00);
-INSERT Product VALUES(23,'Tunnbröd','Grains/Cereals','12 - 250 g pkgs.',9.00);
-INSERT Product VALUES(24,'Guaraná Fantástica','Beverages','12 - 355 ml cans',4.50);
-INSERT Product VALUES(25,'NuNuCa Nuß-Nougat-Creme','Confections','20 - 450 g glasses',14.00);
-INSERT Product VALUES(26,'Gumbär Gummibärchen','Confections','100 - 250 g bags',31.23);
-INSERT Product VALUES(27,'Schoggi Schokolade','Confections','100 - 100 g pieces',43.90);
-INSERT Product VALUES(28,'Rössle Sauerkraut','Produce','25 - 825 g cans',45.60);
-INSERT Product VALUES(29,'Thüringer Rostbratwurst','Meat/Poultry','50 bags x 30 sausgs.',123.79);
-INSERT Product VALUES(30,'Nord-Ost Matjeshering','Seafood','10 - 200 g glasses',25.89);
-INSERT Product VALUES(31,'Gorgonzola Telino','Dairy Products','12 - 100 g pkgs',12.50);
-INSERT Product VALUES(32,'Mascarpone Fabioli','Dairy Products','24 - 200 g pkgs.',32.00);
-INSERT Product VALUES(33,'Geitost','Dairy Products','500 g',2.50);
-INSERT Product VALUES(34,'Sasquatch Ale','Beverages','24 - 12 oz bottles',14.00);
-INSERT Product VALUES(35,'Steeleye Stout','Beverages','24 - 12 oz bottles',18.00);
-INSERT Product VALUES(36,'Inlagd Sill','Seafood','24 - 250 g  jars',19.00);
-INSERT Product VALUES(37,'Gravad lax','Seafood','12 - 500 g pkgs.',26.00);
-INSERT Product VALUES(38,'Côte de Blaye','Beverages','12 - 75 cl bottles',263.50);
-INSERT Product VALUES(39,'Chartreuse verte','Beverages','750 cc per bottle',18.00);
-INSERT Product VALUES(40,'Boston Crab Meat','Seafood','24 - 4 oz tins',18.40);
-INSERT Product VALUES(41,'Jack''s New England Clam Chowder','Seafood','12 - 12 oz cans',9.65);
-INSERT Product VALUES(42,'Singaporean Hokkien Fried Mee','Grains/Cereals','32 - 1 kg pkgs.',14.00);
-INSERT Product VALUES(43,'Ipoh Coffee','Beverages','16 - 500 g tins',46.00);
-INSERT Product VALUES(44,'Gula Malacca','Condiments','20 - 2 kg bags',19.45);
-INSERT Product VALUES(45,'Røgede sild','Seafood','1k pkg.',9.50);
-INSERT Product VALUES(46,'Spegesild','Seafood','4 - 450 g glasses',12.00);
-INSERT Product VALUES(47,'Zaanse koeken','Confections','10 - 4 oz boxes',9.50);
-INSERT Product VALUES(48,'Chocolade','Confections','10 pkgs.',12.75);
-INSERT Product VALUES(49,'Maxilaku','Confections','24 - 50 g pkgs.',20.00);
-INSERT Product VALUES(50,'Valkoinen suklaa','Confections','12 - 100 g bars',16.25);
-INSERT Product VALUES(51,'Manjimup Dried Apples','Produce','50 - 300 g pkgs.',53.00);
-INSERT Product VALUES(52,'Filo Mix','Grains/Cereals','16 - 2 kg boxes',7.00);
-INSERT Product VALUES(53,'Perth Pasties','Meat/Poultry','48 pieces',32.80);
-INSERT Product VALUES(54,'Tourtière','Meat/Poultry','16 pies',7.45);
-INSERT Product VALUES(55,'Pâté chinois','Meat/Poultry','24 boxes x 2 pies',24.00);
-INSERT Product VALUES(56,'Gnocchi di nonna Alice','Grains/Cereals','24 - 250 g pkgs.',38.00);
-INSERT Product VALUES(57,'Ravioli Angelo','Grains/Cereals','24 - 250 g pkgs.',19.50);
-INSERT Product VALUES(58,'Escargots de Bourgogne','Seafood','24 pieces',13.25);
-INSERT Product VALUES(59,'Raclette Courdavault','Dairy Products','5 kg pkg.',55.00);
-INSERT Product VALUES(60,'Camembert Pierrot','Dairy Products','15 - 300 g rounds',34.00);
-INSERT Product VALUES(61,'Sirop d''érable','Condiments','24 - 500 ml bottles',28.50);
-INSERT Product VALUES(62,'Tarte au sucre','Confections','48 pies',49.30);
-INSERT Product VALUES(63,'Vegie-spread','Condiments','15 - 625 g jars',43.90);
-INSERT Product VALUES(64,'Wimmers gute Semmelknödel','Grains/Cereals','20 bags x 4 pieces',33.25);
-INSERT Product VALUES(65,'Louisiana Fiery Hot Pepper Sauce','Condiments','32 - 8 oz bottles',21.05);
-INSERT Product VALUES(66,'Louisiana Hot Spiced Okra','Condiments','24 - 8 oz jars',17.00);
-INSERT Product VALUES(67,'Laughing Lumberjack Lager','Beverages','24 - 12 oz bottles',14.00);
-INSERT Product VALUES(68,'Scottish Longbreads','Confections','10 boxes x 8 pieces',12.50);
-INSERT Product VALUES(69,'Gudbrandsdalsost','Dairy Products','10 kg pkg.',36.00);
-INSERT Product VALUES(70,'Outback Lager','Beverages','24 - 355 ml bottles',15.00);
-INSERT Product VALUES(71,'Fløtemysost','Dairy Products','10 - 500 g pkgs.',21.50);
-INSERT Product VALUES(72,'Mozzarella di Giovanni','Dairy Products','24 - 200 g pkgs.',34.80);
-INSERT Product VALUES(73,'Röd Kaviar','Seafood','24 - 150 g jars',15.00);
-INSERT Product VALUES(74,'Longlife Tofu','Produce','5 kg pkg.',10.00);
-INSERT Product VALUES(75,'Rhönbräu Klosterbier','Beverages','24 - 0.5 l bottles',7.75);
-INSERT Product VALUES(76,'Lakkalikööri','Beverages','500 ml',18.00);
-INSERT Product VALUES(77,'Original Frankfurter grüne Soße','Condiments','12 boxes',13.00);
+INSERT Supplier VALUES (1, 'Adam', '111-111-1111',null);
+INSERT Supplier VALUES (2, 'Ben', '222-222-2222',null);
+INSERT Supplier VALUES (3, 'Carl', '333-333-3333',null);
+INSERT Supplier VALUES (4, 'Dave', '444-444-4444',null);
+INSERT Supplier VALUES (5, 'Ethan', '555-555-5555',null);
+INSERT Supplier VALUES (-1,'DefaultCust',null,null);
 
-INSERT INTO Customer VALUES ( 1, 'password1', 'A. Anderson', '103 AnyWhere Street', 'Alabtraz', 'AL', '11111' ,'1234567890','aanderson@anywhere.com' );
-INSERT INTO Customer VALUES ( 2, 'badpass', 'B. Brown', '222 Bush Avenue', 'Boston', 'MA', '22222','2224449999','bbrown@bigcompany.com' );
-INSERT INTO Customer VALUES ( 3, 'AxBC12', 'C. Cole', '333 Central Crescent', 'Chicago', 'IL', '33333','3334445555','cole@charity.org' );
-INSERT INTO Customer VALUES ( 4, '1234abc', 'D. Doe', '444 Dover Lane', 'Detroit', 'MI', '44444','4445556666','doe@doe.com' );
-INSERT INTO Customer VALUES ( 5, 'ABCD1245', 'E. Elliott', '555 Everwood Street', 'Engliston', 'IA', '55555' ,'5556667777', 'engel@uiowa.edu');
+INSERT CustAddress VALUES ('1 Avenue', 'AL', 'United States', 'A1A1A1',1,5);
+INSERT CustAddress VALUES ('2 Boulevard', 'BC', 'Canada', 'B2B2B2',2,4);
+INSERT CustAddress VALUES ('3 Cathedral', 'CA', 'United States', 'C3C3C3',3,3);
+INSERT CustAddress VALUES ('4 Drive', 'SD', 'United States', 'D4D4D4',4,2);
+INSERT CustAddress VALUES ('5 Elsewhere', 'ON', 'Canada', 'E5E5E5',5,1);
 
-DECLARE @orderId int
-INSERT INTO Orders (customerId, totalAmount) VALUES (1,137.89)
-SELECT @orderId = @@IDENTITY
-INSERT INTO OrderedProduct VALUES (@orderId,10,1,31)
-INSERT INTO OrderedProduct VALUES (@orderId,20,1,81)
-INSERT INTO OrderedProduct VALUES (@orderId,30,1,25.89);
-
-DECLARE @orderId int
-INSERT INTO Orders (customerId, totalAmount) VALUES (2,47)
-SELECT @orderId = @@IDENTITY
-INSERT INTO OrderedProduct VALUES (@orderId,1,2,18)
-INSERT INTO OrderedProduct VALUES (@orderId,2,3,19)
-INSERT INTO OrderedProduct VALUES (@orderId,3,4,10);
-
-DECLARE @orderId int
-INSERT INTO Orders (customerId, totalAmount) VALUES (3,106.75)
-SELECT @orderId = @@IDENTITY
-INSERT INTO OrderedProduct VALUES (@orderId,5,5,21.35);
-
-DECLARE @orderId int
-INSERT INTO Orders (customerId, totalAmount) VALUES (4,140)
-SELECT @orderId = @@IDENTITY
-INSERT INTO OrderedProduct VALUES (@orderId,6,2,25)
-INSERT INTO OrderedProduct VALUES (@orderId,7,3,30);
-
-DECLARE @orderId int
-INSERT INTO Orders (customerId, totalAmount) VALUES (5, 2059.9)
-SELECT @orderId = @@IDENTITY
-INSERT INTO OrderedProduct VALUES (@orderId,8,3,40)
-INSERT INTO OrderedProduct VALUES (@orderId,18,2,62.5)
-INSERT INTO OrderedProduct VALUES (@orderId,28,4,45.6)
-INSERT INTO OrderedProduct VALUES (@orderId,38,6,263.5)
-INSERT INTO OrderedProduct VALUES (@orderId,48,3,12.75)
-INSERT INTO OrderedProduct VALUES (@orderId,58,1,13.25);
-
-DECLARE @orderId int
-INSERT INTO Orders (customerId, totalAmount) VALUES (1, 274.45)
-SELECT @orderId = @@IDENTITY
-INSERT INTO OrderedProduct VALUES (@orderId,50,1,16.25)
-INSERT INTO OrderedProduct VALUES (@orderId,51,2,53)
-INSERT INTO OrderedProduct VALUES (@orderId,52,3,7)
-INSERT INTO OrderedProduct VALUES (@orderId,53,4,32.80);
-
+INSERT Orders VALUES (1,'2017-01-03',30.99,'2017-01-08',2);
+INSERT Orders VALUES (2,'2017-04-06',15.99,'2017-01-08',2);
+INSERT Orders VALUES (3,'2017-01-09',20.99,'2017-01-10',3);
