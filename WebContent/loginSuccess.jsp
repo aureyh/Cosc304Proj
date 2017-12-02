@@ -20,7 +20,7 @@ You are not logged in<br/>
 %>
 Welcome <%=session.getAttribute("email")%>
 <%
-out.println("Thank you for registering, you will be redirected to login in 3 seconds.<meta http-equiv=\"refresh\" content=\"3;url=http://localhost:8080/304_lab7_bonus/shop.jsp\" />");
+out.println("Thank you for logging in, redirecting to main page in 3 seconds.<meta http-equiv=\"refresh\" content=\"3;url=http://localhost:8080/304_lab7_bonus/shop.jsp\" />");
 %>
 <%
     }

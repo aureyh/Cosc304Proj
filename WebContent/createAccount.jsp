@@ -85,10 +85,11 @@
 		<div class="loginContainer">
 			<h3>Sign in to your account</h3>
 			 <label><b>Email</b></label>
- 	 	     <input type="text" placeholder="Enter Email" name="email" id="loginemail" required>	
+ 	 	     <input type="text" placeholder="Enter Email" name="loginemail" id="loginemail" required>	
  		     <label><b>Password</b></label>
- 		     <input type="password" placeholder="Enter Password" name="pass" id="loginpass" required>    
+ 		     <input type="password" placeholder="Enter Password" name="loginpass" id="loginpass" required>    
  		     <button id="loginButton">Sign In</button>
+ 		     <a href="forgotPassword.jsp">Forgot password?</a>
 		</div>
 	</form>
 	
@@ -161,6 +162,7 @@ let form2 = document.getElementById('loginForm');
 form.addEventListener('submit', function(e) {
 	  e.preventDefault()
 	  form2.submit();
+	  //console.log(loginpass + " " + loginemail)
 	  if(isValid())
 		  form.submit();
 })

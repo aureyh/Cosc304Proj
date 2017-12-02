@@ -7,5 +7,5 @@
 <%
 session.setAttribute("email", null);
 session.invalidate();
-response.sendRedirect("shop.html");
+response.sendRedirect("shop.jsp");
 %>

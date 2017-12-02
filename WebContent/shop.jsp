@@ -129,7 +129,21 @@ catch (SQLException ex)
 
  <li><a href="listorder.jsp">ORDERS</a></li>
 		<li class="nav-item"><a href="listprod+.jsp">ABOUT</a></li>
-        <li class="nav-item"><a href="#signIn">SIGN IN</a></li>
+		<%
+                String email= (String) session.getAttribute("email");                     
+                if (email == null) {
+        %>
+        <li class="nav-item"><a href="createAccount.jsp">SIGN IN | Register</a></li>
+        <%
+                }
+                else{
+                	
+                	%>
+                    <li>Hi, <%=email %>  (<a href="logout.jsp">Logout</a>)</li>
+                    <li class="nav-item"><a href="accountPage.jsp">Account</a></li>
+                <%
+                }
+                %>
         <li class="nav-item"><a href="#cart">CART</a></li>
 		</div>
 </ul>

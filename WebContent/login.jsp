@@ -7,10 +7,10 @@
 <%
     String email = request.getParameter("loginemail");    
     String pass = request.getParameter("loginpass");
-    out.println(email);
-    out.println(pass);
     //String email = "aandrews@amail.com";
     //String pass = "pass1";
+    out.println(email);
+    out.println(pass);
     
     //connect to db
     con = DriverManager.getConnection(url, uid, pw);
