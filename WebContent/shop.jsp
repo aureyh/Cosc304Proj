@@ -133,15 +133,16 @@ catch (SQLException ex)
                 String email= (String) session.getAttribute("email");                     
                 if (email == null) {
         %>
-        <li class="nav-item"><a href="createAccount.jsp">SIGN IN | Register</a></li>
+        <li class="nav-item"><a href="createAccount.jsp">SIGN IN | REGISTER</a></li>
         <%
                 }
                 else{
-                	
-                	%>
-                    <li>Hi, <%=email %>  (<a href="logout.jsp">Logout</a>)</li>
-                    <li class="nav-item"><a href="accountPage.jsp">Account</a></li>
-                <%
+                	String accName = email.substring(0, email.indexOf('@')).toUpperCase();
+                	  out.print(String.format("<li class=\"nav-item\"><a href=\"accountPage.jsp\">%s</a></li>",accName));	
+                  out.print("<li class=\"nav-item\"><a href=\"logout.jsp\">LOGOUT</a></li>");
+                  
+                  
+               
                 }
                 %>
         <li class="nav-item"><a href="#cart">CART</a></li>
