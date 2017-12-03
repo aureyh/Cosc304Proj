@@ -3,9 +3,6 @@
 <%@ page import="java.text.NumberFormat" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <%@ include file="jdbc.jsp" %>
-<%@ page import="java.util.regex.*" %>
-<%@ page import="java.util.ArrayList.*" %>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,17 +13,24 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style>
+    <style>
   .img-fluid {
-  max-width: 25%;
+  max-width: 50%;
   height: auto;
+  
 }
- 
-  body {padding-top: 50px;}
+ body { padding-top: 70px; }
+  
+  .navbar-brand,
+.navbar-nav li a {
+    line-height: 80px;
+    height: 80px;
+    padding-top: 0;
+}
   
   .navbar {
     margin-bottom: 0;
-    background-color: #60606C;
+    background-color: #000000;
     z-index: 9999;
     border: 0;
     font-size: 12px !important;
@@ -34,52 +38,72 @@
     letter-spacing: 4px;
     border-radius: 0;
 }
+
 .navbar li a, .navbar .navbar-brand {
     color: #fff !important;
 }
+
 .navbar-nav li a:hover, .navbar-nav li.active a {
     color: ##CD5F0F !important;
-    background-color: #fff !important;
+    background-color: #5D6D7E !important;
 }
+
 .navbar-default .navbar-toggle {
     border-color: transparent;
     color: #fff !important;
 }
+
+.navbar-default .navbar-nav .open .dropdown-menu>li>a, .navbar-default .navbar-nav .open .dropdown-menu {
+    background-color: #000000;
+    color:#ffffff;
+  }
+ 
+
   
  </style> 
   
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>  
-      </button>
-      <a class="navbar-brand" href="shop.html">INFOMIRACLES</a>
-    </div>
-<div class ="navbar-header">
-  <form class="form-inline">
-    <div class="input-group">
-      <input type="email" class="form-control" size="50"  required>
-      <div class="input-group-btn">
-        <a href="listprod.jsp" class="btn btn-success" role="button" >SEARCH</a>
-      </div>
-    </div>
-  </form>
-  </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="listorder.jsp">SO</a></li>
-		<li><a href="#about">About</a></li>
-        <li><a href="#cart">CART</a></li>
-        <li><a href="createAccount.jsp">LOGIN/SIGN UP</a></li>			
-      </ul>
-    </div>
-  </div>
-</nav>
+
+
+
+<div class="navbar navbar-fixed-top">
+<div class="collapse navbar-collapse" id="navbarNav">
+
+<a class="navbar-brand" href="shop.jsp"><img src="https://i.imgur.com/sKH1glA.png"></a>
+
+
+
+
+<ul class="nav navbar-nav navbar-right" id="myNavbar">
+
+
+<li><a href="listprod+.jsp">SEARCH</a></li>
+ <li><a href="listorder.jsp">ORDERS</a></li>
+		<li class="nav-item"><a href="about.jsp">ABOUT</a></li>
+		<%
+                String email= (String) session.getAttribute("email");                     
+                if (email == null) {
+        %>
+        <li class="nav-item"><a href="createAccount.jsp">SIGN IN | REGISTER</a></li>
+        <%
+                }
+                else{
+                	String accName = email.substring(0, email.indexOf('@')).toUpperCase();
+                	  out.print(String.format("<li class=\"nav-item\"><a href=\"accountPage.jsp\">%s</a></li>",accName));	
+                  out.print("<li class=\"nav-item\"><a href=\"logout.jsp\">LOGOUT</a></li>");
+                  
+                  
+               
+                }
+                %>
+        <li class="nav-item"><a href="addCart.jsp">CART</a></li>
+		</div>
+</ul>
+
+
+</div>
+</div></nav>
 		
 	<form method="post" action="login.jsp" id=loginForm>
 		<div class="loginContainer">

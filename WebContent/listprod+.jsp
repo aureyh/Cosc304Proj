@@ -23,8 +23,14 @@
   height: auto;
   
 }
- body { padding-top: 50px; }
+body { padding-top: 70px; }
   
+  .navbar-brand,
+.navbar-nav li a {
+    line-height: 80px;
+    height: 80px;
+    padding-top: 0;
+}  
   .navbar {
     margin-bottom: 0;
     background-color: #000000;
@@ -71,7 +77,7 @@
 
 
 
-<form>
+<form class="navbar-header">
 
 
 <div class="navbar-header">
@@ -118,18 +124,25 @@ catch (SQLException ex)
 
 <ul class="nav navbar-nav navbar-right" id="myNavbar">
 
- <li><a href="listorder.jsp">ORDERS</a></li>
-		<li class="nav-item"><a href="Admin.jsp">ABOUT</a></li>
-		
+  <li><a href="listorder.jsp">ORDERS</a></li>
+		<li class="nav-item"><a href="about.jsp">ABOUT</a></li>
 		<%
-		
-		
-		%>
-		
-        <li class="nav-item"><a href="loginSuccess.jsp">SIGN IN</a></li>
-        
-        
-        <li class="nav-item"><a href="#cart">CART</a></li>
+                String email= (String) session.getAttribute("email");                     
+                if (email == null) {
+        %>
+        <li class="nav-item"><a href="createAccount.jsp">SIGN IN | REGISTER</a></li>
+        <%
+                }
+                else{
+                	String accName = email.substring(0, email.indexOf('@')).toUpperCase();
+                	  out.print(String.format("<li class=\"nav-item\"><a href=\"accountPage.jsp\">%s</a></li>",accName));	
+                  out.print("<li class=\"nav-item\"><a href=\"logout.jsp\">LOGOUT</a></li>");
+                  
+                  
+               
+                }
+                %>
+        <li class="nav-item"><a href="addCart.jsp">CART</a></li>
 		</div>
 </ul>
 
