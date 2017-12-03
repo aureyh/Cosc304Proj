@@ -13,17 +13,17 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style>
+    <style>
   .img-fluid {
-  max-width: 25%;
+  max-width: 50%;
   height: auto;
+  
 }
- 
-  body {padding-top: 50px;}
+ body { padding-top: 80px; }
   
   .navbar {
     margin-bottom: 0;
-    background-color: #60606C;
+    background-color: #000000;
     z-index: 9999;
     border: 0;
     font-size: 12px !important;
@@ -38,7 +38,7 @@
 
 .navbar-nav li a:hover, .navbar-nav li.active a {
     color: ##CD5F0F !important;
-    background-color: #fff !important;
+    background-color: #5D6D7E !important;
 }
 
 .navbar-default .navbar-toggle {
@@ -46,6 +46,11 @@
     color: #fff !important;
 }
 
+.navbar-default .navbar-nav .open .dropdown-menu>li>a, .navbar-default .navbar-nav .open .dropdown-menu {
+    background-color: #000000;
+    color:#ffffff;
+  }
+ 
 
   
  </style> 
@@ -53,76 +58,14 @@
 </head>
 <body>
 
+
+
 <div class="navbar navbar-fixed-top">
 <div class="collapse navbar-collapse" id="navbarNav">
 
-<a class="navbar-brand">INFORMIRACLES</a>
+<a class="navbar-brand" href="shop.jsp"><img src="https://i.imgur.com/sKH1glA.png"></a>
 
 
-
-<form>
-
-
-<div class="navbar-header">
-<select class="form-control" id="categoryName" name="categoryName">
-<option>All</option>
-
-  
-  
-
-  
- <%  
- // Automatically Fill in catagories to the drop down
-  try               
-{
-	getConnection();
-	PreparedStatement ps = con.prepareStatement("SELECT DISTINCT tag FROM Product");
- 	ResultSet rst = ps.executeQuery();
-        while (rst.next()) 
-		out.println(String.format("<option>%s</option>",rst.getString(1)));
-        ps.close();
-}
-catch (SQLException ex)
-{       out.println(ex);
-}
-
-%>
-</select>
-</div>
-
-
-<div class="navbar-header"> 
- 
-      <input type="text" class="form-control" size="30" name="productName">
-   </div> 
-   <div class="nav-item">
-   
-   <% 
-   //Send whatever is searched to the listprod.jsp
-   
-   String name = request.getParameter("productName");
-   String category = request.getParameter("categoryName");
-   
-   boolean hasNameParam = name != null && !name.equals("");
-   boolean hasCategoryParam = category != null && !category.equals("") && !category.equals("All");
-   
-   if(!hasNameParam)
-	   name="";
-   if(!hasCategoryParam)
-	   category="All";
-   
-        out.print(String.format("<a class=\"btn btn-success\"  type=\"submit\" role=\"button\" href=\"listprod+.jsp?tag=%s&name=%s\" onclick=\"form.submit()\" >SEARCH</a>",category,name));
-        
-        %>  
-        
-       
-        
-        </div>
-
-   
- 
-
-</form>
 
 
 <ul class="nav navbar-nav navbar-right" id="myNavbar">
