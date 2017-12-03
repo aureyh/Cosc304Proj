@@ -26,7 +26,7 @@ String sql = "SELECT O.oID, O.cID, totalPrice, firstName, lastName, pID, quantit
 
 
 //Placeholder value, need to have login information.
-String custId = request.getParameter("customerId");
+String custId = "1";// request.getParameter("customerId");
 
 NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 
