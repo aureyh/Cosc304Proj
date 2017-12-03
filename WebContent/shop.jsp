@@ -128,7 +128,7 @@ catch (SQLException ex)
 <ul class="nav navbar-nav navbar-right" id="myNavbar">
 
  <li><a href="listorder.jsp">ORDERS</a></li>
-		<li class="nav-item"><a href="listprod+.jsp">ABOUT</a></li>
+		<li class="nav-item"><a href="about.jsp">ABOUT</a></li>
 		<%
                 String email= (String) session.getAttribute("email");                     
                 if (email == null) {
@@ -145,7 +145,7 @@ catch (SQLException ex)
                
                 }
                 %>
-        <li class="nav-item"><a href="#cart">CART</a></li>
+        <li class="nav-item"><a href="addCart.jsp">CART</a></li>
 		</div>
 </ul>
 
