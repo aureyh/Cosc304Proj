@@ -19,7 +19,7 @@
   height: auto;
   
 }
- body { padding-top: 70px; }
+ body { padding-top: 90px; }
   
   .navbar-brand,
 .navbar-nav li a {
@@ -97,7 +97,7 @@
                
                 }
                 %>
-        <li class="nav-item"><a href="addCart.jsp">CART</a></li>
+        <li class="nav-item"><a href="showcart.jsp">CART</a></li>
 		</div>
 </ul>
 
@@ -107,16 +107,31 @@
 
 <%
 //Get database connection
+try{
 getConnection();
-con = DriverManager.getConnection(url, uid, pw);
-String sql = "select firstName from customer where userEmail =?";
-PreparedStatement pstmt = con.prepareStatement(sql);
-pstmt.setString(1, request.getParameter("email"));
-ResultSet rst = pstmt.executeQuery();
 
-while(rst.next()){
-	//print out everything, use href, click each item to change except
+String sql = "select firstName, accType from Customer where userEmail =?";
+PreparedStatement pstmt = con.prepareStatement(sql);
+pstmt.setString(1, email);
+ResultSet rst = pstmt.executeQuery();
+rst.next();
+
+String type=rst.getString("accType");
+
+if(type.equals("admin"))
+	out.print("<a href=\"Admin.jsp\" class=\"btn btn-primary\" >Admin</a>");
+
+
+
+
+
+out.print("<h2>Welcome to your account page "+ rst.getString("firstName")+"</h2>");
+con.close();
 }
+catch(SQLException ex){
+out.print(ex);
+}
+
 %>
 
 

@@ -257,7 +257,7 @@ try
 			out.print("<br>");
 		
 		
-		out.print("</div><div class=\"col-sm-4\"><h2 align=\"center\">Stars</h2>");
+		out.print("</div><div class=\"col-sm-4\"><h2 align=\"center\"><font color=\"#FBFF00\">★★★★☆</font></h2>");
 		
 		
 		for(int i =0; i<0;i++)

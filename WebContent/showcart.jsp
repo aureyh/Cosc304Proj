@@ -157,8 +157,27 @@ else
 
 	// print out HTML to print out the shopping cart
 	out.println("<H1>Your Shopping Cart</H1>");
-	out.print("<TABLE><TR><TH>Product Id</TH><TH>Product Name</TH><TH>Quantity</TH>");
-	out.println("<TH>Price</TH><TH>Subtotal</TH><TH></TH><TH></TH></TR>");
+	
+	%>
+	<div class="container">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Product Id</th>
+								<th>Product Name</th>
+								<th>Quantity</th>
+								<th align=RIGHT>Price</th>
+								<th align=RIGHT>Sub-total</th>
+							</tr>
+						</thead>
+						<tbody>
+	
+	
+	<%
+	
+	
+	
+	
 
 	int count = 0;
 	double total =0;
@@ -181,10 +200,10 @@ else
 		out.print("<TD ALIGN=RIGHT>"+currFormat.format(pr)+"</TD>");
 		out.print("<TD ALIGN=RIGHT>"+currFormat.format(pr*qty)+"</TD>");
 		// allow the customer to delete items from their shopping cart by clicking here
-		out.println("<TD>&nbsp;&nbsp;&nbsp;&nbsp;<A HREF=\"showcart.jsp?delete="
+		out.println("<TD>&nbsp;&nbsp;&nbsp;&nbsp;<A class=\"btn btn-danger\" HREF=\"showcart.jsp?delete="
 			+product.get(0)+"\">Remove Item from Cart</A></TD>");
 		// allow customer to change quantities for a product in their shopping cart
-		out.println("<TD>&nbsp;&nbsp;&nbsp;&nbsp;<INPUT TYPE=BUTTON OnClick=\"update("
+		out.println("<TD>&nbsp;&nbsp;&nbsp;&nbsp;<INPUT class=\"btn btn-info\" TYPE=BUTTON OnClick=\"update("
 			+product.get(0)+", document.form1.newqty"+count+".value)\" VALUE=\"Update Quantity\">");
 		out.println("</TR>");
 		// keep a running total for all items ordered
@@ -193,7 +212,15 @@ else
 	// print out order total
 	out.println("<TR><TD COLSPAN=4 ALIGN=RIGHT><B>Order Total</B></TD>"
 			+"<TD ALIGN=RIGHT>"+currFormat.format(total)+"</TD></TR>");
-	out.println("</TABLE>");
+%>
+
+</tbody></table></div>
+
+
+<%
+
+				
+				
 	//give user option to check out
 	out.println("<H2><A HREF=\"checkout.jsp\">Check Out</A></H2>");
 }

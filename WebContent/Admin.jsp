@@ -1,109 +1,110 @@
-<%@ page import="java.sql.*" %>
-<%@ page import="java.util.HashMap" %>
-<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.sql.*"%>
+<%@ page import="java.util.HashMap"%>
+<%@ page import="java.text.NumberFormat"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
-<%@ include file="jdbc.jsp" %>
+<%@ include file="jdbc.jsp"%>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>INFORMIRACLES</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style>
-  .img-fluid {
-  max-width: 50%;
-  height: auto;
-  
+<title>INFORMIRACLES</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+.img-fluid {
+	max-width: 50%;
+	height: auto;
 }
- body { padding-top: 70px; }
-  
-  .navbar-brand,
-.navbar-nav li a {
-    line-height: 80px;
-    height: 80px;
-    padding-top: 0;
+
+body {
+	padding-top: 70px;
 }
-  
-  .navbar {
-    margin-bottom: 0;
-    background-color: #000000;
-    z-index: 9999;
-    border: 0;
-    font-size: 12px !important;
-    line-height: 1.42857143 !important;
-    letter-spacing: 4px;
-    border-radius: 0;
+
+.navbar-brand, .navbar-nav li a {
+	line-height: 80px;
+	height: 80px;
+	padding-top: 0;
+}
+
+.navbar {
+	margin-bottom: 0;
+	background-color: #000000;
+	z-index: 9999;
+	border: 0;
+	font-size: 12px !important;
+	line-height: 1.42857143 !important;
+	letter-spacing: 4px;
+	border-radius: 0;
 }
 
 .navbar li a, .navbar .navbar-brand {
-    color: #fff !important;
+	color: #fff !important;
 }
 
 .navbar-nav li a:hover, .navbar-nav li.active a {
-    color: ##CD5F0F !important;
-    background-color: #5D6D7E !important;
+	color: ##CD5F0F !important;
+	background-color: #5D6D7E !important;
 }
 
 .navbar-default .navbar-toggle {
-    border-color: transparent;
-    color: #fff !important;
+	border-color: transparent;
+	color: #fff !important;
 }
 
-.navbar-default .navbar-nav .open .dropdown-menu>li>a, .navbar-default .navbar-nav .open .dropdown-menu {
-    background-color: #000000;
-    color:#ffffff;
-  }
- 
+.navbar-default .navbar-nav .open .dropdown-menu>li>a, .navbar-default .navbar-nav .open .dropdown-menu
+	{
+	background-color: #000000;
+	color: #ffffff;
+}
+</style>
 
-  
- </style> 
-  
 </head>
 <body>
 
 
 
-<div class="navbar navbar-fixed-top">
-<div class="collapse navbar-collapse" id="navbarNav">
+	<div class="navbar navbar-fixed-top">
+		<div class="collapse navbar-collapse" id="navbarNav">
 
-<a class="navbar-brand" href="shop.jsp"><img src="https://i.imgur.com/sKH1glA.png"></a>
-
-
-
-
-<ul class="nav navbar-nav navbar-right" id="myNavbar">
+			<a class="navbar-brand" href="shop.jsp"><img
+				src="https://i.imgur.com/sKH1glA.png"></a>
 
 
-<li><a href="listprod+.jsp">SEARCH</a></li>
- <li><a href="listorder.jsp">ORDERS</a></li>
-		<li class="nav-item"><a href="about.jsp">ABOUT</a></li>
-		<%
-                String email= (String) session.getAttribute("email");                     
-                if (email == null) {
-        %>
-        <li class="nav-item"><a href="createAccount.jsp">SIGN IN | REGISTER</a></li>
-        <%
-                }
-                else{
-                	String accName = email.substring(0, email.indexOf('@')).toUpperCase();
-                	  out.print(String.format("<li class=\"nav-item\"><a href=\"accountPage.jsp\">%s</a></li>",accName));	
-                  out.print("<li class=\"nav-item\"><a href=\"logout.jsp\">LOGOUT</a></li>");
-                  
-                  
-               
-                }
-                %>
-        <li class="nav-item"><a href="addCart.jsp">CART</a></li>
+
+
+			<ul class="nav navbar-nav navbar-right" id="myNavbar">
+
+
+				<li><a href="listprod+.jsp">SEARCH</a></li>
+				<li><a href="listorder.jsp">ORDERS</a></li>
+				<li class="nav-item"><a href="about.jsp">ABOUT</a></li>
+				<%
+					String email = (String) session.getAttribute("email");
+					if (email == null) {
+				%>
+				<li class="nav-item"><a href="createAccount.jsp">SIGN IN |
+						REGISTER</a></li>
+				<%
+					} else {
+						String accName = email.substring(0, email.indexOf('@')).toUpperCase();
+						out.print(String.format("<li class=\"nav-item\"><a href=\"accountPage.jsp\">%s</a></li>", accName));
+						out.print("<li class=\"nav-item\"><a href=\"logout.jsp\">LOGOUT</a></li>");
+
+					}
+				%>
+				<li class="nav-item"><a href="addCart.jsp">CART</a></li>
 		</div>
-</ul>
+		</ul>
 
 
-</div>
-</div>
+	</div>
+	</div>
 
 
 
@@ -367,10 +368,10 @@
 					<ul class="nav nav-pills">
 						<li class="active"><a data-toggle="pill" href="#prod1">Add
 								Product</a></li>
-								
+
 						<li><a data-toggle="pill" href="#prod2">Update Product</a></li>
 						<li><a data-toggle="pill" href="#prod3">Add Warehouse</a></li>
-						
+
 						<li><a data-toggle="pill" href="#prod4">Update Warehouse</a></li>
 					</ul>
 
@@ -459,9 +460,9 @@
 
 						</div>
 
-						
 
-						
+
+
 
 						<!-- UPDATE Product TAB -->
 						<div id="prod2" class="tab-pane fade">
@@ -496,33 +497,44 @@
 								String picLink = "";
 								String vidLink = "";
 								String descrip = "";
+								if (prodID != null) {
+									String sqlProdInfo = "select * from Product where pID='" + prodID + "'";
+									try {
+										getConnection();
+										PreparedStatement ps = con.prepareStatement(sqlProdInfo);
+										ResultSet rs = ps.executeQuery();
+										rs.next();
 
-								String sqlProdInfo = "select * from Product where pID='" + prodID + "'";
-								try {
-									getConnection();
-									PreparedStatement ps = con.prepareStatement(sqlProdInfo);
-									ResultSet rs = ps.executeQuery();
-									rs.next();
+										prodName = rs.getString("name");
+										prodTag = rs.getString("tag");
+										prodPrice = "" + rs.getBigDecimal("price");
+										stock = "" + rs.getInt("inventory");
+										picLink = rs.getString("image");
+										vidLink = rs.getString("videoLink");
+										descrip = rs.getString("description");
+										//Test see if all values are not null
+										//	out.print(String.format("%s %s %s %s %s %s %s",prodName,prodTag,prodPrice,stock,picLink,vidLink,descrip));
 
-									prodName = rs.getString("name");
-									prodTag = rs.getString("tag");
-									prodPrice = "" + rs.getBigDecimal("price");
-									stock = "" + rs.getInt("inventory");
-									picLink = rs.getString("image");
-									vidLink = rs.getString("videoLink");
-									descrip = rs.getString("description");
-									//Test see if all values are not null
-									//	out.print(String.format("%s %s %s %s %s %s %s",prodName,prodTag,prodPrice,stock,picLink,vidLink,descrip));
-
-								} catch (SQLException ex) {
-									out.print(ex);
+									} catch (SQLException ex) {
+										out.print(ex);
+									}
 								}
 							%>
 
 
 							<!-- UPDATE Product FORM NOT WORKING-->
-							<form class="form-horizontal" method="GET">
+							<form class="form-horizontal" method="GET"
+								action="updateProduct.jsp">
 								<div class="well">
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="pID">Product
+											ID</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="pID" name="pID"
+												value="<%out.print(prodID);%>">
+										</div>
+									</div>
+
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="name">Product
 											Name</label>
@@ -730,7 +742,7 @@
 
 						</div>
 
-					
+
 
 
 						<!-- UPDATE warehouse TAB -->
@@ -757,57 +769,67 @@
 								</div>
 							</form>
 
-							<%/*
-								//get values for the given pID
-								String supID = request.getParameter("suID");
-								String supName = "";
-								String supPhoneNum = "";
-								String supDescr = "";
-								String supAddr = "";
-								String supProv = "";
-								String supCountry = "";
-								String supPostalCode = "";
-								String custID = "";
+							<%
+								
+																//get values for the given pID
+																String supID = request.getParameter("suID");
+																String supName = "";
+																String supPhoneNum = "";
+																String supDescr = "";
+																String supAddr = "";
+																String supProv = "";
+																String supCountry = "";
+																String supPostalCode = "";
+																String custID = "";
+								
+																if (supID.equals("") || supID == null)
+																	out.print("sup ID is broken");
+								
+																String sqlSupInfo = "select * from Supplier,CustAddress where Supplier.suID=CustAddress.suID AND Supplier.suID='"
+																		+ supID + "'";
+																try {
+																	getConnection();
+																	PreparedStatement ps = con.prepareStatement(sqlSupInfo);
+																	ResultSet rs = ps.executeQuery();
+																	rs.next();
+								
+																	supName = rs.getString("name");
+																	supPhoneNum = rs.getString("phoneNum");
+																	supDescr = rs.getString("descr");
+																	supAddr = rs.getString("address");
+																	supProv = rs.getString("provinceOrState");
+																	supCountry = rs.getString("country");
+																	supPostalCode = rs.getString("postalCode");
+																	custID = "" + -1;
+																	//Test see if all values are not null
+																	/*
+																	out.print(String.format("<p>%s %s %s %s %s %s %s %s</p>", supName, supPhoneNum, supDescr, supAddr, supProv,
+																			supCountry, supPostalCode, custID));
+								*/
+																} catch (SQLException ex) {
+																	out.print(ex);
+																}
+															
+							%>
 
-								if (supID.equals("") || supID == null)
-									out.print("sup ID is broken");
-
-								String sqlSupInfo = "select * from Supplier,CustAddress where Supplier.suID=CustAddress.suID AND pID='"
-										+ supID + "'";
-								try {
-									getConnection();
-									PreparedStatement ps = con.prepareStatement(sqlProdInfo);
-									ResultSet rs = ps.executeQuery();
-									rs.next();
-
-									supName = rs.getString("name");
-									supPhoneNum = rs.getString("phoneNum");
-									supDescr = rs.getString("descr");
-									supAddr = rs.getString("address");
-									supProv = rs.getString("provinceOrState");
-									supCountry = rs.getString("country");
-									supPostalCode = rs.getString("postalCode");
-									custID = "" + -1;
-									//Test see if all values are not null
-									out.print(String.format("%s %s %s %s %s %s %s %s", supName, supPhoneNum, supDescr, supAddr, supProv,
-											supCountry, supPostalCode, custID));
-
-								} catch (SQLException ex) {
-									out.print(ex);
-								}
-							*/%>
-
-
-							<form class="form-horizontal" action="addWarehouse.jsp"
-								onsubmit="setTimeout(function () { window.location.reload(); }, 10)">
+	
+							<form class="form-horizontal" action="updateWarehouse.jsp">
 
 								<h4>General Information</h4>
 								<div class="well">
+								<div class="form-group">
+										<label class="control-label col-sm-2" for="supID">Supplier
+											ID</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="supID"
+												name="supID" value=<%out.print(supID); %>>
+										</div>
+									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="name">Supplier
 											Name</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="name" name="name">
+											<input type="text" class="form-control" id="name" name="name" value=<%out.print(supName); %>>
 										</div>
 									</div>
 									<div class="form-group">
@@ -815,7 +837,7 @@
 											Phone Number</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="phoneNum"
-												name="phoneNum">
+												name="phoneNum" value=<%out.print(supPhoneNum); %>>
 										</div>
 									</div>
 									<div class="form-group">
@@ -823,7 +845,7 @@
 											Description</label>
 										<div class="col-sm-10">
 											<textarea class="form-control" rows="3" id="descr"
-												name="descr"></textarea>
+												name="descr">value=<%out.print(supDescr); %></textarea>
 										</div>
 									</div>
 								</div>
@@ -834,21 +856,21 @@
 										<label class="control-label col-sm-2" for="address">Address</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="address"
-												name="address">
+												name="address" value=<%out.print(supAddr); %>>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="provinceOrState">Province/State</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="provinceOrState"
-												name="provinceOrState">
+												name="provinceOrState" value=<%out.print(supProv); %>>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2" for="country">Country</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="country"
-												name="country">
+												name="country" value=<%out.print(supCountry); %>>
 										</div>
 									</div>
 									<div class="form-group">
@@ -856,7 +878,7 @@
 											Code</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="postalCode"
-												name="postalCode">
+												name="postalCode" value=<%out.print(supPostalCode); %>>
 										</div>
 									</div>
 								</div>

@@ -104,6 +104,17 @@
 
 </div>
 </div>
+<div align=CENTER class="well">
+<h2 align=CENTER>About Us!</h2><br>
+<p>InfoMiracles was created to make your favorite “as seen on TV” products more accessible</p>
+ <p>and available for purchase.  As avid slap-choppers, Snuggy wearers and weight shakers,</p>
+  <p>it is our goal to spread the joy of infomercial products around the world. With a vast</p>
+   <p>selection of merchandise, we provide the satisfaction of fulfilling even the your most</p> 
+   <p>far-fetched needs.  Featuring la crème de la crème from Billy Mays and Vince Shlomi,</p> 
+   <p>Infomiracles also supplies links to their original commercials, customer ratings</p>
+    <p>and reviews. Get ready to say sham-WOW, and clap on, clap off when you receive YOUR InfoMiracles.</p>
+</div>
+
 
 
 </body>

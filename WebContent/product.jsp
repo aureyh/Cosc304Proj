@@ -1,15 +1,111 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <%@ include file="jdbc.jsp" %>
-<%@ page import ="java.sql.*" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Product Info</title>
+  <title>INFORMIRACLES</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+  .img-fluid {
+  max-width: 150%;
+  height: auto;
+  
+}
+ body { padding-top: 90px; }
+  
+  .navbar-brand,
+.navbar-nav li a {
+    line-height: 80px;
+    height: 80px;
+    padding-top: 0;
+}
+  
+  .navbar {
+    margin-bottom: 0;
+    background-color: #000000;
+    z-index: 9999;
+    border: 0;
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+}
+
+.navbar li a, .navbar .navbar-brand {
+    color: #fff !important;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+    color: ##CD5F0F !important;
+    background-color: #5D6D7E !important;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff !important;
+}
+
+.navbar-default .navbar-nav .open .dropdown-menu>li>a, .navbar-default .navbar-nav .open .dropdown-menu {
+    background-color: #000000;
+    color:#ffffff;
+  }
+ 
+
+  
+ </style> 
+  
 </head>
 <body>
+
+
+
+<div class="navbar navbar-fixed-top">
+<div class="collapse navbar-collapse" id="navbarNav">
+
+<a class="navbar-brand" href="shop.jsp"><img src="https://i.imgur.com/sKH1glA.png"></a>
+
+
+
+
+<ul class="nav navbar-nav navbar-right" id="myNavbar">
+
+
+<li><a href="listprod+.jsp">SEARCH</a></li>
+ <li><a href="listorder.jsp">ORDERS</a></li>
+		<li class="nav-item"><a href="about.jsp">ABOUT</a></li>
+		<%
+                String email= (String) session.getAttribute("email");                     
+                if (email == null) {
+        %>
+        <li class="nav-item"><a href="createAccount.jsp">SIGN IN | REGISTER</a></li>
+        <%
+                }
+                else{
+                	String accName = email.substring(0, email.indexOf('@')).toUpperCase();
+                	  out.print(String.format("<li class=\"nav-item\"><a href=\"accountPage.jsp\">%s</a></li>",accName));	
+                  out.print("<li class=\"nav-item\"><a href=\"logout.jsp\">LOGOUT</a></li>");
+                  
+                  
+               
+                }
+                %>
+        <li class="nav-item"><a href="showcart.jsp">CART</a></li>
+		</div>
+</ul>
+
+
+</div>
+</div>
+
+
 <%
 
 /**
@@ -41,32 +137,60 @@ ResultSet rst2 = ps2.executeQuery();
 
 
 //This prints the add cart, as well as the product information
-while(rst.next()){
+rst.next();
 	
-	out.print("<a href=\"addcart.jsp?id=" + rst.getInt(1) + "&name=" +rst.getString(2)
-	+ "&price=" + rst.getBigDecimal(4) + "\">Add to Cart</a></td>");
+	out.print(String.format("<div class=\"row\"><div class=\"col-sm-4\"><img src=\"%s\" class=\"img-fluid\" alt=\"Responsive image\"></div>",rst.getString("image")));
 	
-	out.print("<table><tr><th>Product Id</th><th>Product Name</th><th>Price</th></tr>");
 	
-	out.print("<tr><td>"+ rst.getInt(1)+"</td><td>"+rst.getString(2)+"</td><td>"+rst.getBigDecimal(4)+"</td></tr>");	
+
+
+	out.print(String.format("<div class=\"col-sm-4\"><br><br><br><h2>%s</h2><br><br><strong>Price :</strong> %s<br><br>",rst.getString("name"),"$"+rst.getBigDecimal("price")+".00"));
 	
-	out.print("\n" + "Description: "+ rst.getString(3));
-	out.print("\n"+"Video Link: "+ rst.getString(5));
-	out.print( "\n" + rst.getString(7));
-}
+	out.print(String.format("<p>Description:</tr><br><tr>%s</p> ", rst.getString(3)));
+	
+
+	
+	out.print("<a class=\"btn btn-success\" href=\"addcart.jsp?id=" + rst.getInt(1) + "&name=" +rst.getString(2)
+	+ "&price=" + rst.getBigDecimal(4) + "\">Add to Cart</a><br>");
+	
+	out.print(String.format("<a href=\"%s\">Video Link</a>", rst.getString(5)));
+out.print("</div></div>");
+
+
 
 
 
 //This is where the reviews are printed
 %>
-Heres what People are saying about this product<br/>
+<h3>Here's what People are saying about this product</h3>
+<div class="container">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Stars</th>
+								<th>Comments</th>
+							</tr>
+						</thead>
+						<tbody>
+
+
 <%
 while(rst2.next()){
-	out.print("<table><tr><td>Stars: </td><td>Comments: </td></tr>");
-	out.println("<tr><td>" + rst2.getString(2) + "</td><td>" + rst2.getString(3) + "</td></tr>");
+	
+	out.println("<tr><td><h2><font color=\"#FBFF00\">");
+	
+	int stars = Integer.parseInt(rst2.getString(2)); 
+	
+	for(int i = 0; i<5;i++){
+	if(i<stars)
+		out.print("★");
+	else
+		out.print("☆");
+	}
+	out.print("</font></h2></td><td>" + rst2.getString(3) + "</td></tr>");
 	}
 
-out.print("</table></table>");
+out.print("</tbody></table></div>");
 
 //everything here is used for writing the review and sending it.
 out.print("<form method=\"post\" action=\"review.jsp\">");
@@ -74,8 +198,9 @@ out.print("<form method=\"post\" action=\"review.jsp\">");
 session.setAttribute("prodID",id);
 %>
 
+<div class="well">
 <table>
-<tr><td>Rank This Product</td><td><select name="stars">
+<tr><td>Star rating (1-5)</td><td><select name="stars">
   <option value=1>1</option>
   <option value=2>2</option>
   <option value=3>3</option>
@@ -83,10 +208,10 @@ session.setAttribute("prodID",id);
   <option value=5>5</option>
 </select>
 <tr><td>Leave a Review</td><td><textarea name="rev" rows="10" cols="50"></textarea></td></tr>
-<tr><td><input type="submit" value="Submit"></td><td><input type="reset" value="Reset"></td></tr>
+<tr><td></td><td><input class="btn btn-success" type="submit" value="Submit"></td><td><input class="btn btn-danger" type="reset" value="Reset"></td></tr>
 </table>
 </form>
-
+</div>
 <%con.close(); %>
 </body>
 </html>

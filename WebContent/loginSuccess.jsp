@@ -19,7 +19,7 @@
   height: auto;
   
 }
- body { padding-top: 70px; }
+ body { padding-top: 90px; }
   
   .navbar-brand,
 .navbar-nav li a {

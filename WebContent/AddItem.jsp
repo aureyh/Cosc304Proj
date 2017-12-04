@@ -59,4 +59,3 @@
 	}
 %>
 
-<jsp:forward page="Admin.jsp" />

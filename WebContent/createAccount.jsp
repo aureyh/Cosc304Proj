@@ -104,54 +104,62 @@
 
 </div>
 </div></nav>
-		
+		<div class="well">
 	<form method="post" action="login.jsp" id=loginForm>
-		<div class="loginContainer">
+	
+		<div  align=CENTER class="loginContainer">
 			<h3>Sign in to your account</h3>
 			 <label><b>Email</b></label>
  	 	     <input type="text" placeholder="Enter Email" name="loginemail" id="loginemail" required>	
  		     <label><b>Password</b></label>
  		     <input type="password" placeholder="Enter Password" name="loginpass" id="loginpass" required>    
- 		     <button id="loginButton">Sign In</button>
+ 		     <button class="btn btn-success" id="loginButton">Sign In</button>
  		     <a href="forgotPassword.jsp">Forgot password?</a>
 		</div>
 	</form>
+	</div>
+	
+	<div class="well">
 	
 	<form method="post" id="signupForm" action="register.jsp">
 		<div class="signupContainer">
-			<h3>Enter details below to sign up!</h3>
-			<h4>Make sure to double check your information before submitting.</h4>
-			<label><b>Email</b></label>
- 	     	<input type="email" placeholder="Enter Email" name="email" id="email" required>
+		<table align=CENTER>
+			<h3 align=CENTER>Enter details below to sign up!</h3>
+			<h4 align = CENTER>Make sure to double check your information before submitting.</h4><br>
+			<tr><th>Email</th>
+ 	     	<td><input type="email" placeholder="Enter Email" name="email" id="email" required></td>
  	     	
- 	     	<label><b>Confirm Email</b></label>
- 	     	<input type="email" placeholder="Confirm Email" name="confirmEmail" id="confirmEmail" required>
+ 	     	<th>Confirm Email</th>
+ 	     	<td><input type="email" placeholder="Confirm Email" name="confirmEmail" id="confirmEmail" required></td>
 		
- 	    	<label><b>Password</b></label>
- 	    	<input type="password" placeholder="Enter Password" name="pass" id="pass"required>
+ 	    	</tr><tr>
+ 	    	<th>Password</th>
+ 	    	<td><input type="password" placeholder="Enter Password" name="pass" id="pass"required></td>
  	    	
- 	    	<label><b>Confirm Password</b></label>
- 	    	<input type="password" placeholder="Confirm Password" name="confirmPass" id="confirmPass"required>
- 	     
- 	 	    <label><b>First Name</b></label>
- 	 	    <input type="text" placeholder="First Name" name="fName" id="fName"required>
+ 	    	<th>Confirm Password</th>
+ 	    	<td><input type="password" placeholder="Confirm Password" name="confirmPass" id="confirmPass"required></td>
+ 	     </tr><tr>
+ 	 	    <th>First Name</th>
+ 	 	    <td><input type="text" placeholder="First Name" name="fName" id="fName"required></td>
 	
- 		    <label><b>Last Name</b></label>
- 	    	<input type="text" placeholder="Last Name" name="lName" id="lName"required>
+ 		    <th>Last Name</th>
+ 	    	<td><input type="text" placeholder="Last Name" name="lName" id="lName"required></td>
  	     
- 	     	<label><b>Phone Number</b></label>
- 	     	<input type="tel" placeholder="ex: 555 555-5555" name="phoneNumber" id="phoneNumber"required>
+ 	     	</tr><tr>
+ 	     	<th>Phone Number</th>
+ 	     	<td><input type="tel" placeholder="ex: 555 555-5555" name="phoneNumber" id="phoneNumber"required></td>
 	
-	 	    <label><b>Address</b></label>
- 		    <input type="text" placeholder="ex: 12-1234 99 St" name="address" id="address"required>
- 	     
- 	    	<label><b>City</b></label>
- 	     	<input type="text" placeholder="City" name="city" id="city"required>
+	 	   <th>Address</th>
+ 		    <td><input type="text" placeholder="ex: 12-1234 99 St" name="address" id="address"required></td>
+ 	     	
+ 	     	</tr><tr>
+ 	    	<th>City</th>
+ 	     	<td><input type="text" placeholder="City" name="city" id="city"required></td>
 	
- 	     	<label><b>Province</b></label>
-            <select name="province">
+ 	     	<th>Province</th>
+            <td><select name="province">
                 <option value="ab">Alberta</option>
-                <option value="bc">British Colmbia</option>
+                <option value="bc">British  Colmbia</option>
                 <option value="nb">New Brunswick</option>
                 <option value="nl">Newfoundland and Labrador</option>
                 <option value="ns">Nova Scotia</option>
@@ -162,15 +170,19 @@
                 <option value="qc">Quebec</option>
                 <option value="sk">Saskatchewan</option>
                 <option value="yt">Yukon</option>
-            </select>
- 		     
-		 <label><b>Postal Code</b></label>
- 	     <input type="text" placeholder="ex: A1A 1A1" name="postalCode" required>
- 	     
- 	     <button id="signUp">Sign Up!</button>
+            </select></td>
+ 		     </tr><tr>
+		 <th>Postal Code</th>
+ 	     <td><input type="text" placeholder="ex: A1A 1A1" name="postalCode" required></td>
+ 	     </tr><tr>
+	 	     <td><button class = "btn btn-success" id="signUp">Sign Up!</button></td>
+	 	     </tr>
+ 	     </table>
 	</div>
+	
 </form>
 
+</div>
 <p id="errorBox"></p>
 
 

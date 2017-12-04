@@ -172,7 +172,7 @@ try
 			// make sure the password on the database is the same as the one the user entered
 			if (!dbpassword.equals(password)) 
 			{
-				out.println("The password you entered was not correct.  Please go back and try again.<br>"); 
+				out.println("<h1>The password you entered was not correct.  Please go back and try again.</h1>"); 
 				return;
 			}
 		
@@ -198,8 +198,26 @@ try
    			//orderId = keys.getInt(1);
 
    			out.println("<h1>Your Order Summary</h1>");
-         	  	out.println("<table><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th><th>Price</th><th>Subtotal</th></tr>");
+   			
+   			
+   			%>
+         	  	<div class="container">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Product Id</th>
+								<th>Product Name</th>
+								<th>Quantity</th>
+								<th align=RIGHT>Price</th>
+								<th align=RIGHT>Sub-total</th>
+							</tr>
+						</thead>
+						<tbody>
 
+         	  	
+         	  <%	
+         	  	
+         	  	
            	double subtotal =0;
 			double taxes=0;
 			double total=0;
@@ -217,8 +235,8 @@ try
                    String price = (String) product.get(2);
                    double pr = Double.parseDouble(price);
                    int qty = ( (Integer)product.get(3)).intValue();
-   				out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
-                  	out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td></tr>");
+   				out.print("<td >"+currFormat.format(pr)+"</td>");
+                  	out.print("<td>"+currFormat.format(pr*qty)+"</td></tr>");
                    out.println("</tr>");
                    subtotal = subtotal +pr*qty;
 
@@ -238,7 +256,10 @@ try
           	
            	out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"
                           	+"<td aling=\"right\">"+currFormat.format(total)+"</td></tr>");
-           	out.println("</table>");
+           %>
+           </tbody></table></div>
+           
+           <% 
 
    			// Update order total
    			sql = "UPDATE Orders SET totalPrice=? WHERE oID=?";
@@ -247,9 +268,10 @@ try
    			pstmt.setInt(2, orderId);			
    			pstmt.executeUpdate();						
 
-   			out.println("<h1>Order completed.  Will be shipped soon...</h1>");
-   			out.println("<h1>Your order reference number is: "+orderId+"</h1>");
-   			out.println("<h1>Shipping to customer: "+custId+" Name: "+custName+"</h1>");
+   			out.println("<h1>Thank you for your purchase " + custName);
+   					out.println("<h1>Your order will be shipped soon...");
+   			out.println("<h2>Your order reference number is: "+orderId+"</h2>");
+   			
 
    			// Clear session variables (cart)
    			session.setAttribute("productList", null);    
@@ -272,7 +294,7 @@ finally
 }  
 %>                       				
 
-<h2><a href="shop.jsp">Back to Main Page</a></h2>
+<h2><a class="btn btn-primary" href="shop.jsp">Back to Main Page</a></h2>
 
 </body>
 </html>

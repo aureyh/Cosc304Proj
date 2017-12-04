@@ -76,12 +76,12 @@ else{
 	//if no errors great! else redirect;
 	if (i > 0 && j > 0) {
  	   //session.setAttribute("userid", user);
- 	   out.println("<p>Thank you for registering, you will be redirected to login in 5 seconds.</p><meta http-equiv=\"refresh\" content=\"5;url=http://localhost:8080/304_lab7_bonus/shop.html\" />");
+ 	   out.println("<p>Thank you for registering, you will be redirected to login in 5 seconds.</p><meta http-equiv=\"refresh\" content=\"5;url=http://localhost:8080/304_lab7_bonus/shop.jsp\" />");
 	   // out.print("Registration Successfull!"+"<a href='index.jsp'>Go to Login</a>");
 	} 
 
 	else {
-		 out.println("<p>There was an error, you will be redirected to the home page in 5 seconds.</p><meta http-equiv=\"refresh\" content=\"5;url=http://localhost:8080/304_lab7_bonus/shop.html\" />");
+		 out.println("<p>There was an error, you will be redirected to the home page in 5 seconds.</p><meta http-equiv=\"refresh\" content=\"5;url=http://localhost:8080/304_lab7_bonus/shop.jsp\" />");
 	}
 }
 con.close();

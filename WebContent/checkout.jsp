@@ -106,18 +106,19 @@
 
 
 <h1>Enter the following to complete the transaction:</h1>
-
+<div class="well">
 <form method="get" action="order.jsp">
-<table>
+<table align=CENTER>
 <tr><td>Customer ID:</td><td><input type="text" name="customerId" size="20"></td></tr>
 <tr><td>Password:</td><td><input type="password" name="password" size="20"></td></tr>
 <tr><td>Name on Card: </td><td><input type="text" name="cardName" size="20"></td></tr>
 <tr><td>Card Number:</td><td><input type="text" name="cardNum" size="20"></td></tr>
 <tr><td>Expire Date:</td><td><input type="text" name="expireDate" size="4"></td></tr>
 <tr><td>CCV:</td><td><input type="text" name="ccv" size="3"></td></tr>
-<tr><td><input type="submit" value="Submit"></td><td><input type="reset" value="Reset"></td></tr>
+<tr><td><input class="btn btn-success" type="submit" value="Submit"></td><td><input class="btn btn-danger" type="reset" value="Reset"></td></tr>
 </table>
 </form>
+</div>
 
 </body>
 </html>

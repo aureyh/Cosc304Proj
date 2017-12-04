@@ -107,6 +107,7 @@
 
 
 
+
 <div class="container">
 	
    
@@ -122,15 +123,15 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
       <div class="item active">
-        <img src="https://i.pinimg.com/736x/3c/7a/fc/3c7afc1b68c0f8cc367dd9d0f1f383de--anime-mermaid-anime-scenery.jpg" alt="Los Angeles" style="width:100%;">
+        <img src="https://i.ytimg.com/vi/Z0lnzuc6Fzw/maxresdefault.jpg" alt="Los Angeles" style="width:100%;">
       </div>
 
       <div class="item">
-        <img src="http://magazine.viterbi.usc.edu/wp-content/uploads/BSP_054.jpg" alt="Chicago" style="width:100%;">
+        <img src="https://media3.s-nbcnews.com/j/streams/2013/september/130906/8c8881134-shamwowguy.nbcnews-fp-1200-800.jpg" alt="Chicago" style="width:100%;">
       </div>
     
       <div class="item">
-        <img src="https://i.ytimg.com/vi/EXT6h3MDDKU/maxresdefault.jpg" alt="New york" style="width:100%;">
+        <img src="https://gadgetflowcdn.com/wp-content/uploads/2017/03/Fidget-Spinner-Tri-Spinning-Stress-Reducer-02.jpg" alt="New york" style="width:100%;">
       </div>
     </div>
 
@@ -146,57 +147,48 @@
   </div>
 </div>
 
+<%
+try{
+	getConnection();
+	PreparedStatement ps = con.prepareStatement("select * from Product");
+	ResultSet rs = ps.executeQuery();
+	
+
+
+%>
+
+
 
 <div class="container-fluid text-center">
   <h2>Suggestions</h2>
   <br>
-  <div class="row">
-    <div class="col-sm-4">
-      <span class="">
-	  <img src="https://paramountseeds.com/wp-content/uploads/2014/07/long-cucumber.jpg" class="img-fluid" alt="Responsive image"></span>
-      <h4>Cucumbers</h4>
-      <p>They scare cats</p>
-    </div>
-    <div class="col-sm-4">
-      <span class="">
-	  <img src="https://paramountseeds.com/wp-content/uploads/2014/07/long-cucumber.jpg" class="img-fluid" alt="Responsive image">
-	  </span>
-      <h4>Cucumbers</h4>
-      <p>They scare cats</p>
-    </div>
-    <div class="col-sm-4">
-      <span class="">
-	  <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/FraiseFruitPhoto.jpg" class="img-fluid" alt="Responsive image">
-	  </span>
-      <h4>Staw Barries</h4>
-      <p>They good</p>
-    </div>
-    </div>
-    <br><br>
-  <div class="row">
-    <div class="col-sm-4">
-      <span class="">
-	  <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/FraiseFruitPhoto.jpg" class="img-fluid" alt="Responsive image">
-	  </span>
-      <h4>Staw Barries</h4>
-      <p>They good</p>
-    </div>
-    <div class="col-sm-4">
-      <span class="">
-	  <img src="https://paramountseeds.com/wp-content/uploads/2014/07/long-cucumber.jpg" class="img-fluid" alt="Responsive image">
-	  </span>
-      <h4>Cucumbers</h4>
-      <p>They scare cats</p>
-    </div>
-    <div class="col-sm-4">
-      <span class="">
-	  <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/FraiseFruitPhoto.jpg" class="img-fluid" alt="Responsive image">
-	  </span>
-      <h4>Staw Barries</h4>
-      <p>They good</p>
-    </div>
-  </div>
-</div>
+  <%
+  int row= 0;
+  while(rs.next()&&row<6){
+	  
+	  if(row==0||row==3)
+  out.print("<div class=\"row\">");
+	  
+		  
+	  
+	  
+	  String img = rs.getString("image");
+	  out.print(String.format("<div class=\"col-sm-4\"> <span>  <a href=\"product.jsp?pID=%d\"><img src=\"%s\" class=\"img-fluid\" alt=\"Responsive image\"></a></span> <h4>Cucumbers</h4> <p>They scare cats</p></div>",rs.getInt(1),img));
+  		
+	  if(row==2||row==5)
+	  	out.print("</div>");
+		  
+	  row++;
+  }
+  %>
 
+
+<%
+con.close();
+}catch(SQLException ex)
+{
+	out.print(ex);
+} %>
+  </div>
 </body>
 </html>

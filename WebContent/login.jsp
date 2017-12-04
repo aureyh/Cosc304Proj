@@ -26,6 +26,6 @@
         //out.println("<a href='logout.jsp'>Log out</a>");
         response.sendRedirect("loginSuccess.jsp");
     } else {
-        out.println("Invalid password <a href='createAccount.jsp'>try again</a>");
+        out.println("Invalid password <a class=\"btn btn-primary\" href='createAccount.jsp'>try again</a>");
     }
 %>
