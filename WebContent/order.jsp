@@ -24,12 +24,31 @@
 
 
 // Get customer id
-String custId = request.getParameter("customerId");
+String custEmail = session.getAttribute("email").toString();
 // Get password
 String password = request.getParameter("password");
 // Get shopping cart
 @SuppressWarnings({"unchecked"})
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
+
+
+getConnection();
+con = DriverManager.getConnection(url, uid, pw);
+String custId = "";
+
+try{
+String custIDQuery = "SELECT cID FROM Customer WHERE custEmail = ? ";
+PreparedStatement psa = con.prepareStatement(custIDQuery);
+psa.setString(1,custEmail);
+ResultSet getID = psa.executeQuery();
+
+while(getID.next()){
+	custId = getID.getString(1);
+}
+}
+catch(Exception e){
+	out.print("FAIL");
+}
                 
 try 
 {	
@@ -52,11 +71,11 @@ try
 		}		
         
 		// Get database connection
-        getConnection();
+        
 		
         String sql = "SELECT cID, firstName, lastName, password FROM Customer WHERE cID = ?";	
 				      
-   		con = DriverManager.getConnection(url, uid, pw);
+
    		PreparedStatement pstmt = con.prepareStatement(sql);
    		pstmt.setString(1, custId);
    		ResultSet rst = pstmt.executeQuery();

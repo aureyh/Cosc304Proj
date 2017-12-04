@@ -60,7 +60,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span> 
       </button>
-      <a class="navbar-brand" href="shop.html">INFOMIRACLES</a>
+      <a class="navbar-brand" href="shop.jsp">INFOMIRACLES</a>
     </div>
 <div class ="navbar-header">
   <form class="form-inline">
@@ -77,8 +77,8 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="listorder.jsp">SHOW ORDERS</a></li>
-		<li><a href="#about">ABOUT</a></li>
-        <li><a href="#signIn">SIGN IN</a></li>
+		<li><a href="about.jsp">ABOUT</a></li>
+        <li><a href="login.jsp">SIGN IN</a></li>
         <li><a href="#cart">CART</a></li>
 		
       </ul>

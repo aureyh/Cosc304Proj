@@ -1,0 +1,7 @@
+2017-11-23 16:38:32,744 [Worker-9] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2017-11-23 16:39:07,129 [Worker-6] WARN  org.eclipse.jgit.util.FS - Exception caught during execution of command '[git, --version]' in '/usr/bin', return code '69', error message '
+
+Agreeing to the Xcode/iOS license requires admin privileges, please run âsudo xcodebuild -licenseâ and then retry this command.
+
+
+'

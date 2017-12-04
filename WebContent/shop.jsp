@@ -97,7 +97,7 @@
                
                 }
                 %>
-        <li class="nav-item"><a href="addCart.jsp">CART</a></li>
+        <li class="nav-item"><a href="showcart.jsp">CART</a></li>
 		</div>
 </ul>
 
