@@ -110,7 +110,7 @@
 try{
 getConnection();
 
-String sql = "select firstName, accType from Customer where userEmail =?";
+String sql = "select firstName,cID, accType from Customer where userEmail =?";
 PreparedStatement pstmt = con.prepareStatement(sql);
 pstmt.setString(1, email);
 ResultSet rst = pstmt.executeQuery();
@@ -126,13 +126,54 @@ if(type.equals("admin"))
 
 
 out.print("<h2>Welcome to your account page "+ rst.getString("firstName")+"</h2>");
-con.close();
-}
-catch(SQLException ex){
-out.print(ex);
-}
+out.print("<h2>Your account number is "+rst.getString("cID"));
+out.print("<h2>Based on your previous purchases we recomend...</h2>");
 
+
+	
+	PreparedStatement ps = con.prepareStatement("select * from Product");
+	ResultSet rs = ps.executeQuery();
+	
+
+//Display suggestions
 %>
+
+
+
+<div class="container-fluid text-center">
+  <h2>Suggestions</h2>
+  <br>
+  <%
+  int row= 0;
+  while(rs.next()&&row<3){
+	  
+	  if(row==0||row==3)
+  out.print("<div class=\"row\">");
+	  
+		  
+	  
+	  
+	  String img = rs.getString("image");
+	  out.print(String.format("<div class=\"col-sm-4\"> <span>  <a href=\"product.jsp?pID=%d\"><img src=\"%s\" class=\"img-fluid\" alt=\"Responsive image\"></a></span> <h4>%s</h4></div>",rs.getInt(1),img,rs.getString("name")));
+  		
+	  if(row==2||row==5)
+	  	out.print("</div>");
+		  
+	  row++;
+  }
+  
+
+
+
+con.close();
+}catch(SQLException ex)
+{
+	out.print(ex);
+} %>
+
+</div>
+
+
 
 
 

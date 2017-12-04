@@ -241,6 +241,24 @@ try
                    subtotal = subtotal +pr*qty;
 
    				sql = "INSERT INTO ItemInOrder VALUES(?,?,?,?)";
+   				
+   				
+   				
+   				//update inventory
+   				String sqlItem = "select inventory from Product where pID = "+productId;
+   				PreparedStatement psItem = con.prepareStatement(sqlItem);
+   				ResultSet rsItem = psItem.executeQuery();
+   				rsItem.next();
+   				int inventory=rsItem.getInt("inventory");
+   				
+   				String sqlStock = "Update Product set inventory="+(inventory-qty)+"where pID="+productId;
+   				PreparedStatement psUpdate = con.prepareStatement(sqlStock);
+   				psUpdate.executeUpdate();
+   				psItem.close();
+   				psUpdate.close();
+   				
+   				
+   						
    				pstmt = con.prepareStatement(sql);
    				pstmt.setInt(1, Integer.parseInt(productId));
    				pstmt.setInt(2, orderId);

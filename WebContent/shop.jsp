@@ -173,7 +173,7 @@ try{
 	  
 	  
 	  String img = rs.getString("image");
-	  out.print(String.format("<div class=\"col-sm-4\"> <span>  <a href=\"product.jsp?pID=%d\"><img src=\"%s\" class=\"img-fluid\" alt=\"Responsive image\"></a></span> <h4>Cucumbers</h4> <p>They scare cats</p></div>",rs.getInt(1),img));
+	  out.print(String.format("<div class=\"col-sm-4\"> <span>  <a href=\"product.jsp?pID=%d\"><img src=\"%s\" class=\"img-fluid\" alt=\"Responsive image\"></a></span> <h4>%s</h4></div>",rs.getInt(1),img,rs.getString("name")));
   		
 	  if(row==2||row==5)
 	  	out.print("</div>");

@@ -124,6 +124,7 @@ body {
 			<li><a data-toggle="pill" href="#menu2">Orders</a></li>
 			<li><a data-toggle="pill" href="#menu22">Suppliers</a></li>
 			<li><a data-toggle="pill" href="#menu3">Add/Update/Remove</a></li>
+			<li><a data-toggle="pill" href="#reset">Reset Database</a></li>
 		</ul>
 
 
@@ -138,6 +139,16 @@ body {
 
 
 			</div>
+			
+			<!-- Reset DB -->
+			
+			<div id="reset" class="tab-pane fade in active">
+				<h3>Reset DB</h3>
+
+				<button class="btn btn-warning" href="ReloadDB.jsp">Reload Database</button>
+
+			</div>
+			
 
 
 			<!-- Products view page -->

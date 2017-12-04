@@ -108,7 +108,7 @@
 	<form method="post" id=resetForm action="sendemail.jsp">
 		<label><b>Email</b></label>
 		<input type="text" placeholder="Enter Email" name="resetemail" id="resetemail" required>
-		<button id="sendButton" type="submit">Sign In</button>
+		<button class="btn btn-success" id="sendButton" type="submit">Send</button>
 	</form>
 
 
